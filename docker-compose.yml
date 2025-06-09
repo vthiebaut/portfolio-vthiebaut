@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cleaneuse-php
+    working_dir: /var/www/symfony
+    volumes:
+      - ./symfony:/var/www/symfony
+    ports:
+      - "8081:8000" # On expose le port 8000 (symfony server) en 8081
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=pgsql://symfony:symfony@db:5432/symfony
+    command: symfony server:start --no-tls --port=8000 --allow-http --allow-all-ip
+
+  db:
+    image: postgres:16
+    container_name: cleaneuse-db
+    environment:
+      POSTGRES_DB: symfony
+      POSTGRES_USER: symfony
+      POSTGRES_PASSWORD: symfony
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /var/www/symfony
+    volumes:
+      - ./symfony:/var/www/symfony
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=pgsql://symfony:symfony@db:5432/symfony
+    command: symfony server:start --no-tls --port=8000 --allow-http --bind=0.0.0.0
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: symfony
+      POSTGRES_USER: symfony
+      POSTGRES_PASSWORD: symfony
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./symfony/public:/var/www/html
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - php
+
+volumes:
+  db_data:
+  caddy_data:
+  caddy_config:

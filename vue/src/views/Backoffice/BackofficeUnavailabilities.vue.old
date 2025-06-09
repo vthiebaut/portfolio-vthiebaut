@@ -1,0 +1,88 @@
+<template>
+  <div class="tw:p-6">
+    <div class="tw:flex tw:justify-between tw:items-center tw:mb-6">
+      <h1 class="tw:text-2xl tw:font-bold">Indisponibilités</h1>
+      <button
+        class="tw:bg-blue-600 tw:text-white tw:px-4 tw:py-2 tw:rounded hover:tw:bg-blue-700"
+        @click="showForm = true"
+      >
+        ➕ Ajouter
+      </button>
+    </div>
+
+    <table class="tw:w-full tw:bg-white tw:rounded-lg tw:shadow">
+      <thead>
+        <tr class="tw:bg-gray-100 tw:text-left">
+          <th class="tw:p-3">Début</th>
+          <th class="tw:p-3">Fin</th>
+          <th class="tw:p-3">Récurrence</th>
+          <th class="tw:p-3">Jusqu'au</th>
+          <th class="tw:p-3 tw:text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="u in unavailabilities" :key="u.id" class="tw:border-t hover:tw:bg-gray-50">
+          <td class="tw:p-3">{{ formatDate(u.start) }}</td>
+          <td class="tw:p-3">{{ formatDate(u.endAt) }}</td>
+          <td class="tw:p-3">{{ u.recurrence ?? '–' }}</td>
+          <td class="tw:p-3">
+            {{ u.recurrenceEnd ? formatDate(u.recurrenceEnd) : '–' }}
+          </td>
+          <div class="tw:flex tw:justify-end tw:gap-4">
+            <button class="tw:text-blue-600 hover:tw:underline" @click="edit(u)">Modifier</button>
+            <button class="tw:text-red-600 hover:tw:underline" @click="remove(u.id)">
+              Supprimer
+            </button>
+          </div>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Formulaire modal -->
+    <FormUnavailabilityModal
+      v-if="showForm"
+      :initial-data="editing"
+      @close="closeForm"
+      @refresh="fetchUnavailabilities"
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+import { DateTime } from 'luxon'
+import FormUnavailabilityModal from '@/components/FormUnavailabilityModal.vue'
+
+const unavailabilities = ref([])
+const showForm = ref(false)
+const editing = ref(null)
+
+function edit(u) {
+  editing.value = u
+  showForm.value = true
+}
+
+function formatDate(date) {
+  return DateTime.fromISO(date).setLocale('fr').toFormat('dd/MM/yyyy HH:mm')
+}
+
+async function fetchUnavailabilities() {
+  const res = await axios.get('http://localhost:8081/api/unavailabilities/all')
+  unavailabilities.value = res.data
+}
+
+async function remove(id) {
+  if (confirm('Supprimer cette indisponibilité ?')) {
+    await axios.delete(`http://localhost:8081/api/unavailabilities/${id}`)
+    await fetchUnavailabilities()
+  }
+}
+
+function closeForm() {
+  showForm.value = false
+  fetchUnavailabilities()
+}
+
+onMounted(fetchUnavailabilities)
+</script>
