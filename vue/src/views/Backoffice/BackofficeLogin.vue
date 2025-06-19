@@ -51,7 +51,7 @@ const error = ref('')
 
 async function login() {
   try {
-    const res = await axios.post('http://localhost:8081/api/login', {
+    const res = await axios.post('https://cleaneuse-by-pauline.fr/api/login', {
       email: email.value,
       password: password.value
     })

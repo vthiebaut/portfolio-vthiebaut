@@ -10,10 +10,11 @@ security:
                 property: email
 
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
+        login:
+            pattern: ^/api/login
+            stateless: true
+            provider: app_user_provider
+            # Pas de jwt ici, ni de session
         api:
             pattern: ^/api
             stateless: true

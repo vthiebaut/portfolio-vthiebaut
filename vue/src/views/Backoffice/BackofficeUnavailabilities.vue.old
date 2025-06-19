@@ -68,13 +68,13 @@ function formatDate(date) {
 }
 
 async function fetchUnavailabilities() {
-  const res = await axios.get('http://localhost:8081/api/unavailabilities/all')
+  const res = await axios.get('https://cleaneuse-by-pauline.fr/api/unavailabilities/all')
   unavailabilities.value = res.data
 }
 
 async function remove(id) {
   if (confirm('Supprimer cette indisponibilité ?')) {
-    await axios.delete(`http://localhost:8081/api/unavailabilities/${id}`)
+    await axios.delete(`https://cleaneuse-by-pauline.fr/api/unavailabilities/${id}`)
     await fetchUnavailabilities()
   }
 }

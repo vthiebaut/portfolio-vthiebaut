@@ -1,18 +1,22 @@
 <template>
   <div class="tw:p-4 tw:rounded-xl tw:overflow-auto tw:space-y-4">
     <!-- Navigation -->
-    <div class="tw:flex tw:justify-between tw:items-center tw:ml-[80px]">
+    <div
+      class="tw:flex tw:flex-row md:tw:flex-row tw:items-center tw:justify-center tw:gap-4 tw:text-center tw:ml-0"
+    >
       <button
-        class="tw:px-4 tw:py-2 tw:bg-gray-300 tw:rounded-lg tw:hover:bg-gray-400 tw:transition"
+        class="tw:px-4 tw:py-2 tw:bg-gray-200 tw:rounded-lg tw:hover:bg-gray-400 tw:transition"
         @click="changeWeek(-1)"
       >
         ⬅️ Semaine précédente
       </button>
+
       <div class="tw:font-semibold tw:text-lg tw:text-gray-700">
         Semaine du {{ baseDateFormatted }}
       </div>
+
       <button
-        class="tw:px-4 tw:py-2 tw:bg-gray-300 tw:rounded-lg tw:hover:bg-gray-400 tw:transition"
+        class="tw:px-4 tw:py-2 tw:bg-gray-200 tw:rounded-lg tw:hover:bg-gray-400 tw:transition"
         @click="changeWeek(1)"
       >
         Semaine suivante ➡️
@@ -21,30 +25,36 @@
 
     <!-- Grille calendrier -->
     <div
-      class="tw:grid tw:grid-cols-[80px_repeat(5,1fr)] tw:gap-2 tw:border tw:rounded-lg tw:p-2 tw:bg-gray-100"
+      class="tw:grid tw:grid-cols-6 tw:md:grid-cols-[80px_repeat(5,1fr)] tw:gap-2 tw:border tw:rounded-lg tw:p-2 tw:bg-gray-100 tw:w-full"
     >
+      <!-- 1ère ligne vide (coin haut gauche) -->
       <div></div>
+
+      <!-- En-têtes jours -->
       <div
         v-for="day in days"
         :key="day"
-        class="tw:text-center tw:font-bold tw:text-pink-400 tw:backdrop-blur-sm tw:rounded tw:shadow-sm tw:border tw:border-gray-300 tw:py-2 tw:bg-white"
+        class="tw:text-center tw:font-bold tw:text-[#fe007b] tw:backdrop-blur-sm tw:rounded tw:shadow-sm tw:border tw:border-gray-300 tw:py-2 tw:bg-white tw:text-xs tw:md:text-base"
       >
         {{ formatDay(day) }}
       </div>
 
       <template v-for="hour in hours" :key="hour">
+        <!-- Colonne heure -->
         <div
-          class="tw:h-12 tw:flex tw:items-center tw:justify-center tw:font-semibold tw:text-pink-400 tw:bg-white tw:backdrop-blur-sm tw:rounded tw:shadow-sm tw:border tw:border-gray-300"
+          class="tw:h-12 tw:flex tw:items-center tw:justify-center tw:font-semibold tw:text-[#fe007b] tw:bg-white tw:backdrop-blur-sm tw:rounded tw:shadow-sm tw:border tw:border-gray-300 tw:text-xs tw:md:text-base"
         >
           {{ hour }}h - {{ hour + 1 }}h
         </div>
 
+        <!-- Cases jour/heure -->
         <div
           v-for="day in days"
           :key="day + '-' + hour"
           :class="[
             'tw:h-12 tw:flex tw:items-center tw:justify-center tw:font-medium tw:rounded-xl tw:transition-colors',
-            getCellClass(day, hour)
+            getCellClass(day, hour),
+            'tw:text-xs tw:md:text-base'
           ]"
         ></div>
       </template>
@@ -110,7 +120,7 @@ async function fetchUnavailabilities() {
     const startOfWeek = baseDate.value.startOf('day').toISO()
     const endOfWeek = baseDate.value.plus({ days: 4, hours: 23, minutes: 59 }).toISO()
 
-    const response = await axios.get('http://localhost:8081/api/unavailabilities', {
+    const response = await axios.get('https://cleaneuse-by-pauline.fr/api/unavailabilities', {
       params: {
         start: startOfWeek,
         end: endOfWeek

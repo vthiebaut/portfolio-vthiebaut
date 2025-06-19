@@ -83,7 +83,7 @@ import axios from 'axios'
 import { DateTime } from 'luxon'
 import FormUnavailabilityModal from '@/components/FormUnavailabilityModal.vue'
 
-const days = [0, 1, 2, 3, 4]
+const days = [1, 2, 3, 4, 5]
 const hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
 
 const baseDate = ref(DateTime.now().setZone('Europe/Paris'))
@@ -145,7 +145,7 @@ function onMouseUp(day, hour) {
   })
 
   if (matched?.id) {
-    axios.get(`http://localhost:8081/api/unavailabilities/${matched.id}`).then((res) => {
+    axios.get(`https://cleaneuse-by-pauline.fr/api/unavailabilities/${matched.id}`).then((res) => {
       const data = res.data
       editing.value = {
         id: data.id,
@@ -194,7 +194,7 @@ async function fetchUnavailabilities() {
     const startOfWeek = baseDate.value.startOf('day').toISO()
     const endOfWeek = baseDate.value.plus({ days: 4, hours: 23, minutes: 59 }).toISO()
 
-    const response = await axios.get('http://localhost:8081/api/unavailabilities', {
+    const response = await axios.get('https://cleaneuse-by-pauline.fr/api/unavailabilities', {
       params: {
         start: startOfWeek,
         end: endOfWeek

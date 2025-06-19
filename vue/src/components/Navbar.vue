@@ -21,16 +21,22 @@
     <!-- Liens de gauche (desktop) -->
     <div class="nav-desktop-left tw:hidden tw:gap-1 tw:text-sm tw:font-light tw:items-center">
       <button
-        @click="goTo('/')"
+        @click="goTo('accueil')"
         class="tw:px-3 tw:py-1 tw:border tw:border-white tw:rounded hover:tw:bg-white hover:tw:text-black tw:transition"
       >
         Accueil
       </button>
       <button
-        @click="goTo('/contact')"
+        @click="goTo('mes-équipements')"
         class="tw:px-3 tw:py-1 tw:border tw:border-white tw:rounded hover:tw:bg-white hover:tw:text-black tw:transition"
       >
-        Contact
+        Équipements
+      </button>
+      <button
+        @click="goTo('mes-services')"
+        class="tw:px-3 tw:py-1 tw:border tw:border-white tw:rounded hover:tw:bg-white hover:tw:text-black tw:transition"
+      >
+        Services
       </button>
     </div>
 
@@ -49,16 +55,22 @@
     <!-- Liens de droite (desktop) -->
     <div class="nav-desktop-right tw:hidden tw:gap-1 tw:text-sm tw:font-light tw:items-center">
       <button
-        @click="goTo('/about')"
+        @click="goTo('mes-disponibilités')"
         class="tw:px-3 tw:py-1 tw:border tw:border-white tw:rounded hover:tw:bg-white hover:tw:text-black tw:transition"
       >
-        À propos
+        Disponibilités
       </button>
       <button
-        @click="goTo('/menu')"
+        @click="goTo('zone-intervention')"
         class="tw:px-3 tw:py-1 tw:border tw:border-white tw:rounded hover:tw:bg-white hover:tw:text-black tw:transition"
       >
-        Menu
+        Secteur
+      </button>
+      <button
+        @click="goTo('me-contacter')"
+        class="tw:px-3 tw:py-1 tw:border tw:border-white tw:rounded hover:tw:bg-white hover:tw:text-black tw:transition"
+      >
+        Contact
       </button>
     </div>
 
@@ -70,10 +82,14 @@
       >
         <button class="tw:self-end tw:mb-4" @click="isMenuOpen = false">❌</button>
 
-        <button @click="goTo('/')" class="tw:mb-2 tw:text-white">Accueil</button>
-        <button @click="goTo('/contact')" class="tw:mb-2 tw:text-white">Contact</button>
-        <button @click="goTo('/about')" class="tw:mb-2 tw:text-white">À propos</button>
-        <button @click="goTo('/menu')" class="tw:mb-2 tw:text-white">Menu</button>
+        <button @click="goTo('accueil')" class="tw:mb-2 tw:text-white">Accueil</button>
+        <button @click="goTo('mes-équipements')" class="tw:mb-2 tw:text-white">Équipements</button>
+        <button @click="goTo('mes-services')" class="tw:mb-2 tw:text-white">Services</button>
+        <button @click="goTo('mes-disponibilités')" class="tw:mb-2 tw:text-white">
+          Disponibilités
+        </button>
+        <button @click="goTo('zone-intervention')" class="tw:mb-2 tw:text-white">Secteur</button>
+        <button @click="goTo('me-contacter')" class="tw:mb-2 tw:text-white">Contact</button>
       </div>
     </transition>
   </nav>
@@ -91,8 +107,16 @@ const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
 }
 
-const goTo = (path: string) => {
-  router.push(path)
+const goTo = (anchor: string) => {
+  const el = document.getElementById(anchor.replace('#', ''))
+  if (el) {
+    const yOffset = -100 // Décalage vers le haut (ex. hauteur de la navbar)
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset
+
+    window.scrollTo({ top: y, behavior: 'smooth' })
+  } else {
+    console.warn(`Élément non trouvé pour l'ancre : ${anchor}`)
+  }
   isMenuOpen.value = false
 }
 

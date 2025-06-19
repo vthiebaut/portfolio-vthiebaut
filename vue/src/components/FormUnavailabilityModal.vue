@@ -130,9 +130,12 @@ async function submit() {
 
   try {
     if (props.initialData?.id) {
-      await axios.put(`http://localhost:8081/api/unavailabilities/${props.initialData.id}`, payload)
+      await axios.put(
+        `https://cleaneuse-by-pauline.fr/api/unavailabilities/${props.initialData.id}`,
+        payload
+      )
     } else {
-      await axios.post('http://localhost:8081/api/unavailabilities', payload)
+      await axios.post('https://cleaneuse-by-pauline.fr/api/unavailabilities', payload)
     }
 
     emit('close')
@@ -147,7 +150,9 @@ async function remove() {
   if (!confirm('Supprimer cette indisponibilité ?')) return
 
   try {
-    await axios.delete(`http://localhost:8081/api/unavailabilities/${props.initialData.id}`)
+    await axios.delete(
+      `https://cleaneuse-by-pauline.fr/api/unavailabilities/${props.initialData.id}`
+    )
     emit('close')
     emit('refresh')
   } catch (e) {
