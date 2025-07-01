@@ -1,6 +1,5 @@
 # Vue 3 + Vite
 
-Site vitrine Cleaneuse By Pauline en Single Page Website
+Portfolio Valentin THIEBAUT
 
-Site fait en Vue 3 + Vite, avec back office
-Back en Symfony pour gérer les modifications faites dans le back office
+Site fait en Vue 3 + Vite
