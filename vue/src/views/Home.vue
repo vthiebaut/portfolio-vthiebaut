@@ -1,551 +1,493 @@
 <template>
-  <div class="tw:font-sans tw:text-gray-800 tw:bg-gray-100">
-    <!-- Header -->
-    <header
-      id="accueil"
-      class="tw:relative tw:bg-cover tw:bg-center tw:text-white tw:text-center tw:py-32 tw:px-4 tw:min-h-screen parallax-bg tw:flex tw:items-center tw:justify-center"
-      :style="{ backgroundImage: `url(${headerImage})` }"
-    >
-      <div class="tw:absolute tw:inset-0 tw:bg-black/60"></div>
-
-      <!-- Conteneur logo centré -->
-      <div class="tw:relative tw:z-10">
-        <img
-          src="@/assets/cleaneuse-by-pauline.png"
-          alt="Logo Cleaneuse by Pauline"
-          class="tw:max-w-[700px] tw:w-full tw:h-auto mx-auto"
-        />
+  <div class="tw:font-sans tw:text-gray-900 tw:bg-gray-100 scroll-smooth">
+    <div id="preloader" class="tw:fixed tw:inset-0 tw:bg-black tw:flex tw:items-center tw:justify-center tw:z-[9999] tw:transition-opacity tw:duration-700">
+      <span class="tw:text-white tw:text-xl tw:animate-pulse">Chargement...</span>
+    </div>
+    <!-- Hero -->
+    <header id="accueil" class="tw:relative tw:min-h-screen tw:flex tw:flex-col tw:items-center tw:justify-center tw:text-center tw:py-32 tw:px-4 tw:bg-cover tw:bg-center tw:bg-gray-500">
+      <!-- Particules -->
+      <div id="particles-js" class="particles-container"></div>
+      <!-- Overlay -->
+      <div class="tw:absolute tw:inset-0 tw:bg-black/70 tw:pointer-events-none z-1"></div>
+      <!-- Contenu -->
+      <div class="tw:relative tw:z-10 tw:pointer-events-none">
+        <h1 class="tw:text-white tw:text-5xl md:tw:text-7xl tw:font-extrabold tw:mb-4">Valentin Thiebaut</h1>
+        <p class="tw:text-white tw:text-xl md:tw:text-2xl tw:max-w-2xl tw:mx-auto">Développeur full-stack Web & Mobile — Vue 3 · Symfony 7 · React Native</p>
+        <!-- Bouton scroll smooth -->
+        <button
+          @click="goTo('contact')"
+          class="tw:inline-block tw:mt-8 tw:px-8 tw:py-3 tw:bg-white tw:rounded-lg tw:shadow-lg tw:no-underline tw:transition tw:pointer-events-auto tw:text-black hover:tw:bg-[#fe007b] hover:tw:text-white"
+        >
+          Me contacter
+        </button>
       </div>
     </header>
 
-    <!-- Intro -->
-    <section class="tw:relative tw:flex tw:flex-wrap tw:min-h-screen tw:bg-white">
-      <!-- Colonne gauche avec fond -->
-      <div
-        class="tw:flex-1 tw:bg-cover tw:bg-center tw:flex tw:items-center tw:justify-center tw:my-[20px] tw:mx-[12px] tw:rounded-lg"
-        :style="{ backgroundImage: `url(${frameImage})` }"
-      >
-        <div
-          class="text-column tw:max-w-2xl tw:py-8 tw:flex tw:flex-col tw:gap-[10px] tw:px-4 tw:sm:ml-6 tw:md:ml-12 tw:lg:ml-[10rem]"
-        >
-          <h2 class="tw:text-5xl tw:font-bold tw:mb-4 tw:text-center tw:pb-8 font-cursive">
-            Bienvenue !
-          </h2>
+    <section id="a-propos" class="tw:py-20 tw:px-4 tw:bg-white">
+      <div class="tw:max-w-6xl tw:mx-auto">
+        <h2 class="tw:text-4xl tw:font-bold tw:text-center tw:mb-12">👨‍💻 À propos de moi</h2>
 
-          <p class="tw:text-lg">
-            Je m'appelle <strong>Pauline</strong>, aide à domicile / aide ménagère, passionnée par
-            le soin du foyer et le travail bien fait.
-          </p>
+        <div class="tw:grid tw:grid-cols-1 tw:lg:grid-cols-2 tw:gap-8 tw:items-center">
+          <!-- Partie gauche : texte -->
+          <div class="tw:text-lg tw:text-gray-700 tw:leading-relaxed tw:space-y-4">
+            <p>
+              Passionné par le développement depuis plus de 10 ans, j’ai fait de la création web et mobile mon quotidien.
+              Curieux, autonome et rigoureux, je conçois des applications modernes et efficaces, toujours pensées pour les utilisateurs.
+            </p>
+            <p>
+              Je maîtrise les technologies VueJS, Symfony, React Native et bien d’autres, avec un fort attrait pour la performance,
+              l’expérience utilisateur et la qualité du code.
+            </p>
+            <p>
+              Que ce soit pour développer une application from scratch, moderniser un outil existant ou accompagner une équipe, 
+              je suis toujours prêt à relever de nouveaux défis.
+            </p>
+          </div>
 
-          <p class="tw:text-lg">
-            Souriante, discrète et rigoureuse, je propose mes services pour l’entretien régulier de
-            votre maison ou appartement, ainsi que pour des besoins ponctuels
-          </p>
-
-          <ul class="tw:list-disc tw:pl-6 tw:text-lg">
-            <li>Ménage courant</li>
-            <li>Nettoyage en profondeur (printemps, après déménagement…)</li>
-            <li>Entretien du linge et repassage</li>
-            <li>Préparation des chambres et soin du logement</li>
-          </ul>
-
-          <p class="tw:text-lg tw:mt-2">
-            ✨ J’utilise des produits respectueux de l’environnement, efficaces et adaptés aux
-            enfants et animaux. Mon objectif : vous offrir un intérieur propre, sain et accueillant.
-          </p>
-
-          <p class="tw:text-lg tw:mt-2">
-            📄 Prestation déclarée en <strong>CESU</strong> – avec 50% de crédit d’impôt selon la
-            législation en vigueur.
-          </p>
-
-          <p class="tw:text-lg tw:mt-2">
-            📞 N’hésitez pas à me contacter pour un <strong>devis gratuit</strong> ou planifier une
-            première intervention !
-          </p>
-        </div>
-      </div>
-
-      <!-- Colonne droite (image principale) -->
-      <div
-        class="tw:flex-1 tw:min-w-[300px] tw:flex tw:items-center tw:justify-center tw:my-[20px] tw:mx-[12px] image-desktop"
-      >
-        <img
-          src="@/assets/ensemble-brosses-nettoyage-zero-dechet.jpg"
-          alt="Image d'introduction"
-          class="tw:w-full tw:rounded-lg"
-        />
-      </div>
-
-      <!-- Image superposée -->
-      <div class="tw:absolute tw:z-[20] tw:bottom-[50px] tw:right-[30%] image-absolute-desktop">
-        <img
-          src="@/assets/salon-epure-canape-gris-table-bois-plante-decoration-naturelle.png"
-          alt="Salon épuré décoration"
-          class="tw:max-w-[30em] tw:rounded-lg tw:shadow-[0_0_30px_rgba(0,0,0,0.8)]"
-        />
-      </div>
-    </section>
-
-    <section id="produits-naturels" class="tw:py-8 tw:px-4 tw:bg-gray-100">
-      <div class="tw:flex tw:flex-row md:tw:flex-row tw:items-center tw:gap-12">
-        <!-- Image à gauche -->
-        <div class="tw:flex-1 tw:min-w-[300px] image-desktop">
-          <img
-            src="@/assets/linge-huiles-essentielles-et-bicarbonate-pour-menage.jpg"
-            alt="Produits naturels ménage"
-            class="tw:w-full tw:h-auto tw:rounded-lg tw:shadow-md tw:mx-auto"
-          />
-        </div>
-
-        <!-- Texte à droite -->
-        <div class="tw:flex-1 tw:text-left tw:text-gray-800 tw:min-w-[300px]">
-          <h2 class="tw:text-4xl tw:font-bold tw:mb-4 font-cursive tw:text-[#fe007b]">
-            🌿 Entretien respectueux
-          </h2>
-
-          <p class="tw:text-lg tw:mb-4">
-            🧴 <strong>Utilisation de produits naturels sur demande</strong><br />
-            Des prestations réalisées avec des produits écologiques et sûrs :
-            <em>vinaigre blanc, savon noir, bicarbonate de soude, pierre d’argile…</em><br />
-            Idéal pour les personnes sensibles, les familles avec enfants ou animaux.
-          </p>
-
-          <p class="tw:text-lg tw:mb-4">
-            ✨ <strong>Respect de votre intérieur</strong><br />
-            Chaque surface est traitée avec soin :
-            <em>bois brut, marbre, inox, vitres ou textiles</em> — Je m'adapte les méthodes et
-            produits à chaque pièce, selon vos besoins.
-          </p>
-
-          <p class="tw:text-lg tw:mb-4">
-            🧘‍♀️ <strong>Un ménage sain, sans compromis</strong><br />
-            Pas d’odeurs chimiques, pas de résidus agressifs : uniquement l’essentiel pour une
-            maison propre, saine et agréable à vivre.
-          </p>
-
-          <p class="tw:text-lg">
-            🧽 <strong>Professionnalisme & confiance</strong><br />
-            Je m'engage à offrir un service de qualité, avec le souci du détail et un grand respect
-            de votre espace personnel. Chaque intervention est réalisée avec discrétion, ponctualité
-            et efficacité.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section
-      id="mes-équipements"
-      class="tw:py-8 tw:px-4 tw:bg-gray-100 tw:mx-auto tw:max-w-[1500px]"
-    >
-      <h2 class="tw:text-4xl tw:font-bold tw:text-center tw:mb-10 font-cursive">
-        🧼 Mes équipements
-      </h2>
-
-      <div class="tw:flex tw:flex-wrap tw:justify-center">
-        <div
-          v-for="equipment in equipments"
-          :key="equipment.shortLabel"
-          class="card tw:w-full tw:px-2 tw:mb-6 tw:basis-full tw:max-w-full tw:md:basis-1/2 tw:md:max-w-1/2 tw:lg:basis-1/3 tw:lg:max-w-1/3"
-        >
-          <h2 class="tw:font-bold tw:text-xl tw:w-full tw:text-center tw:mb-2">
-            {{ equipment.emoji }} {{ equipment.shortLabel }}
-          </h2>
-
-          <div class="card-inner tw:w-full tw:h-full tw:bg-white tw:rounded-lg tw:shadow-sm">
-            <div class="card-front tw:bg-white tw:flex tw:items-center tw:justify-center tw:p-4">
+          <!-- Partie droite : preview + bouton -->
+          <div class="tw:flex tw:flex-col tw:lg:items-end tw:justify-center">
+            <div class="tw:flex tw:flex-col tw:items-center tw:gap-4">
               <img
-                :src="equipment.image"
-                :alt="equipment.shortLabel"
-                class="tw:object-contain tw:bg-white tw:rounded-lg"
+                src="@/assets/cv-vthiebaut.png"
+                alt="Aperçu du CV"
+                class="tw:w-[280px] tw:rounded-xl tw:shadow-lg"
               />
+              <a
+                href="/CV_Valentin_THIEBAUT.pdf"
+                download
+                style="text-decoration: none;"
+                class="tw:bg-black tw:!text-white tw:px-6 tw:py-2 tw:rounded tw:hover:bg-white tw:hover:!text-black tw:!border tw:hover:!border-black tw:transition"
+              >
+                Télécharger mon CV
+              </a>
             </div>
+          </div>
 
-            <div class="card-back tw:flex-col tw:justify-start tw:items-start tw:p-4 tw:text-left">
-              <p class="tw:font-semibold tw:mb-2">{{ equipment.catchphrase }}</p>
+        </div>
+      </div>
+    </section>
 
-              <p class="tw:text-sm tw:mb-2">{{ equipment.description }}</p>
+    <section id="services" class="tw:py-20 tw:px-4 tw:bg-gray-100">
+      <div class="tw:max-w-6xl tw:mx-auto">
+        <h2 class="tw:text-4xl tw:font-bold tw:text-center tw:mb-12">🛠️ Services proposés</h2>
 
-              <p class="tw:font-semibold tw:mb-1">✅ Idéale pour :</p>
-              <ul class="tw:text-sm tw:list-disc tw:pl-4 tw:mb-2">
-                <li v-for="(use, idx) in equipment.uses" :key="idx">{{ use }}</li>
-              </ul>
+        <div class="tw:grid tw:grid-cols-1 md:tw:grid-cols-2 lg:tw:grid-cols-3 tw:gap-8">
+          <!-- Service 1 -->
+          <div class="tw:bg-gray-50 tw:p-6 tw:rounded-xl tw:transition tw:duration-300 tw:hover:scale-[1.03] tw:hover:shadow-xl tw:flex tw:flex-col tw:gap-3 tw:border tw:border-gray-200">
 
-              <p class="tw:text-sm tw:mt-2">{{ equipment.conclusion }}</p>
+            <h3 class="tw:text-xl tw:font-semibold tw:text-gray-800">📱 Développement mobile</h3>
+            <p class="tw:text-gray-600">
+              Création d'applications mobiles hybrides (iOS & Android) avec React Native ou Capacitor. Design moderne, offline, géolocalisation, synchronisation cloud.
+            </p>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="tw:bg-gray-50 tw:p-6 tw:rounded-xl tw:transition tw:duration-300 tw:hover:scale-[1.03] tw:hover:shadow-xl tw:flex tw:flex-col tw:gap-3 tw:border tw:border-gray-200">
+            <h3 class="tw:text-xl tw:font-semibold tw:text-gray-800">💻 Sites vitrines</h3>
+            <p class="tw:text-gray-600">
+              Création de sites vitrines professionnels, adaptés à votre image. Avec ou sans back-office, entièrement responsive, et optimisés SEO.
+            </p>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="tw:bg-gray-50 tw:p-6 tw:rounded-xl tw:transition tw:duration-300 tw:hover:scale-[1.03] tw:hover:shadow-xl tw:flex tw:flex-col tw:gap-3 tw:border tw:border-gray-200">
+            <h3 class="tw:text-xl tw:font-semibold tw:text-gray-800">🖥️ Développement web</h3>
+            <p class="tw:text-gray-600">
+              Conception d’applications web sur mesure avec Vue.js et Symfony. Interfaces dynamiques, gestion de base de données, API sécurisées.
+            </p>
+          </div>
+
+          <!-- Service 4 -->
+          <div class="tw:bg-gray-50 tw:p-6 tw:rounded-xl tw:transition tw:duration-300 tw:hover:scale-[1.03] tw:hover:shadow-xl tw:flex tw:flex-col tw:gap-3 tw:border tw:border-gray-200">
+            <h3 class="tw:text-xl tw:font-semibold tw:text-gray-800">📐 UI / UX responsive</h3>
+            <p class="tw:text-gray-600">
+              Création d’interfaces modernes, intuitives et entièrement responsives. Optimisées pour tous les appareils et tous les usages.
+            </p>
+          </div>
+
+          <!-- Service 5 -->
+          <div class="tw:bg-gray-50 tw:p-6 tw:rounded-xl tw:transition tw:duration-300 tw:hover:scale-[1.03] tw:hover:shadow-xl tw:flex tw:flex-col tw:gap-3 tw:border tw:border-gray-200">
+            <h3 class="tw:text-xl tw:font-semibold tw:text-gray-800">⚙️ Back-office / Admin</h3>
+            <p class="tw:text-gray-600">
+              Mise en place de tableaux de bord sécurisés pour gérer vos données, utilisateurs, contenus ou statistiques avec performance et simplicité.
+            </p>
+          </div>
+
+          <!-- Service 6 -->
+          <div class="tw:bg-gray-50 tw:p-6 tw:rounded-xl tw:transition tw:duration-300 tw:hover:scale-[1.03] tw:hover:shadow-xl tw:flex tw:flex-col tw:gap-3 tw:border tw:border-gray-200">
+            <h3 class="tw:text-xl tw:font-semibold tw:text-gray-800">🚀 Optimisation & support</h3>
+            <p class="tw:text-gray-600">
+              Amélioration de sites existants, refontes techniques, optimisation des performances, support technique et évolutions fonctionnelles.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projets" class="tw:py-20 tw:px-4 tw:bg-white">
+      <div class="tw:max-w-6xl tw:mx-auto">
+        <h2 class="tw:text-4xl tw:font-bold tw:text-center tw:mb-2">Portfolio</h2>
+        <p class="tw:flex tw:justify-center">Présentation de mes derniers projets</p>
+
+        <div class="tw:flex tw:flex-wrap tw:justify-center tw:gap-6">
+          <div
+            v-for="(p, i) in projects"
+            :key="p.title"
+            class="card tw:w-full tw:lg:w-[calc(50%-0.75rem)] tw:h-[600px]"
+          >
+            <div class="card-inner tw:w-full tw:h-full tw:shadow-xl tw:flex tw:items-center tw:justify-center">
+              <!-- Face avant -->
+              <div class="card-front tw:flex tw:flex-col tw:items-center tw:justify-center tw:gap-6 tw:bg-gray-50 tw:rounded-lg tw:w-full tw:h-full tw:p-6 tw:border tw:border-gray-200">
+                <template v-if="p.isMobileScreen">
+                  <figure class="tw:border tw:border-gray-300 tw:rounded-2xl tw:shadow-md tw:overflow-hidden tw:w-[200px] tw:h-[440px]">
+                    <img 
+                      :src="p.images[currentIndexes[i]]" 
+                      :alt="`Capture d’écran du projet ${p.title}`"
+                      loading="lazy"
+                      class="tw:w-full tw:h-full tw:object-contain tw:transition-all tw:duration-500" />
+                  </figure>
+                </template>
+                <template v-else>
+                  <figure class="tw:overflow-hidden tw:rounded-lg tw:shadow-md tw:w-full">
+                    <img 
+                      :src="p.images[currentIndexes[i]]" 
+                      :alt="`Capture d’écran du projet ${p.title}`"
+                      loading="lazy"
+                      class="tw:w-full tw:h-56 tw:object-cover tw:transition-all tw:duration-500" />
+                  </figure>
+                </template>
+
+                <div class="tw:text-center tw:space-y-1">
+                  <h3 class="tw:text-xl tw:font-bold tw:text-gray-800">{{ p.title }}</h3>
+                  <p class="tw:text-sm tw:text-gray-500">{{ p.stack }}</p>
+                </div>
+              </div>
+
+              <!-- Face arrière -->
+              <div
+                class="card-back tw:flex tw:flex-col tw:justify-start tw:items-start tw:text-left tw:gap-4 tw:bg-white tw:rounded-lg tw:w-full tw:h-full "
+              >
+                <!-- Description courte -->
+                <p class="tw:text-base tw:font-medium">{{ p.descriptionIntro }}</p>
+
+                <!-- Fonctionnalités (2 colonnes en md+) -->
+                <ul class="tw:grid tw:grid-cols-1 md:tw:grid-cols-2 tw:gap-2 tw:text-sm tw:list-disc tw:pl-4">
+                  <li v-for="(feature, idx) in p.features" :key="idx">{{ feature }}</li>
+                </ul>
+
+                <!-- Conclusion -->
+                <p v-if="p.descriptionConclusion" class="tw:text-sm">{{ p.descriptionConclusion }}</p>
+
+
+                <!-- lien -->
+                <a v-if="p.link" :href="p.link" target="_blank" rel="noopener" style="text-decoration: none;"
+                  class="tw:inline-block tw:!text-white tw:bg-black tw:px-4 tw:py-2 tw:rounded hover:tw:bg-[#fe007b] tw:transition">
+                  Voir le projet
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="mes-services" class="tw:relative tw:py-8 tw:px-[50px] tw:bg-white">
-      <div class="tw:text-6xl tw:font-bold tw:mb-12 tw:text-center font-cursive">Mes services</div>
+    <!-- Skills -->
+    <section id="competences" class="tw:py-20 tw:px-4 tw:bg-gray-100">
+      <div class="tw:max-w-4xl tw:mx-auto">
+        <h2 class="tw:text-4xl tw:font-bold tw:text-center tw:mb-12">Compétences clés</h2>
 
-      <div
-        class="tw:flex tw:flex-wrap tw:justify-center tw:gap-8 tw:items-stretch holographic-container"
-      >
-        <div
-          v-for="(service, index) in services"
-          :key="index"
-          class="tw:w-full tw:sm:tw:w-[calc(50%-1rem)] tw:max-w-[500px] tw:rounded-xl tw:shadow-md tw:p-6 tw:flex tw:flex-col tw:gap-2 tw:min-h-[450px] holographic-card"
-        >
-          <p class="tw:font-semibold tw:text-center tw:text-3xl">{{ service.title }}</p>
-          <p class="tw:font-bold tw:text-center tw:text-xl">{{ service.price }}</p>
-          <ul class="tw:mt-2 tw:space-y-1">
-            <li v-for="(item, i) in service.items" :key="i" class="tw:flex tw:items-start tw:gap-2">
-              <span class="tw:text-[#fe007b] tw:font-bold">›</span>
-              <span v-html="item" class="tw:text-gray-800 tw:text-xl"></span>
-            </li>
-          </ul>
+        <div class="tw:space-y-6">
+          <div v-for="skill in skills" :key="skill.label">
+            <div class="tw:flex tw:justify-between tw:mb-1">
+              <span class="tw:font-medium">{{ skill.label }}</span>
+              <span class="tw:text-sm tw:text-gray-500">{{ skill.level }}%</span>
+            </div>
+            <div class="tw:w-full tw:bg-gray-200 tw:rounded-full tw:h-3 tw:overflow-hidden">
+              <div
+                class="tw:h-3 tw:bg-yellow-500 tw:rounded-full tw:transition-all"
+                :style="{ width: skill.level + '%' }"
+              ></div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Logo : visible en mobile/tablette (dans le flux) / absolute sur lg+ -->
-      <div
-        class="tw:mt-8 tw:flex tw:justify-center tw:lg:justify-end tw:lg:mt-0 tw:lg:absolute tw:lg:bottom-8 tw:lg:right-8"
-      >
-        <img
-          src="@/assets/logo-credit-impot-50-pourcent-menage-services-domicile.png"
-          alt="50% de crédit d'impôt sur les services à domicile"
-          class="tw:w-[200px] tw:transition tw:hover:scale-105"
-        />
-      </div>
     </section>
 
-    <section
-      id="mes-disponibilités"
-      class="tw:min-h-[1100px] tw:flex tw:flex-col tw:justify-center tw:items-center tw:px-4 tw:bg-white tw:bg-cover tw:bg-center tw:bg-no-repeat"
-      :style="sectionStyle"
-    >
-      <div class="tw:text-6xl tw:font-bold tw:mb-8 tw:text-center font-cursive">
-        Mes disponibilités
-      </div>
-      <div class="tw:max-w-[1200px] tw:w-full tw:mx-auto">
-        <AvailabilityGrid />
-      </div>
-    </section>
-
-    <section id="zone-intervention" class="tw:py-8 tw:px-4 tw:text-center tw:bg-white">
-      <div class="tw:text-6xl tw:font-bold tw:mb-8 font-cursive">Ma zone d'intervention</div>
-      <InteractiveMap />
-    </section>
-
-    <section id="me-contacter" class="tw:py-8 tw:px-4 tw:text-center tw:bg-gray-100">
-      <div class="tw:text-6xl tw:font-bold tw:mb-4 font-cursive">Me contacter</div>
-      <p class="tw:mb-4 tw:text-xl">
-        ⚠️ Les interventions sont aux alentours de Saint-Vincent-de-Paul - 40990 (Jusqu'à environ 10
-        kilomètres autour) ⚠️
-      </p>
-      <form
-        @submit.prevent="sendEmail"
-        class="tw:flex tw:flex-col tw:items-center tw:gap-4 tw:w-full tw:px-4"
-      >
-        <div class="tw:flex tw:flex-col tw:sm:flex-row tw:gap-4 tw:w-full tw:sm:tw:max-w-xl">
-          <input
-            v-model="form.name"
-            required
-            placeholder="Nom"
-            class="tw:flex-1 tw:border tw:border-black tw:p-2 tw:rounded-lg tw:bg-white"
-          />
-          <input
-            v-model="form.surname"
-            required
-            placeholder="Prénom"
-            class="tw:flex-1 tw:border tw:border-black tw:p-2 tw:rounded-lg tw:bg-white"
-          />
-        </div>
-
-        <input
-          v-model="form.email"
-          required
-          type="email"
-          placeholder="Email"
-          class="tw:border tw:border-black tw:p-2 tw:rounded-lg tw:w-full tw:sm:tw:max-w-xl tw:bg-white"
-        />
-
-        <input
-          v-model="form.place"
-          required
-          placeholder="Lieu de la prestation"
-          class="tw:border tw:border-black tw:p-2 tw:rounded-lg tw:w-full tw:sm:tw:max-w-xl tw:bg-white"
-        />
-
-        <select
-          v-model="form.subject"
-          required
-          class="tw:border tw:border-black tw:p-2 tw:rounded-lg tw:w-full tw:sm:tw:max-w-xl tw:bg-white"
-        >
-          <option disabled value="">--- Sélectionnez une prestation ---</option>
-          <option>Ménage courant</option>
-          <option>Entretien du linge</option>
-          <option>Nettoyage spécifique ou ponctuel</option>
-          <option>Entretien extérieur</option>
-          <option>Aide à domicile douce</option>
-        </select>
-
-        <textarea
-          v-model="form.message"
-          required
-          placeholder="Message"
-          rows="5"
-          class="tw:border tw:border-black tw:p-2 tw:rounded-lg tw:w-full tw:sm:tw:max-w-xl tw:bg-white"
-        ></textarea>
-
-        <input
-          type="submit"
-          value="Envoyer le message"
-          class="tw:border tw:bg-white tw:border-black tw:rounded-lg tw:p-2 tw:cursor-pointer tw:hover:text-white tw:hover:bg-[#fe007b] tw:w-[50%] tw:sm:tw:w-[40%] tw:transition"
-        />
-
-        <p v-if="emailSuccess" class="tw:text-green-600 tw:font-semibold">
-          ✅ Message envoyé avec succès !
+    <!-- Parcours -->
+    <section id="parcours" class="tw:py-20 tw:px-4 tw:bg-white">
+      <div class="tw:max-w-4xl tw:mx-auto">
+        <h2 class="tw:text-4xl tw:font-bold tw:text-center tw:mb-4">🎓 Formation</h2>
+        <p class="tw:text-center tw:text-gray-600 tw:mb-12">
+          Voici mon parcours depuis mes débuts en développement web.
         </p>
-        <p v-if="emailError" class="tw:text-red-600 tw:font-semibold">
-          ❌ Une erreur est survenue, veuillez réessayer.
-        </p>
-      </form>
-    </section>
 
-    <section id="faq" class="tw:py-8 tw:px-4 tw:bg-white tw:mx-auto tw:w-full">
-      <div class="tw:flex tw:flex-col tw:max-w-6xl tw:mx-auto">
-        <h2 class="tw:text-4xl tw:font-bold tw:text-center tw:mb-8 font-cursive">
-          ❓ Foire aux questions
-        </h2>
+        <div class="tw:relative tw:border-l-4 tw:border-yellow-500 tw:pl-6">
+          
+          <!-- Master -->
+          <div class="tw:mb-12 tw:relative">
+            <div class="tw:absolute tw:left-0 tw:top-1 tw:w-12 tw:h-12 tw:rounded-full tw:flex tw:items-center tw:justify-center tw:z-10">
+              <img src="@/assets/logogroupecesi.png" alt="CESI" class="tw:w-8 tw:h-8 tw:rounded-full" />
+              <div class="tw:absolute tw:inset-0 tw:rounded-full tw:border-4 tw:border-yellow-500 tw:z-20"></div>
+            </div>
+            <div class="tw:pl-16">
+              <h3 class="tw:text-xl tw:font-semibold">2017–2021 — Master Manager en Système d'Informations en Alternance</h3>
+              <p class="tw:text-gray-700">Formation en alternance avec le CESI — Châteauroux</p>
+            </div>
+          </div>
 
-        <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-6 tw:items-start">
-          <details class="tw:bg-gray-100 tw:rounded-lg tw:p-4 tw:shadow-sm">
-            <summary class="tw:cursor-pointer tw:font-semibold tw:text-lg">
-              Acceptez-vous les paiements CESU ?
-            </summary>
-            <p class="tw:mt-2 tw:text-gray-700">
-              Oui, je suis agréée pour accepter les paiements via le Chèque Emploi Service Universel
-              (CESU). Ce mode de règlement est très avantageux : il permet de bénéficier d’un crédit
-              ou d’une réduction d’impôt de 50% sur les sommes versées. Vous avez ainsi la
-              possibilité de simplifier les démarches administratives tout en réalisant des
-              économies.
-            </p>
-          </details>
+          <!-- BTS SIO -->
+          <div class="tw:mb-12 tw:relative">
+            <div class="tw:absolute tw:left-0 tw:top-1 tw:w-12 tw:h-12 tw:rounded-full tw:flex tw:items-center tw:justify-center tw:z-10">
+              <img src="@/assets/btssio.png" alt="BTS SIO" class="tw:w-8 tw:h-8 tw:rounded-full" />
+              <div class="tw:absolute tw:inset-0 tw:rounded-full tw:border-4 tw:border-yellow-500 tw:z-20"></div>
+            </div>
+            <div class="tw:pl-16">
+              <h3 class="tw:text-xl tw:font-semibold">2015–2017 — BTS Services Informatiques aux Organisations</h3>
+              <p class="tw:text-gray-700">CCI de l'Indre — Châteauroux</p>
+            </div>
+          </div>
 
-          <details class="tw:bg-gray-100 tw:rounded-lg tw:p-4 tw:shadow-sm">
-            <summary class="tw:cursor-pointer tw:font-semibold tw:text-lg">
-              Fournissez-vous les produits de nettoyage ?
-            </summary>
-            <p class="tw:mt-2 tw:text-gray-700">
-              Oui, je peux intervenir avec mes propres produits d’entretien naturels et écologiques
-              (vinaigre blanc, savon noir, bicarbonate, pierre d’argile, etc.). Ce sont des produits
-              sains, efficaces, respectueux de l’environnement et adaptés aux personnes sensibles ou
-              allergiques. Si vous préférez que j’utilise vos produits, c’est bien sûr possible
-              également.
-            </p>
-          </details>
+          <!-- BAC S -->
+          <div class="tw:mb-12 tw:relative">
+            <div class="tw:absolute tw:left-0 tw:top-1 tw:w-12 tw:h-12 tw:rounded-full tw:flex tw:items-center tw:justify-center tw:z-10">
+              <img src="@/assets/lyceemargueritedenavarre.png" alt="BAC S" class="tw:w-8 tw:h-8 tw:rounded-full" />
+              <div class="tw:absolute tw:inset-0 tw:rounded-full tw:border-4 tw:border-yellow-500 tw:z-20"></div>
+            </div>
+            <div class="tw:pl-16">
+              <h3 class="tw:text-xl tw:font-semibold">2015 — BAC Scientifique</h3>
+              <p class="tw:text-gray-700">Lycée Marguerite de Navarre — Bourges</p>
+            </div>
+          </div>
 
-          <details class="tw:bg-gray-100 tw:rounded-lg tw:p-4 tw:shadow-sm">
-            <summary class="tw:cursor-pointer tw:font-semibold tw:text-lg">
-              Dans quelle zone intervenez-vous ?
-            </summary>
-            <p class="tw:mt-2 tw:text-gray-700">
-              J’interviens principalement autour de Saint-Vincent-de-Paul (40990) et dans un rayon
-              de 10 kilomètres environ. Cela inclut des communes voisines comme Dax, Narrosse,
-              Rivière-Saas-et-Gourby, et autres alentours. N’hésitez pas à me contacter si vous êtes
-              un peu en dehors de cette zone : je reste à l’écoute pour étudier votre demande au cas
-              par cas.
-            </p>
-          </details>
+          <!-- Passion -->
+          <div class="tw:mb-12 tw:relative">
+            <div class="tw:absolute tw:left-0 tw:top-1 tw:w-12 tw:h-12 tw:rounded-full tw:bg-yellow-400 tw:text-white tw:flex tw:items-center tw:justify-center tw:text-sm tw:font-bold tw:z-20">
+              🚀
+            </div>
+            <div class="tw:pl-16">
+              <h3 class="tw:text-xl tw:font-semibold">Avant 2014 — Passion pour l’informatique</h3>
+              <p class="tw:text-gray-700">D’abord passionné par l’informatique et la programmation, je suis parti en filière scientifique afin de m'ouvrir un maximum de porte pour la suite.</p>
+            </div>
+          </div>
 
-          <details class="tw:bg-gray-100 tw:rounded-lg tw:p-4 tw:shadow-sm">
-            <summary class="tw:cursor-pointer tw:font-semibold tw:text-lg">
-              Puis-je demander un devis gratuit ?
-            </summary>
-            <p class="tw:mt-2 tw:text-gray-700">
-              Oui, bien sûr ! Le devis est totalement gratuit et sans engagement. Il vous permet
-              d’avoir une estimation claire du coût de l’intervention en fonction de vos besoins
-              spécifiques. Vous pouvez me contacter par téléphone, e-mail ou directement via le
-              formulaire de contact présent sur cette page. Je vous répondrai dans les plus brefs
-              délais.
-            </p>
-          </details>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="tw:text-center tw:bg-gray-100 tw:py-6 tw:text-sm">
-      <p>&copy; 2025 Cleaneuse by Pauline — Tous droits réservés</p>
-    </footer>
+    <!-- Contact -->
+    <section id="contact" class="tw:relative tw:py-20 tw:px-4 tw:bg-gray-500 tw:min-h-[600px]">
+      <!-- Fond noir semi-transparent -->
+      <div class="tw:absolute tw:inset-0 tw:bg-black/70 tw:z-0"></div>
+
+      <!-- Particules éventuelles -->
+      <div id="particles-contact" class="particles-container tw:absolute tw:inset-0 tw:opacity-30 pointer-events-none z-0"></div>
+
+      <!-- Contenu principal -->
+      <div class="tw:max-w-xl tw:mx-auto tw:relative tw:z-10 tw:text-white tw:rounded-xl tw:p-6 tw:space-y-10 tw:bg-black/70">
+        <h2 class="tw:text-4xl tw:font-bold tw:text-center">Me contacter</h2>
+
+        <form @submit.prevent="sendEmail" class="tw:flex tw:flex-col tw:gap-4">
+          <input v-model="form.name" required placeholder="Nom / Prénom"
+            class="tw:border tw:border-gray-300 tw:p-3 tw:rounded-md" />
+          <input v-model="form.email" required type="email" placeholder="Email"
+            class="tw:border tw:border-gray-300 tw:p-3 tw:rounded-md" />
+          <textarea v-model="form.message" required placeholder="Votre message" rows="5"
+            class="tw:border tw:border-gray-300 tw:p-3 tw:rounded-md"></textarea>
+          <button type="submit"
+            class="tw:bg-white tw:text-black tw:py-3 tw:rounded-md tw:transition hover:tw:bg-[#fe007b] hover:tw:text-white">
+            Envoyer
+          </button>
+          <p v-if="emailSuccess" class="tw:text-green-400 tw:font-semibold tw:mt-2">Message envoyé ✅</p>
+          <p v-if="emailError" class="tw:text-red-400 tw:font-semibold tw:mt-2">Erreur d’envoi ❌</p>
+        </form>
+
+        <!-- Coordonnées -->
+        <div class="tw:text-center tw:space-y-2 tw:text-sm tw:mt-4">
+          <p>
+            <a href="https://www.linkedin.com/in/valentin-thiebaut" target="_blank" rel="noopener"
+              class="tw:underline hover:tw:text-[#fe007b]">🔗 Mon profil LinkedIn</a>
+          </p>
+          <p>📧 contact@vthiebaut.fr</p>
+          <p>📞 06 26 24 63 41</p>
+        </div>
+      </div>
+
+      <footer class="tw:text-center tw:pt-10 tw:relative tw:z-10">
+        <p class="tw:text-white tw:text-lg">&copy; 2025 Valentin Thiebaut — Tous droits réservés</p>
+      </footer>
+    </section>
   </div>
 </template>
 
-<script setup>
-import headerImage from '@/assets/accessoires-nettoyage-naturels-citron-bicarbonate-vinaigre.jpg'
-import frameImage from '@/assets/cadre-automne-feuillage-coton-fleurs-seches-fond-blanc.jpg'
-import InteractiveMap from '@/components/InteractiveMap.vue'
-import frameAvailability from '@/assets/carte-fleurie-botanique-pour-invitation-ou-annonce-paysage.png'
-import imgShampouineuse from '@/assets/shampouineuse-canapé-lit-matelas-fauteuils-voitures.jpg'
-import imgBrosse from '@/assets/brosse-electrique-salle-de-bain.jpg'
-import imgSavon from '@/assets/savon-noir.png'
-import imgVinaigre from '@/assets/vinaigre-blanc-ménager.png'
-import imgPierre from '@/assets/pierre-du-droguiste-briochin.jpg'
-import imgChiffons from '@/assets/chiffons-microfibres.png'
-import AvailabilityGrid from '@/components/AvailabilityGrid.vue'
-import { ref, computed } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted} from 'vue'
 import emailjs from 'emailjs-com'
-import { useWindowSize } from '@vueuse/core'
+import capturePrestagoAgenda from '@/assets/capture-ecran-prestago-agenda.jpg'
+import cleaneuseByPauline from '@/assets/cleaneuse-by-pauline.png'
+import maorieSite from '@/assets/maorie-site.png'
+import tiroLogin from '@/assets/tiro-login.png'
+import capturePortfolio from '@/assets/portfolio.png'
 
-const { width } = useWindowSize()
+const particlesConfig = {
+  particles: {
+    number: { value: 100, density: { enable: true, value_area: 1000 } },
+    color: { value: "#ffffff" },
+    shape: { type: "circle" },
+    opacity: { value: 1, random: false },
+    size: { value: 5, random: true },
+    line_linked: {
+      enable: true,
+      distance: 140,
+      color: "#ffffff",
+      opacity: 0.6,
+      width: 2
+    },
+    move: {
+      enable: true,
+      speed: 3.5,
+      direction: "none",
+      random: false,
+      straight: false,
+      out_mode: "out",
+      bounce: false
+    }
+  },
+  interactivity: {
+    detect_on: "canvas",
+    events: {
+      onhover: { enable: true, mode: "repulse" },
+      onclick: { enable: true, mode: "push" },
+      resize: true
+    },
+    modes: {
+      grab: { distance: 300, line_linked: { opacity: 1 } },
+      bubble: { distance: 300, size: 50, duration: 2, opacity: 0.8, speed: 3 },
+      repulse: { distance: 150, duration: 0.4 },
+      push: { particles_nb: 4 },
+      remove: { particles_nb: 2 }
+    }
+  },
+  retina_detect: true
+}
 
-const sectionStyle = computed(() => {
-  return width.value >= 768 ? { backgroundImage: `url(${frameAvailability})` } : {}
+onMounted(() => {
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("preloader")
+    if (loader) {
+      loader.classList.add("tw:opacity-0")
+      setTimeout(() => loader.remove(), 700)
+    }
+  })
+  // @ts-ignore
+  particlesJS('particles-js', particlesConfig)
+  // @ts-ignore
+  particlesJS('particles-contact', particlesConfig)
 })
 
-const equipments = [
+const projects = ref([
   {
-    shortLabel: 'Brosse électrique de nettoyage',
-    emoji: '⚡',
-    image: imgBrosse,
-    catchphrase: 'Un coup de boost pour votre ménage',
-    description:
-      'La brosse électrique de nettoyage vous aide à éliminer rapidement la saleté incrustée, sans effort. Grâce à ses têtes rotatives motorisées, elle déloge les résidus les plus tenaces tout en protégeant les surfaces.',
-    uses: [
-      'Joints de carrelage',
-      'Baignoires et douches',
-      'Plaques de cuisson',
-      'Recoins difficiles d’accès'
+    title: 'Prestago - Projet personnel',
+    stack: 'Vue 3 · Capacitor · Symfony 7',
+    descriptionIntro: `Prestago est une application mobile conçue pour les intervenants à domicile (CESU et auto-entrepreneurs), pour planifier facilement leurs journées.`,
+    features: [
+      '📅 Vue mensuelle et hebdomadaire du planning',
+      '👨‍👩‍👧‍👦 Gestion des clients avec couleurs et historique',
+      '🔁 Création d’interventions récurrentes',
+      '❌ Enregistrement des absences et indisponibilités',
+      '📍 Calcul des distances entre deux rendez-vous',
+      '🔄 Synchronisation automatique',
+      '🔒 Authentification sécurisée',
+      '☁️ Stockage cloud multi-appareils',
+      '📊 Export mensuel et statistiques (version premium)'
     ],
-    conclusion:
-      '🔋 Sans fil et rechargeable, elle offre une autonomie confortable pour un nettoyage complet, même dans les zones étroites. 🌟 Résultat : un intérieur plus propre, en deux fois moins de temps et sans fatigue !'
+    descriptionConclusion: `Pensée pour les auxiliaires de vie ou aides à domicile, l’application est simple, rapide, et adaptée aux besoins du terrain.`,
+    link: 'https://play.google.com/store/apps/details?id=com.vthiebaut.prestago&hl=fr',
+    images: [capturePrestagoAgenda],
+    isMobileScreen: true
   },
   {
-    shortLabel: 'Lingette microfibre',
-    emoji: '✨',
-    image: imgChiffons,
-    catchphrase: 'Un nettoyage doux, efficace… et sans trace',
-    description:
-      'Grâce à ses fibres ultra-fines, elle capture poussières, graisses et saletés en un seul passage, sans besoin de produit chimique.',
-    uses: [
-      'Surfaces vitrées (miroirs, fenêtres, lunettes…)',
-      'Écrans et appareils électroniques',
-      'Plans de travail et inox',
-      'Poussières sur meubles ou objets délicats'
+    title: 'Cleaneuse by Pauline - Projet freelance',
+    stack: 'Vue 3 · Tailwind CSS · Symfony 7',
+    descriptionIntro: `Site vitrine élégant pour une professionnelle du ménage à domicile, avec un backoffice simple et complet.`,
+    features: [
+      '🧼 Présentation des services',
+      '📍 Zone d’intervention détaillée',
+      '📸 Galerie d’équipements',
+      '📆 Planning dynamique des disponibilités',
+      '🔗 Formulaire de contact intégré',
+      '✅ Backoffice pour gérer les créneaux'
     ],
-    conclusion:
-      '🌿 Lavable et réutilisable, la microfibre est une solution écologique et économique. Douce au toucher, elle n’abîme pas les surfaces, ne laisse aucune trace, et offre une finition brillante.'
+    descriptionConclusion: `Optimisé pour mobile et conçu pour une autonomie totale de l’utilisatrice.`,
+    link: 'https://cleaneuse-by-pauline.fr',
+    images: [cleaneuseByPauline],
+    isMobileScreen: false
   },
   {
-    shortLabel: 'La Pierre du Droguiste – Briochin',
-    emoji: '🧽',
-    image: imgPierre,
-    catchphrase: 'Le nettoyant multi-usage naturel par excellence',
-    description:
-      'Fabriquée à base d’argile naturelle et enrichie en savon noir et bicarbonate, elle nettoie, dégraisse, fait briller et protège.',
-    uses: [
-      'Évier inox, plaques vitrocéramiques, hottes',
-      'Joints de salle de bain, carrelage, robinetterie',
-      'Chaussures, semelles, mobilier de jardin',
-      'Argent, cuivre, bijoux…'
+    title: 'MAORIE - Nextroad',
+    stack: 'Vue 2 · Symfony 5',
+    descriptionIntro: `MAORIE est une plateforme web métier destinée aux gestionnaires d’infrastructures pour centraliser les données techniques et analyses.`,
+    features: [
+      '🗺️ Affichage cartographique des routes et structures',
+      '🧪 Résultats d’analyses intégrés via API labo',
+      '📊 Visualisation graphique des couches et polluants',
+      '👥 Gestion des utilisateurs et permissions',
     ],
-    conclusion:
-      '🧼 Fournie avec une éponge, elle suffit à frotter, rincer… et admirer. 🌿 Sans conservateur, sans colorant, cette pierre est biodégradable, économique et fabriquée en France.'
+    descriptionConclusion: `Cette plateforme est indispensable pour les clients de Nextroad, leur permettant d’accéder rapidement aux résultats d’analyses sans attendre un retour du chargé d'affaire, et ainsi d’anticiper plus efficacement les chantiers à venir.`,
+    link: 'https://maorie.com',
+    images: [maorieSite],
+    isMobileScreen: false
   },
   {
-    shortLabel: 'Shampouineuse professionnelle',
-    emoji: '🧼',
-    image: imgShampouineuse,
-    catchphrase: 'Un nettoyage en profondeur pour vos tissus, tapis et moquettes',
-    description:
-      'Grâce à notre shampouineuse performante, offrez une seconde jeunesse à vos textiles d’intérieur. Cet appareil injecte un mélange d’eau et de détergent naturel directement au cœur des fibres, détache efficacement la saleté, puis aspire l’ensemble pour un résultat impeccable et sans humidité persistante.',
-    uses: ['Tapis & moquettes', 'Canapés & fauteuils en tissu', 'Matelas & sièges de voiture'],
-    conclusion: '✨ Résultat : un intérieur propre, assaini, sans traces ni odeurs.'
+    title: 'TIRO - Nextroad',
+    stack: 'React Native · API REST',
+    descriptionIntro: `Application mobile de saisie terrain, connectée à MAORIE, utilisée lors des carottages ou relevés techniques.`,
+    features: [
+      '📍 Géolocalisation automatique (Mapbox)',
+      '📸 Prises de photos horodatées',
+      '📝 Saisie des couches, profondeurs, observations',
+      '🔄 Mode offline avec synchro une fois connecté',
+    ],
+    link: 'https://play.google.com/store/apps/details?id=com.tirobymaorie&hl=fr&gl=US',
+    descriptionConclusion: `Cette application est devenue indispensable sur le terrain, en maximisant la productivité et en réduisant les erreurs humaines liées aux saisies manuelles. Elle remplace efficacement les prises de notes papier et les photos non centralisées, en offrant un outil dédié et structuré.`,
+    images: [tiroLogin],
+    isMobileScreen: true
   },
   {
-    shortLabel: 'Vinaigre blanc',
-    emoji: '🍋',
-    image: imgVinaigre,
-    catchphrase: 'L’indispensable allié naturel pour un ménage efficace et écologique',
-    description:
-      'Le vinaigre blanc, aussi appelé vinaigre d’alcool ou vinaigre cristal, est un produit multi-usage 100 % naturel. Grâce à son acidité, il nettoie, détartre, désinfecte et désodorise en profondeur, sans aucun composant chimique nocif.',
-    uses: [
-      'Détartrant pour robinets, pommeaux de douche, bouilloires, cafetières…',
-      'Nettoyant multi-surfaces (plans de travail, vitres, carrelages…)',
-      'Désinfectant naturel (cuisine, toilettes, poubelles…)',
-      'Adoucissant pour le linge (à verser dans le bac de rinçage de la machine)'
-    ],
-    conclusion:
-      '🌱 Respectueux de votre santé et de la planète, le vinaigre blanc est une alternative simple, économique et écologique aux produits ménagers industriels.'
-  },
-  {
-    shortLabel: 'Savon noir',
-    emoji: '🧼',
-    image: imgSavon,
-    catchphrase: 'Un nettoyant naturel puissant et polyvalent',
-    description:
-      'Le savon noir est un produit ménager d’origine végétale, traditionnellement fabriqué à base d’huile d’olive ou de lin. Sans solvant ni additif chimique, il est reconnu pour ses propriétés dégraissantes, nettoyantes et détachantes.',
-    uses: [
-      'Sol : nettoie et nourrit tous les types de sols (carrelage, parquet, tomettes…)',
-      'Cuisine : dégraisse plans de travail, hottes, plaques de cuisson',
-      'Salle de bain : fait briller robinetterie, faïence et parois de douche',
-      'Textile : détache efficacement les vêtements avant lavage'
-    ],
-    conclusion:
-      '🌿 Écologique, économique et biodégradable, le savon noir est un incontournable de l’entretien naturel de la maison.'
-  }
-]
+  title: 'Portfolio - Projet personnel',
+  stack: 'Vue 3 · Tailwind CSS',
+  descriptionIntro: `Ce site vitrine me permet de présenter mes projets, mon parcours, et mes compétences en tant que développeur full-stack.`,
+  features: [
+    '🖥️ Interface responsive et moderne',
+    '🧩 Présentation dynamique des projets',
+    '📄 CV téléchargeable avec aperçu intégré',
+    '🎨 Design soigné avec animations',
+    '📬 Formulaire de contact intégré'
+  ],
+  descriptionConclusion: `Conçu en Vue 3 avec Tailwind, ce portfolio reflète à la fois mon style, ma rigueur, et mes compétences techniques en front-end.`,
+  link: 'https://vthiebaut.fr', // modifie si besoin
+  images: [capturePortfolio],
+  isMobileScreen: false
+}
+])
 
-const services = [
-  {
-    title: '🏠 Entretien ménager courant',
-    price: '16€ net / heure (avec vos produits) - 18€ net / heure (avec mes produits)',
-    items: [
-      'Ménage quotidien ou hebdomadaire',
-      'Nettoyage des sols (aspirateur, serpillière)',
-      'Dépoussiérage des surfaces et objets',
-      'Nettoyage des vitres et miroirs',
-      'Entretien de la cuisine',
-      'Nettoyage des sanitaires',
-      'Désinfection des poignées, interrupteurs',
-      'Rangement des pièces de vie'
-    ]
-  },
-  {
-    title: '🧺 Entretien du linge',
-    price: 'Sur devis',
-    items: ['Lavage du linge', 'Étendage / sèche-linge', 'Repassage', 'Pliage et rangement']
-  },
-  {
-    title: '🧽 Nettoyage spécifique ou ponctuel',
-    price: 'Sur devis',
-    items: [
-      'Ménage de printemps',
-      'Nettoyage après déménagement',
-      'Nettoyage après travaux',
-      'Remise en état d’un logement très sale',
-      'Nettoyage après événement',
-      'Nettoyage des portes, plinthes, interrupteurs',
-      'Entretien des meubles fragiles'
-    ]
-  },
-  {
-    title: '🧹 Entretien extérieur',
-    price: 'Sur devis',
-    items: [
-      'Nettoyage de terrasse, balcon',
-      'Balayage d’entrée ou garage',
-      'Arrosage des plantes',
-      'Petits travaux de jardinage'
-    ]
-  },
-  {
-    title: '👵 Aide à domicile douce',
-    price: '16€ net / heure',
-    items: ['Courses', 'Préparation de repas simples', 'Présence bienveillante']
-  }
+
+const currentIndexes = ref(projects.value.map(() => 0))
+
+const skills = [
+  { label: 'VueJS 3 / Vite', level: 90 },
+  { label: 'Symfony 7', level: 90 },
+  { label: 'React Native', level: 80 },
+  { label: 'Tailwind CSS', level: 90 },
+  { label: 'Docker & CI/CD', level: 65 },
+  { label: 'PostgreSQL', level: 85 },
+  { label: 'API REST & GraphQL', level: 85 },
+  { label: 'Mapbox / Géolocalisation', level: 80 },
+  { label: 'Auth JWT / OAuth2', level: 85 }
 ]
 
 const form = ref({
   name: '',
-  surname: '',
   email: '',
-  place: '',
-  subject: '',
   message: ''
 })
 
@@ -554,26 +496,27 @@ const emailError = ref(false)
 
 const sendEmail = async () => {
   try {
-    await emailjs.send('service_6xub85j', 'template_iga0ylr', form.value, 'zNbMtvBNYdn8k3b1l')
+    await emailjs.send('service_anroc2d', 'template_rk9b4ei', form.value, 'zNbMtvBNYdn8k3b1l')
     emailSuccess.value = true
     emailError.value = false
-    form.value = { name: '', email: '', place: '', subject: '', message: '' }
-  } catch (error) {
-    emailSuccess.value = false
+    form.value = { name: '', email: '', message: '' }
+  } catch (err) {
     emailError.value = true
+    emailSuccess.value = false
+  }
+}
+
+const goTo = (anchor: string) => {
+  const el = document.getElementById(anchor.replace('#', ''))
+  if (el) {
+    const yOffset = -100
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset
+    window.scrollTo({ top: y, behavior: 'smooth' })
   }
 }
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;800&display=swap');
-
-.font-cursive {
-  font-family: 'Great Vibes', cursive;
-  color: #fe007b;
-  font-size: 80px !important;
-}
-
 .parallax-bg {
   background-attachment: fixed;
   background-size: cover;
@@ -598,114 +541,79 @@ const sendEmail = async () => {
   }
 }
 
-.holographic-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.holographic-card {
-  width: 100%;
-  background: #f3f4f6;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  position: relative;
-  overflow: hidden;
-  border-radius: 15px;
-  transition: all 0.5s ease;
-}
-
-.holographic-card h2 {
-  color: #0ff;
-  font-size: 2rem;
-  position: relative;
-  z-index: 2;
-}
-
-.holographic-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(0deg, transparent, transparent 30%, #fe007b);
-  transform: rotate(-45deg);
-  transition: all 0.5s ease;
-  opacity: 0;
-}
-
-.holographic-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #fe007b;
-}
-
-.holographic-card:hover::before {
-  opacity: 1;
-  transform: rotate(-45deg) translateY(100%);
-}
-
-/* Si tu utilises un fichier CSS global */
-details[open] summary ~ * {
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .card {
-  width: 200px;
-  height: 500px;
   perspective: 1000px;
   cursor: pointer;
+  /* pas de height */
 }
 
 .card-inner {
-  position: relative;
   width: 100%;
-  height: 100%;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-back p {
+  white-space: pre-line;
+  background-color: #F0F0F0;
 }
 
 .card:hover .card-inner {
   transform: rotateY(180deg);
+  background-color: #F0F0F0;
 }
 
 .card-front,
 .card-back {
   position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; /* pour Safari */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  overflow-y: auto;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  overflow: hidden;
+  background-color: #F0F0F0 !important;
 }
 
 .card-front {
   background: white;
+  z-index: 2;
+  transform: rotateY(0deg);
   border: 1px solid #e5e7eb;
 }
 
 .card-back {
-  background: #fe007baa;
-  color: black;
+  background: #F0F0F0;
   transform: rotateY(180deg);
-  padding: 1rem;
-  text-align: center;
+  justify-content: space-between;
+  color: black;
+}
+
+.particles-container {
+  position: absolute; /* Changé de fixed à absolute */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Augmenté pour être au-dessus de l'overlay */
+}
+
+/* Nouvelle classe pour l'overlay */
+.z-1 {
+  z-index: 1;
+}
+
+/* Assurer que les particules sont interactives */
+#particles-js {
+  pointer-events: auto;
 }
 </style>

@@ -1,20 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Home from '../views/Home.vue'
-import Services from '../views/Services.vue'
-import BackofficeLogin from '../views/Backoffice/BackofficeLogin.vue'
-import BackofficeUnavailabilities from '../views/Backoffice/BackofficeUnavailabilities.vue'
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/services', component: Services },
-
-  { path: '/backoffice-login', component: BackofficeLogin },
-  {
-    path: '/backoffice',
-    component: BackofficeUnavailabilities,
-    meta: { requiresAuth: true }
-  },
 
   // Catch all (redirige vers home si route inconnue)
   { path: '/:pathMatch(.*)*', redirect: '/' }
