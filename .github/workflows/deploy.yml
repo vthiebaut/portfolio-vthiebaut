@@ -95,7 +95,7 @@ jobs:
           echo "✅ Archive vérifiée: $(du -h deploy-nuxt.tar.gz | cut -f1)"
           ls -lh deploy-nuxt.tar.gz
 
-      - name: Deploy to server
+      - name: Prepare deployment directory
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -103,9 +103,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
-            # Créer un répertoire temporaire pour recevoir l'archive
-            mkdir -p /tmp/deploy-nuxt
-            
             # Préparer le répertoire de déploiement
             sudo mkdir -p /var/www/portfolio
             
@@ -116,17 +113,14 @@ jobs:
             
             sudo mkdir -p /var/www/portfolio
 
-      - name: Transfer archive to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          port: ${{ secrets.SERVER_PORT || 22 }}
-          source: "deploy-nuxt.tar.gz"
-          target: "/tmp/deploy-nuxt.tar.gz"
-          strip_components: 0
-          overwrite: true
+      - name: Transfer archive via rsync
+        run: |
+          echo "📤 Transfert de l'archive via rsync..."
+          echo "${{ secrets.SERVER_SSH_KEY }}" > /tmp/deploy_key
+          chmod 600 /tmp/deploy_key
+          rsync -avz --progress -e "ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT || 22 }}" deploy-nuxt.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/tmp/deploy-nuxt.tar.gz
+          rm -f /tmp/deploy_key
+          echo "✅ Archive transférée"
 
       - name: Extract and deploy on server
         uses: appleboy/ssh-action@v1.0.3
@@ -162,8 +156,9 @@ jobs:
             sudo chown -R www-data:www-data /var/www/portfolio || sudo chown -R 1000:1000 /var/www/portfolio || true
             sudo chmod -R 755 /var/www/portfolio || true
             
-            # Nettoyer
+            # Nettoyer l'archive
             rm -f /tmp/deploy-nuxt.tar.gz
+            echo "🧹 Archive nettoyée"
             
             # Démarrer/redémarrage des containers Docker
             echo "🔄 Démarrage/redémarrage des containers Docker..."
