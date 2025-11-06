@@ -63,17 +63,37 @@ jobs:
           fi
           
           echo "📦 Création de l'archive..."
+          # Créer l'archive depuis le répertoire de travail racine
           cd nuxt/.output/public
-          tar -czf ../../../../deploy-nuxt.tar.gz .
+          tar -czf ${{ github.workspace }}/deploy-nuxt.tar.gz .
+          cd ${{ github.workspace }}
           
           # Vérifier que l'archive a été créée et n'est pas vide
-          if [ ! -f "../../../../deploy-nuxt.tar.gz" ] || [ ! -s "../../../../deploy-nuxt.tar.gz" ]; then
+          if [ ! -f "deploy-nuxt.tar.gz" ] || [ ! -s "deploy-nuxt.tar.gz" ]; then
             echo "❌ Erreur: L'archive n'a pas été créée ou est vide"
+            ls -la | grep tar || echo "Aucun fichier tar trouvé"
             exit 1
           fi
           
-          echo "✅ Archive créée: $(du -h ../../../../deploy-nuxt.tar.gz | cut -f1)"
-          ls -lh ../../../../deploy-nuxt.tar.gz
+          echo "✅ Archive créée: $(du -h deploy-nuxt.tar.gz | cut -f1)"
+          ls -lh deploy-nuxt.tar.gz
+          pwd
+
+      - name: Verify archive before deploy
+        run: |
+          if [ ! -f "deploy-nuxt.tar.gz" ]; then
+            echo "❌ Erreur: deploy-nuxt.tar.gz n'existe pas"
+            ls -la | grep tar || echo "Aucun fichier tar trouvé"
+            exit 1
+          fi
+          
+          if [ ! -s "deploy-nuxt.tar.gz" ]; then
+            echo "❌ Erreur: deploy-nuxt.tar.gz est vide"
+            exit 1
+          fi
+          
+          echo "✅ Archive vérifiée: $(du -h deploy-nuxt.tar.gz | cut -f1)"
+          ls -lh deploy-nuxt.tar.gz
 
       - name: Deploy to server
         uses: appleboy/scp-action@v0.1.7
@@ -84,6 +104,8 @@ jobs:
           port: ${{ secrets.SERVER_PORT || 22 }}
           source: "deploy-nuxt.tar.gz"
           target: "/tmp/"
+          strip_components: 0
+          overwrite: true
 
       - name: Extract and deploy on server
         uses: appleboy/ssh-action@v1.0.3
