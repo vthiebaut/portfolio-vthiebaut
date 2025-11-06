@@ -77,17 +77,20 @@ export default defineNuxtConfig({
   },
 
   // Sitemap automatique (via @nuxtjs/seo)
+  // En mode statique, on n'utilise pas l'API
   sitemap: {
-    sources: [
-      '/api/__sitemap__/urls'
-    ]
+    // sources: [] // Désactivé pour le mode statique, le sitemap sera généré automatiquement
   },
 
   // Optimisations SEO
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/depannage-informatique-dax']
+      routes: ['/', '/depannage-informatique-dax'],
+      // Exclure les pages qui nécessitent l'API (backoffice)
+      ignore: ['/backoffice', '/backoffice-login', '/backoffice/**'],
+      // Ne pas suivre les liens vers backoffice
+      failOnError: false
     }
   },
 

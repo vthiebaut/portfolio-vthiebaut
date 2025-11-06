@@ -64,7 +64,7 @@
                 class="w-[280px] rounded-xl shadow-lg"
               />
               <a
-                href="/CV_Valentin_THIEBAUT.pdf"
+                href="/cv-valentin-thiebaut.pdf"
                 download
                 style="text-decoration: none;"
                 class="bg-black !text-white px-6 py-2 rounded hover:bg-white hover:!text-black !border hover:!border-black transition"
@@ -770,7 +770,7 @@ const projects = ref([
       '📬 Formulaire de contact intégré'
     ],
     descriptionConclusion: `Conçu en Vue 3 avec Tailwind, ce portfolio reflète à la fois mon style, ma rigueur, et mes compétences techniques en front-end.`,
-    link: 'https://vthiebaut.fr',
+    link: '/',
     images: ['/images/portfolio.png'],
     isMobileScreen: false
   }
