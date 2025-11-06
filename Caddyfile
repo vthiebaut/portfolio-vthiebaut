@@ -1,4 +1,22 @@
-portfolio.vthiebaut.fr {
-  root * /srv
-  file_server
+portfolio.vthiebaut.fr, www.portfolio.vthiebaut.fr {
+    encode zstd gzip
+
+    # --- API Symfony ---
+    @api path /api/* /index.php
+    handle @api {
+        root * /var/www/html/public
+        php_fastcgi php:9000
+        file_server
+    }
+
+    # --- SPA Nuxt ---
+    handle {
+        root * /var/www/portfolio
+        try_files {path} /index.html
+        file_server
+    }
+
+    # --- Redirection www vers apex ---
+    @www host www.portfolio.vthiebaut.fr
+    redir @www https://portfolio.vthiebaut.fr{uri} permanent
 }

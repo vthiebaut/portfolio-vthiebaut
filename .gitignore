@@ -1,24 +1,98 @@
-# Logs
-logs
-*.log
+# ============================================
+# Déploiement et builds
+# ============================================
+deploy-nuxt.tar.gz
+*.tar.gz
+*.zip
+
+# Backups serveur (si présents localement)
+/var/www/portfolio.backup.*
+/srv/www.backup.*
+
+# ============================================
+# Node.js / NPM (racine)
+# ============================================
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 lerna-debug.log*
+.pnpm-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# ============================================
+# Nuxt.js (builds et cache)
+# ============================================
+.nuxt/
+.output/
+.nitro/
+.data/
+.cache/
+dist/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# ============================================
+# Symfony (géré par symfony/.gitignore)
+# ============================================
+# Les patterns Symfony sont dans symfony/.gitignore
+
+# ============================================
+# IDE et éditeurs
+# ============================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.fleet/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# ============================================
+# OS
+# ============================================
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ============================================
+# Variables d'environnement
+# ============================================
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+!.env.example
+
+# ============================================
+# Logs
+# ============================================
+*.log
+logs/
+*.log.*
+
+# ============================================
+# Temporaires
+# ============================================
+*.tmp
+*.temp
+.cache/
+tmp/
+temp/
+
+# ============================================
+# Docker (fichiers générés)
+# ============================================
+.dockerignore
+
+# ============================================
+# CI/CD (fichiers locaux)
+# ============================================
+.github/workflows/*.local.yml

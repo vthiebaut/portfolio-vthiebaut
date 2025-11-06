@@ -1,17 +1,60 @@
-version: "3.8"
-
 services:
+  php:
+    container_name: php
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - ./symfony:/var/www/html
+      - jwt_keys:/var/www/html/config/jwt
+    depends_on:
+      - db
+    expose:
+      - "9000"
+    environment:
+      APP_ENV: prod
+      # IMPORTANT: quote si mot de passe contient !
+      DATABASE_URL: "pgsql://symfony:Hjy39m!zQ4@db:5432/symfony"
+      # sécurité Symfony derrière proxy (Caddy)
+      TRUSTED_PROXIES: "127.0.0.1,REMOTE_ADDR"
+      TRUSTED_HOSTS: "^portfolio\\.vthiebaut\\.fr$"
+    command: php-fpm -F
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: symfony
+      POSTGRES_USER: symfony
+      POSTGRES_PASSWORD: "Hjy39m!zQ4"   # <- quote !
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U symfony -d symfony"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
   caddy:
     image: caddy:2
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./vue/dist:/srv
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # Symfony public (API)
+      - ./symfony:/var/www/html:ro
+      # Build Nuxt (généré par CI/CD) → /var/www/portfolio
+      - /var/www/portfolio:/var/www/portfolio:ro
       - caddy_data:/data
       - caddy_config:/config
+    depends_on:
+      - php
 
 volumes:
+  db_data:
   caddy_data:
   caddy_config:
+  jwt_keys:

@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Styles personnalisés pour les animations et effets */
+.parallax-bg {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 1700px) {
+  .image-absolute-desktop {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1300px) {
+  .image-desktop {
+    display: none !important;
+  }
+
+  .text-column {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    text-align: center;
+  }
+}
+
+.card {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card-inner {
+  width: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-back p {
+  white-space: pre-line;
+  background-color: #F0F0F0;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+  background-color: #F0F0F0;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  background-color: #F0F0F0 !important;
+}
+
+.card-front {
+  background: white;
+  z-index: 2;
+  transform: rotateY(0deg);
+  border: 1px solid #e5e7eb;
+}
+
+.card-back {
+  background: #F0F0F0;
+  transform: rotateY(180deg);
+  justify-content: space-between;
+  color: black;
+}
+
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+#particles-js {
+  pointer-events: auto;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease;
+}
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(-100%);
+}
+
+@media (min-width: 800px) {
+  .burger-btn {
+    display: none !important;
+  }
+
+  .nav-desktop-right {
+    display: flex !important;
+  }
+}
+

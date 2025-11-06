@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /backoffice/
+Disallow: /api/
+
+Sitemap: https://vthiebaut.fr/sitemap.xml
+

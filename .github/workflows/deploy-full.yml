@@ -1,0 +1,105 @@
+name: Full Deploy (Nuxt + Symfony)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # === BUILD NUXT ===
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: nuxt/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./nuxt
+        run: npm ci
+
+      - name: Build Nuxt application
+        working-directory: ./nuxt
+        env:
+          NUXT_PUBLIC_API_BASE: ${{ secrets.NUXT_PUBLIC_API_BASE || 'https://portfolio.vthiebaut.fr/api' }}
+          NUXT_PUBLIC_EMAILJS_SERVICE_ID: ${{ secrets.NUXT_PUBLIC_EMAILJS_SERVICE_ID }}
+          NUXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${{ secrets.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID }}
+          NUXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${{ secrets.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY }}
+        run: npm run generate
+
+      - name: Create deployment archive
+        run: |
+          cd nuxt/.output/public
+          tar -czf ../../../../deploy-nuxt.tar.gz .
+
+      # === DEPLOY TO SERVER ===
+      - name: Deploy Nuxt to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          source: "deploy-nuxt.tar.gz"
+          target: "/tmp/"
+
+      - name: Deploy and restart services
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          script: |
+            # === DÉPLOIEMENT NUXT ===
+            echo "📦 Déploiement du frontend Nuxt..."
+            sudo mkdir -p /var/www/portfolio
+            
+            # Sauvegarder l'ancien build
+            if [ -d "/var/www/portfolio" ] && [ "$(ls -A /var/www/portfolio 2>/dev/null)" ]; then
+              sudo mv /var/www/portfolio /var/www/portfolio.backup.$(date +%Y%m%d_%H%M%S) || true
+            fi
+            
+            # Extraire le nouveau build
+            sudo mkdir -p /var/www/portfolio
+            sudo tar -xzf /tmp/deploy-nuxt.tar.gz -C /var/www/portfolio
+            
+            # Permissions
+            sudo chown -R www-data:www-data /var/www/portfolio 2>/dev/null || sudo chown -R 1000:1000 /var/www/portfolio || true
+            sudo chmod -R 755 /var/www/portfolio || true
+            rm -f /tmp/deploy-nuxt.tar.gz
+            
+            # === DÉPLOIEMENT SYMFONY ===
+            echo "🔧 Déploiement de l'API Symfony..."
+            cd /root/portfolio-vthiebaut 2>/dev/null || cd /home/*/portfolio-vthiebaut 2>/dev/null || exit 1
+            
+            # Pull les dernières modifications
+            git pull origin main 2>/dev/null || git pull origin master 2>/dev/null || true
+            
+            # Rebuild et redémarre les containers
+            docker compose -f docker-compose.prod.yml down
+            docker compose -f docker-compose.prod.yml build --no-cache
+            docker compose -f docker-compose.prod.yml up -d
+            
+            # Attendre que les services soient prêts
+            sleep 15
+            
+            # Exécuter les migrations
+            docker exec php php bin/console doctrine:migrations:migrate --no-interaction || true
+            
+            # Redémarrer Caddy pour charger les nouveaux fichiers
+            docker compose -f docker-compose.prod.yml restart caddy || true
+            
+            echo "✅ Déploiement complet terminé avec succès !"
+            echo "📁 Frontend: /var/www/portfolio"
+            echo "🐳 Containers: $(docker ps --format '{{.Names}}' | grep -E 'php|caddy|db' | wc -l) services actifs"
+
