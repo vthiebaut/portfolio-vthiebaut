@@ -79,7 +79,7 @@ jobs:
             
             # Redémarrer Caddy si nécessaire (pour recharger les fichiers)
             if command -v docker &> /dev/null; then
-              cd /root/portfolio-vthiebaut 2>/dev/null || cd /home/*/portfolio-vthiebaut 2>/dev/null || true
+              cd /var/www/portfolio 2>/dev/null || true
               if [ -f "docker-compose.prod.yml" ]; then
                 docker compose -f docker-compose.prod.yml restart caddy 2>/dev/null || true
               fi

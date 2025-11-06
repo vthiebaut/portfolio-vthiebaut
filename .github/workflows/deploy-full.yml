@@ -80,23 +80,32 @@ jobs:
             
             # === DÉPLOIEMENT SYMFONY ===
             echo "🔧 Déploiement de l'API Symfony..."
-            cd /root/portfolio-vthiebaut 2>/dev/null || cd /home/*/portfolio-vthiebaut 2>/dev/null || exit 1
+            cd /var/www/portfolio || exit 1
             
-            # Pull les dernières modifications
-            git pull origin main 2>/dev/null || git pull origin master 2>/dev/null || true
+            # Vérifier que c'est un dépôt Git, sinon skip le pull
+            if [ -d ".git" ]; then
+              echo "📥 Pull des dernières modifications..."
+              git pull origin main || git pull origin master || true
+            else
+              echo "⚠️ /var/www/portfolio n'est pas un dépôt Git, skip du pull"
+            fi
             
             # Rebuild et redémarre les containers
+            echo "🔨 Rebuild des containers Docker..."
             docker compose -f docker-compose.prod.yml down
             docker compose -f docker-compose.prod.yml build --no-cache
             docker compose -f docker-compose.prod.yml up -d
             
             # Attendre que les services soient prêts
+            echo "⏳ Attente du démarrage des services..."
             sleep 15
             
             # Exécuter les migrations
+            echo "🔄 Exécution des migrations..."
             docker exec php php bin/console doctrine:migrations:migrate --no-interaction || true
             
             # Redémarrer Caddy pour charger les nouveaux fichiers
+            echo "🔄 Redémarrage de Caddy..."
             docker compose -f docker-compose.prod.yml restart caddy || true
             
             echo "✅ Déploiement complet terminé avec succès !"
