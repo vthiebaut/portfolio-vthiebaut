@@ -105,6 +105,16 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
+            # Nettoyer l'ancien fichier/dossier deploy-nuxt.tar.gz s'il existe
+            if [ -d "/tmp/deploy-nuxt.tar.gz" ]; then
+              echo "🧹 Suppression de l'ancien dossier /tmp/deploy-nuxt.tar.gz"
+              rm -rf /tmp/deploy-nuxt.tar.gz
+            fi
+            if [ -f "/tmp/deploy-nuxt.tar.gz" ]; then
+              echo "🧹 Suppression de l'ancien fichier /tmp/deploy-nuxt.tar.gz"
+              rm -f /tmp/deploy-nuxt.tar.gz
+            fi
+            
             # Préparer le répertoire de déploiement
             sudo mkdir -p /var/www/portfolio
             
@@ -120,9 +130,15 @@ jobs:
           echo "📤 Transfert de l'archive via rsync..."
           echo "${{ secrets.SERVER_SSH_KEY }}" > /tmp/deploy_key
           chmod 600 /tmp/deploy_key
-          rsync -avz --progress -e "ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT || 22 }}" deploy-nuxt.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/tmp/deploy-nuxt.tar.gz
+          
+          # Transférer le fichier (rsync avec --no-dirs pour éviter de créer un dossier)
+          rsync -avz --progress --no-dirs -e "ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT || 22 }}" deploy-nuxt.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/tmp/deploy-nuxt.tar.gz
+          
+          # Vérifier que c'est bien un fichier et non un dossier
+          ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT || 22 }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "test -f /tmp/deploy-nuxt.tar.gz && echo '✅ Fichier transféré correctement' || (echo '❌ Erreur: ce n est pas un fichier' && ls -ld /tmp/deploy-nuxt.tar.gz && exit 1)"
+          
           rm -f /tmp/deploy_key
-          echo "✅ Archive transférée"
+          echo "✅ Archive transférée et vérifiée"
 
       - name: Deploy and restart services
         uses: appleboy/ssh-action@v1.0.3
