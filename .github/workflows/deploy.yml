@@ -134,18 +134,25 @@ jobs:
             # Nettoyer
             rm -f /tmp/deploy-nuxt.tar.gz
             
-            # Redémarrer Caddy pour charger les nouveaux fichiers
-            echo "🔄 Redémarrage de Caddy..."
+            # Démarrer/redémarrer les containers Docker
+            echo "🔄 Démarrage/redémarrage des containers Docker..."
             if command -v docker &> /dev/null; then
               cd /var/www/portfolio 2>/dev/null || true
               if [ -f "docker-compose.prod.yml" ]; then
+                # Démarrer les containers s'ils ne sont pas déjà lancés
+                docker compose -f docker-compose.prod.yml up -d
+                # Redémarrer Caddy pour charger les nouveaux fichiers
                 docker compose -f docker-compose.prod.yml restart caddy
-                echo "✅ Caddy redémarré"
+                echo "✅ Containers Docker démarrés/redémarrés"
+                
+                # Vérifier que les containers tournent
+                sleep 3
+                docker compose -f docker-compose.prod.yml ps
               else
-                echo "⚠️ docker-compose.prod.yml non trouvé, redémarrage manuel nécessaire"
+                echo "⚠️ docker-compose.prod.yml non trouvé, démarrage manuel nécessaire"
               fi
             else
-              echo "⚠️ Docker non trouvé, redémarrage manuel nécessaire"
+              echo "⚠️ Docker non trouvé, démarrage manuel nécessaire"
             fi
             
             echo "✅ Déploiement terminé avec succès !"
