@@ -134,23 +134,40 @@ jobs:
             # Nettoyer
             rm -f /tmp/deploy-nuxt.tar.gz
             
-            # Démarrer/redémarrer les containers Docker
+            # Démarrer/redémarrage des containers Docker
             echo "🔄 Démarrage/redémarrage des containers Docker..."
             if command -v docker &> /dev/null; then
-              cd /var/www/portfolio 2>/dev/null || true
-              if [ -f "docker-compose.prod.yml" ]; then
-                # Démarrer les containers s'ils ne sont pas déjà lancés
-                docker compose -f docker-compose.prod.yml up -d
-                # Redémarrer Caddy pour charger les nouveaux fichiers
-                docker compose -f docker-compose.prod.yml restart caddy
-                echo "✅ Containers Docker démarrés/redémarrés"
-                
-                # Vérifier que les containers tournent
-                sleep 3
-                docker compose -f docker-compose.prod.yml ps
-              else
-                echo "⚠️ docker-compose.prod.yml non trouvé, démarrage manuel nécessaire"
+              cd /var/www/portfolio 2>/dev/null || {
+                echo "❌ Impossible d'accéder à /var/www/portfolio"
+                exit 1
+              }
+              
+              if [ ! -f "docker-compose.prod.yml" ]; then
+                echo "⚠️ docker-compose.prod.yml non trouvé dans /var/www/portfolio"
+                echo "📁 Fichiers présents :"
+                ls -la | head -10
+                echo "⚠️ Démarrage manuel nécessaire"
+                exit 0
               fi
+              
+              echo "📋 Fichier docker-compose.prod.yml trouvé"
+              
+              # Démarrer les containers s'ils ne sont pas déjà lancés
+              echo "🚀 Démarrage des containers..."
+              docker compose -f docker-compose.prod.yml up -d
+              
+              # Attendre un peu que les containers démarrent
+              sleep 5
+              
+              # Vérifier que les containers tournent
+              echo "🔍 Vérification de l'état des containers..."
+              docker compose -f docker-compose.prod.yml ps
+              
+              # Redémarrer Caddy pour charger les nouveaux fichiers
+              echo "🔄 Redémarrage de Caddy..."
+              docker compose -f docker-compose.prod.yml restart caddy || docker compose -f docker-compose.prod.yml up -d caddy
+              
+              echo "✅ Containers Docker démarrés/redémarrés"
             else
               echo "⚠️ Docker non trouvé, démarrage manuel nécessaire"
             fi
