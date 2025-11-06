@@ -34,12 +34,47 @@ jobs:
           NUXT_PUBLIC_EMAILJS_SERVICE_ID: ${{ secrets.NUXT_PUBLIC_EMAILJS_SERVICE_ID }}
           NUXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${{ secrets.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID }}
           NUXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${{ secrets.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY }}
-        run: npm run generate
+        run: |
+          echo "🔨 Build de l'application Nuxt..."
+          npm run generate
+          
+          # Vérifier que le build a réussi
+          if [ ! -d ".output/public" ]; then
+            echo "❌ Erreur: Le build n'a pas généré .output/public"
+            exit 1
+          fi
+          
+          echo "✅ Build terminé"
+          echo "📁 Contenu de .output/public:"
+          ls -la .output/public | head -20
 
       - name: Create deployment archive
         run: |
+          # Vérifier que les fichiers existent
+          if [ ! -d "nuxt/.output/public" ]; then
+            echo "❌ Erreur: nuxt/.output/public n'existe pas"
+            ls -la nuxt/.output/ || echo "Le dossier .output n'existe pas"
+            exit 1
+          fi
+          
+          # Vérifier qu'il y a des fichiers
+          if [ -z "$(ls -A nuxt/.output/public)" ]; then
+            echo "❌ Erreur: nuxt/.output/public est vide"
+            exit 1
+          fi
+          
+          echo "📦 Création de l'archive..."
           cd nuxt/.output/public
           tar -czf ../../../../deploy-nuxt.tar.gz .
+          
+          # Vérifier que l'archive a été créée et n'est pas vide
+          if [ ! -f "../../../../deploy-nuxt.tar.gz" ] || [ ! -s "../../../../deploy-nuxt.tar.gz" ]; then
+            echo "❌ Erreur: L'archive n'a pas été créée ou est vide"
+            exit 1
+          fi
+          
+          echo "✅ Archive créée: $(du -h ../../../../deploy-nuxt.tar.gz | cut -f1)"
+          ls -lh ../../../../deploy-nuxt.tar.gz
 
       # === DEPLOY TO SERVER ===
       - name: Deploy Nuxt to server
