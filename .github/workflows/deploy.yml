@@ -96,6 +96,27 @@ jobs:
           ls -lh deploy-nuxt.tar.gz
 
       - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          script: |
+            # Créer un répertoire temporaire pour recevoir l'archive
+            mkdir -p /tmp/deploy-nuxt
+            
+            # Préparer le répertoire de déploiement
+            sudo mkdir -p /var/www/portfolio
+            
+            # Sauvegarder l'ancien build (optionnel, pour rollback)
+            if [ -d "/var/www/portfolio" ] && [ "$(ls -A /var/www/portfolio 2>/dev/null)" ]; then
+              sudo mv /var/www/portfolio /var/www/portfolio.backup.$(date +%Y%m%d_%H%M%S) || true
+            fi
+            
+            sudo mkdir -p /var/www/portfolio
+
+      - name: Transfer archive to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -103,7 +124,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
           source: "deploy-nuxt.tar.gz"
-          target: "/tmp/"
+          target: "/tmp/deploy-nuxt.tar.gz"
           strip_components: 0
           overwrite: true
 
@@ -115,17 +136,27 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
-            # Créer le dossier de déploiement s'il n'existe pas
-            sudo mkdir -p /var/www/portfolio
-            
-            # Sauvegarder l'ancien build (optionnel, pour rollback)
-            if [ -d "/var/www/portfolio" ] && [ "$(ls -A /var/www/portfolio 2>/dev/null)" ]; then
-              sudo mv /var/www/portfolio /var/www/portfolio.backup.$(date +%Y%m%d_%H%M%S) || true
+            # Vérifier que l'archive existe
+            if [ ! -f "/tmp/deploy-nuxt.tar.gz" ]; then
+              echo "❌ Erreur: /tmp/deploy-nuxt.tar.gz n'existe pas"
+              ls -la /tmp/ | grep tar || echo "Aucun fichier tar dans /tmp/"
+              exit 1
             fi
             
-            # Extraire le nouveau build
-            sudo mkdir -p /var/www/portfolio
+            # Vérifier les permissions de l'archive
+            ls -lh /tmp/deploy-nuxt.tar.gz
+            
+            # Extraire le nouveau build avec les bonnes permissions
+            echo "📦 Extraction de l'archive..."
             sudo tar -xzf /tmp/deploy-nuxt.tar.gz -C /var/www/portfolio
+            
+            # Vérifier que les fichiers ont été extraits
+            if [ -z "$(ls -A /var/www/portfolio)" ]; then
+              echo "❌ Erreur: /var/www/portfolio est vide après extraction"
+              exit 1
+            fi
+            
+            echo "✅ Fichiers extraits: $(ls /var/www/portfolio | wc -l) fichiers"
             
             # Définir les bonnes permissions
             sudo chown -R www-data:www-data /var/www/portfolio || sudo chown -R 1000:1000 /var/www/portfolio || true
