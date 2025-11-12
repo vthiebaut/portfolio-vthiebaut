@@ -25,8 +25,8 @@ jobs:
             echo "symfony_changed=true" >> $GITHUB_OUTPUT
             echo "✅ Déploiement manuel : tout sera déployé"
           else
-            # Détecter les changements dans Nuxt
-            if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q "^nuxt/"; then
+            # Détecter les changements dans Nuxt (inclure nuxt.config.ts, package.json, etc.)
+            if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -qE "^(nuxt/|nuxt\.config\.|package\.json|package-lock\.json)"; then
               echo "nuxt_changed=true" >> $GITHUB_OUTPUT
               echo "✅ Changements détectés dans Nuxt"
             else
@@ -98,6 +98,18 @@ jobs:
             exit 1
           fi
           
+          # Vérifier que le sitemap existe et afficher son contenu
+          if [ -f "nuxt/.output/public/sitemap.xml" ]; then
+            echo "✅ Sitemap trouvé dans le build"
+            echo "📄 Contenu du sitemap (premières lignes):"
+            head -20 nuxt/.output/public/sitemap.xml
+            echo "📅 Date du fichier: $(stat -c %y nuxt/.output/public/sitemap.xml 2>/dev/null || ls -l nuxt/.output/public/sitemap.xml)"
+          else
+            echo "⚠️ Avertissement: sitemap.xml non trouvé dans .output/public"
+            echo "📁 Fichiers présents:"
+            ls -la nuxt/.output/public/ | head -20
+          fi
+          
           echo "📦 Création de l'archive..."
           # Créer l'archive depuis le répertoire de travail racine
           cd nuxt/.output/public
@@ -113,7 +125,15 @@ jobs:
           
           echo "✅ Archive créée: $(du -h deploy-nuxt.tar.gz | cut -f1)"
           ls -lh deploy-nuxt.tar.gz
-          pwd
+          
+          # Vérifier que le sitemap est dans l'archive
+          if tar -tzf deploy-nuxt.tar.gz | grep -q "sitemap.xml"; then
+            echo "✅ sitemap.xml trouvé dans l'archive"
+          else
+            echo "⚠️ Avertissement: sitemap.xml non trouvé dans l'archive"
+            echo "📁 Fichiers dans l'archive:"
+            tar -tzf deploy-nuxt.tar.gz | head -20
+          fi
 
       # === VÉRIFICATION ARCHIVE ===
       - name: Verify archive before deploy
@@ -232,6 +252,15 @@ jobs:
               # Vérifier les permissions de l'archive
               ls -lh /tmp/deploy-nuxt.tar.gz
               
+              # Sauvegarder la date actuelle du sitemap (si existe)
+              if [ -f "/var/www/portfolio/sitemap.xml" ]; then
+                echo "📅 Ancien sitemap: $(stat -c %y /var/www/portfolio/sitemap.xml)"
+              fi
+              
+              # Supprimer les anciens fichiers pour forcer le remplacement
+              echo "🧹 Nettoyage des anciens fichiers..."
+              sudo find /var/www/portfolio -mindepth 1 -maxdepth 1 ! -name 'docker-compose.prod.yml' ! -name 'Caddyfile' ! -name 'Dockerfile' ! -name 'symfony' -exec rm -rf {} + || true
+              
               # Extraire le nouveau build avec les bonnes permissions
               echo "📦 Extraction de l'archive..."
               sudo tar -xzf /tmp/deploy-nuxt.tar.gz -C /var/www/portfolio
@@ -243,6 +272,15 @@ jobs:
               fi
               
               echo "✅ Fichiers extraits: $(ls /var/www/portfolio | wc -l) fichiers"
+              
+              # Vérifier que le sitemap a été mis à jour
+              if [ -f "/var/www/portfolio/sitemap.xml" ]; then
+                echo "📅 Nouveau sitemap: $(stat -c %y /var/www/portfolio/sitemap.xml)"
+                echo "📄 Contenu du sitemap (premières lignes):"
+                head -20 /var/www/portfolio/sitemap.xml
+              else
+                echo "⚠️ Avertissement: sitemap.xml non trouvé après extraction"
+              fi
               
               # Permissions
               sudo chown -R www-data:www-data /var/www/portfolio 2>/dev/null || sudo chown -R 1000:1000 /var/www/portfolio || true
