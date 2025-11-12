@@ -1,4 +1,4 @@
-name: Full Deploy (Nuxt + Symfony)
+name: Deploy to Production
 
 on:
   push:
@@ -15,8 +15,38 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # === BUILD NUXT ===
+      # === DÉTECTION DES CHANGEMENTS ===
+      - name: Detect changes
+        id: changes
+        run: |
+          echo "🔍 Détection des fichiers modifiés..."
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "nuxt_changed=true" >> $GITHUB_OUTPUT
+            echo "symfony_changed=true" >> $GITHUB_OUTPUT
+            echo "✅ Déploiement manuel : tout sera déployé"
+          else
+            # Détecter les changements dans Nuxt
+            if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q "^nuxt/"; then
+              echo "nuxt_changed=true" >> $GITHUB_OUTPUT
+              echo "✅ Changements détectés dans Nuxt"
+            else
+              echo "nuxt_changed=false" >> $GITHUB_OUTPUT
+              echo "ℹ️ Aucun changement dans Nuxt"
+            fi
+            
+            # Détecter les changements dans Symfony
+            if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q "^symfony/\|^Dockerfile\|^docker-compose"; then
+              echo "symfony_changed=true" >> $GITHUB_OUTPUT
+              echo "✅ Changements détectés dans Symfony"
+            else
+              echo "symfony_changed=false" >> $GITHUB_OUTPUT
+              echo "ℹ️ Aucun changement dans Symfony"
+            fi
+          fi
+
+      # === BUILD NUXT (si nécessaire) ===
       - name: Setup Node.js
+        if: steps.changes.outputs.nuxt_changed == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -24,10 +54,12 @@ jobs:
           cache-dependency-path: nuxt/package-lock.json
 
       - name: Install dependencies
+        if: steps.changes.outputs.nuxt_changed == 'true'
         working-directory: ./nuxt
         run: npm ci
 
       - name: Build Nuxt application
+        if: steps.changes.outputs.nuxt_changed == 'true'
         working-directory: ./nuxt
         env:
           NUXT_PUBLIC_API_BASE: ${{ secrets.NUXT_PUBLIC_API_BASE || 'https://portfolio.vthiebaut.fr/api' }}
@@ -49,6 +81,7 @@ jobs:
           ls -la .output/public | head -20
 
       - name: Create deployment archive
+        if: steps.changes.outputs.nuxt_changed == 'true'
         run: |
           # Vérifier que les fichiers existent
           if [ ! -d "nuxt/.output/public" ]; then
@@ -80,8 +113,9 @@ jobs:
           ls -lh deploy-nuxt.tar.gz
           pwd
 
-      # === DEPLOY TO SERVER ===
+      # === VÉRIFICATION ARCHIVE ===
       - name: Verify archive before deploy
+        if: steps.changes.outputs.nuxt_changed == 'true'
         run: |
           if [ ! -f "deploy-nuxt.tar.gz" ]; then
             echo "❌ Erreur: deploy-nuxt.tar.gz n'existe pas"
@@ -97,7 +131,9 @@ jobs:
           echo "✅ Archive vérifiée: $(du -h deploy-nuxt.tar.gz | cut -f1)"
           ls -lh deploy-nuxt.tar.gz
 
+      # === PRÉPARATION SERVEUR ===
       - name: Prepare deployment directory
+        if: steps.changes.outputs.nuxt_changed == 'true' || steps.changes.outputs.symfony_changed == 'true'
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -118,29 +154,61 @@ jobs:
             # Préparer le répertoire de déploiement
             sudo mkdir -p /var/www/portfolio
             
-            # Sauvegarder l'ancien build
-            if [ -d "/var/www/portfolio" ] && [ "$(ls -A /var/www/portfolio 2>/dev/null)" ]; then
+            # Sauvegarder l'ancien build (uniquement si Nuxt change)
+            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ] && [ -d "/var/www/portfolio" ] && [ "$(ls -A /var/www/portfolio 2>/dev/null)" ]; then
               sudo mv /var/www/portfolio /var/www/portfolio.backup.$(date +%Y%m%d_%H%M%S) || true
+              sudo mkdir -p /var/www/portfolio
             fi
-            
-            sudo mkdir -p /var/www/portfolio
 
+      # === TRANSFERT ARCHIVE NUXT ===
       - name: Transfer archive via rsync
+        if: steps.changes.outputs.nuxt_changed == 'true'
         run: |
           echo "📤 Transfert de l'archive via rsync..."
+          
+          # Vérifier que l'archive existe localement
+          if [ ! -f "deploy-nuxt.tar.gz" ]; then
+            echo "❌ Erreur: deploy-nuxt.tar.gz n'existe pas localement"
+            ls -la | grep tar || echo "Aucun fichier tar trouvé"
+            exit 1
+          fi
+          
+          echo "📦 Taille de l'archive: $(du -h deploy-nuxt.tar.gz | cut -f1)"
+          
+          # Créer la clé SSH
           echo "${{ secrets.SERVER_SSH_KEY }}" > /tmp/deploy_key
           chmod 600 /tmp/deploy_key
           
+          # Test de connexion SSH
+          echo "🔍 Test de connexion SSH..."
+          ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT || 22 }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "echo '✅ Connexion SSH OK'" || {
+            echo "❌ Erreur: Impossible de se connecter au serveur"
+            rm -f /tmp/deploy_key
+            exit 1
+          }
+          
           # Transférer le fichier (rsync avec --no-dirs pour éviter de créer un dossier)
-          rsync -avz --progress --no-dirs -e "ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT || 22 }}" deploy-nuxt.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/tmp/deploy-nuxt.tar.gz
+          echo "📤 Transfert en cours..."
+          rsync -avz --progress --no-dirs -e "ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT || 22 }}" deploy-nuxt.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/tmp/deploy-nuxt.tar.gz || {
+            echo "❌ Erreur: Échec du transfert rsync"
+            rm -f /tmp/deploy_key
+            exit 1
+          }
           
           # Vérifier que c'est bien un fichier et non un dossier
-          ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT || 22 }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "test -f /tmp/deploy-nuxt.tar.gz && echo '✅ Fichier transféré correctement' || (echo '❌ Erreur: ce n est pas un fichier' && ls -ld /tmp/deploy-nuxt.tar.gz && exit 1)"
+          echo "🔍 Vérification du fichier sur le serveur..."
+          ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT || 22 }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "test -f /tmp/deploy-nuxt.tar.gz && echo '✅ Fichier transféré correctement' && ls -lh /tmp/deploy-nuxt.tar.gz || (echo '❌ Erreur: ce n est pas un fichier' && ls -la /tmp/ | grep tar && exit 1)" || {
+            echo "❌ Erreur: Vérification du fichier échouée"
+            rm -f /tmp/deploy_key
+            exit 1
+          }
           
           rm -f /tmp/deploy_key
           echo "✅ Archive transférée et vérifiée"
 
+      # === DÉPLOIEMENT ===
       - name: Deploy and restart services
+        if: steps.changes.outputs.nuxt_changed == 'true' || steps.changes.outputs.symfony_changed == 'true'
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -148,67 +216,82 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
-            # === DÉPLOIEMENT NUXT ===
-            echo "📦 Déploiement du frontend Nuxt..."
-            
-            # Vérifier que l'archive existe
-            if [ ! -f "/tmp/deploy-nuxt.tar.gz" ]; then
-              echo "❌ Erreur: /tmp/deploy-nuxt.tar.gz n'existe pas"
-              ls -la /tmp/ | grep tar || echo "Aucun fichier tar dans /tmp/"
-              exit 1
-            fi
-            
-            # Vérifier les permissions de l'archive
-            ls -lh /tmp/deploy-nuxt.tar.gz
-            
-            # Extraire le nouveau build avec les bonnes permissions
-            echo "📦 Extraction de l'archive..."
-            sudo tar -xzf /tmp/deploy-nuxt.tar.gz -C /var/www/portfolio
-            
-            # Vérifier que les fichiers ont été extraits
-            if [ -z "$(ls -A /var/www/portfolio)" ]; then
-              echo "❌ Erreur: /var/www/portfolio est vide après extraction"
-              exit 1
-            fi
-            
-            echo "✅ Fichiers extraits: $(ls /var/www/portfolio | wc -l) fichiers"
-            
-            # Permissions
-            sudo chown -R www-data:www-data /var/www/portfolio 2>/dev/null || sudo chown -R 1000:1000 /var/www/portfolio || true
-            sudo chmod -R 755 /var/www/portfolio || true
-            rm -f /tmp/deploy-nuxt.tar.gz
-            
-            # === DÉPLOIEMENT SYMFONY ===
-            echo "🔧 Déploiement de l'API Symfony..."
-            cd /var/www/portfolio || exit 1
-            
-            # Vérifier que c'est un dépôt Git, sinon skip le pull
-            if [ -d ".git" ]; then
-              echo "📥 Pull des dernières modifications..."
-              git pull origin main || git pull origin master || true
+            # === DÉPLOIEMENT NUXT (si nécessaire) ===
+            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ]; then
+              echo "📦 Déploiement du frontend Nuxt..."
+              
+              # Vérifier que l'archive existe
+              if [ ! -f "/tmp/deploy-nuxt.tar.gz" ]; then
+                echo "❌ Erreur: /tmp/deploy-nuxt.tar.gz n'existe pas"
+                ls -la /tmp/ | grep tar || echo "Aucun fichier tar dans /tmp/"
+                exit 1
+              fi
+              
+              # Vérifier les permissions de l'archive
+              ls -lh /tmp/deploy-nuxt.tar.gz
+              
+              # Extraire le nouveau build avec les bonnes permissions
+              echo "📦 Extraction de l'archive..."
+              sudo tar -xzf /tmp/deploy-nuxt.tar.gz -C /var/www/portfolio
+              
+              # Vérifier que les fichiers ont été extraits
+              if [ -z "$(ls -A /var/www/portfolio)" ]; then
+                echo "❌ Erreur: /var/www/portfolio est vide après extraction"
+                exit 1
+              fi
+              
+              echo "✅ Fichiers extraits: $(ls /var/www/portfolio | wc -l) fichiers"
+              
+              # Permissions
+              sudo chown -R www-data:www-data /var/www/portfolio 2>/dev/null || sudo chown -R 1000:1000 /var/www/portfolio || true
+              sudo chmod -R 755 /var/www/portfolio || true
+              rm -f /tmp/deploy-nuxt.tar.gz
             else
-              echo "⚠️ /var/www/portfolio n'est pas un dépôt Git, skip du pull"
+              echo "ℹ️ Pas de changement dans Nuxt, skip du déploiement frontend"
             fi
             
-            # Rebuild et redémarre les containers
-            echo "🔨 Rebuild des containers Docker..."
-            docker compose -f docker-compose.prod.yml down
-            docker compose -f docker-compose.prod.yml build --no-cache
-            docker compose -f docker-compose.prod.yml up -d
+            # === DÉPLOIEMENT SYMFONY (si nécessaire) ===
+            if [ "${{ steps.changes.outputs.symfony_changed }}" == "true" ]; then
+              echo "🔧 Déploiement de l'API Symfony..."
+              cd /var/www/portfolio || exit 1
+              
+              # Vérifier que c'est un dépôt Git, sinon skip le pull
+              if [ -d ".git" ]; then
+                echo "📥 Pull des dernières modifications..."
+                git pull origin main || git pull origin master || true
+              else
+                echo "⚠️ /var/www/portfolio n'est pas un dépôt Git, skip du pull"
+              fi
+              
+              # Rebuild et redémarre les containers
+              echo "🔨 Rebuild des containers Docker..."
+              docker compose -f docker-compose.prod.yml down
+              docker compose -f docker-compose.prod.yml build --no-cache
+              docker compose -f docker-compose.prod.yml up -d
+              
+              # Attendre que les services soient prêts
+              echo "⏳ Attente du démarrage des services..."
+              sleep 15
+              
+              # Exécuter les migrations
+              echo "🔄 Exécution des migrations..."
+              docker exec php php bin/console doctrine:migrations:migrate --no-interaction || true
+            else
+              echo "ℹ️ Pas de changement dans Symfony, skip du déploiement backend"
+            fi
             
-            # Attendre que les services soient prêts
-            echo "⏳ Attente du démarrage des services..."
-            sleep 15
+            # === REDÉMARRAGE CADDY (si Nuxt a changé) ===
+            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ]; then
+              echo "🔄 Redémarrage de Caddy pour charger les nouveaux fichiers..."
+              docker compose -f docker-compose.prod.yml restart caddy || docker compose -f docker-compose.prod.yml up -d caddy || true
+            fi
             
-            # Exécuter les migrations
-            echo "🔄 Exécution des migrations..."
-            docker exec php php bin/console doctrine:migrations:migrate --no-interaction || true
-            
-            # Redémarrer Caddy pour charger les nouveaux fichiers
-            echo "🔄 Redémarrage de Caddy..."
-            docker compose -f docker-compose.prod.yml restart caddy || true
-            
-            echo "✅ Déploiement complet terminé avec succès !"
+            echo "✅ Déploiement terminé avec succès !"
             echo "📁 Frontend: /var/www/portfolio"
             echo "🐳 Containers: $(docker ps --format '{{.Names}}' | grep -E 'php|caddy|db' | wc -l) services actifs"
+            
+      # === NETTOYAGE ===
+      - name: Cleanup
+        if: always() && steps.changes.outputs.nuxt_changed == 'true'
+        run: rm -f deploy-nuxt.tar.gz
 
