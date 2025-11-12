@@ -546,9 +546,9 @@ const structuredData = computed(() => {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Valentin Thiebaut - Dépannage Informatique Dax",
-    "image": "https://vthiebaut.fr/images/cv-vthiebaut.png",
-    "@id": "https://vthiebaut.fr",
-    "url": "https://vthiebaut.fr",
+    "image": "https://portfolio.vthiebaut.fr/images/cv-vthiebaut.png",
+    "@id": "https://portfolio.vthiebaut.fr",
+    "url": "https://portfolio.vthiebaut.fr",
     "telephone": "+33626246341",
     "priceRange": "€€",
     "address": {
@@ -783,7 +783,7 @@ const projects = ref([
       '📬 Formulaire de contact intégré'
     ],
     descriptionConclusion: `Conçu en Vue 3 avec Tailwind, ce portfolio reflète à la fois mon style, ma rigueur, et mes compétences techniques en front-end.`,
-    link: 'https://vthiebaut.fr',
+    link: 'https://portfolio.vthiebaut.fr',
     images: ['/images/portfolio.png'],
     isMobileScreen: false
   }
