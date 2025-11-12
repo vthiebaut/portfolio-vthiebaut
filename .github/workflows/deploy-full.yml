@@ -46,7 +46,7 @@ jobs:
 
       # === BUILD NUXT (si nécessaire) ===
       - name: Setup Node.js
-        if: steps.changes.outputs.nuxt_changed == 'true'
+        if: steps.changes.outputs.nuxt_changed == 'true' || github.event_name == 'workflow_dispatch'
         uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -54,12 +54,12 @@ jobs:
           cache-dependency-path: nuxt/package-lock.json
 
       - name: Install dependencies
-        if: steps.changes.outputs.nuxt_changed == 'true'
+        if: steps.changes.outputs.nuxt_changed == 'true' || github.event_name == 'workflow_dispatch'
         working-directory: ./nuxt
         run: npm ci
 
       - name: Build Nuxt application
-        if: steps.changes.outputs.nuxt_changed == 'true'
+        if: steps.changes.outputs.nuxt_changed == 'true' || github.event_name == 'workflow_dispatch'
         working-directory: ./nuxt
         env:
           NUXT_PUBLIC_API_BASE: ${{ secrets.NUXT_PUBLIC_API_BASE || 'https://portfolio.vthiebaut.fr/api' }}
@@ -83,7 +83,7 @@ jobs:
           ls -la .output/public | head -20
 
       - name: Create deployment archive
-        if: steps.changes.outputs.nuxt_changed == 'true'
+        if: steps.changes.outputs.nuxt_changed == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           # Vérifier que les fichiers existent
           if [ ! -d "nuxt/.output/public" ]; then
@@ -137,7 +137,7 @@ jobs:
 
       # === VÉRIFICATION ARCHIVE ===
       - name: Verify archive before deploy
-        if: steps.changes.outputs.nuxt_changed == 'true'
+        if: steps.changes.outputs.nuxt_changed == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           if [ ! -f "deploy-nuxt.tar.gz" ]; then
             echo "❌ Erreur: deploy-nuxt.tar.gz n'existe pas"
@@ -177,7 +177,7 @@ jobs:
             sudo mkdir -p /var/www/portfolio
             
             # Sauvegarder uniquement les fichiers Nuxt (pas les config Docker)
-            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ]; then
+            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
               echo "💾 Sauvegarde des anciens fichiers Nuxt..."
               BACKUP_DIR="/var/www/portfolio.backup.$(date +%Y%m%d_%H%M%S)"
               sudo mkdir -p "$BACKUP_DIR"
@@ -193,7 +193,7 @@ jobs:
 
       # === TRANSFERT ARCHIVE NUXT ===
       - name: Transfer archive via rsync
-        if: steps.changes.outputs.nuxt_changed == 'true'
+        if: steps.changes.outputs.nuxt_changed == 'true' || github.event_name == 'workflow_dispatch'
         run: |
           echo "📤 Transfert de l'archive via rsync..."
           
@@ -248,7 +248,20 @@ jobs:
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
             # === DÉPLOIEMENT NUXT (si nécessaire) ===
-            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ]; then
+            # Déployer si changements détectés, workflow manuel, ou si le dossier ne contient que les fichiers de config
+            SHOULD_DEPLOY_NUXT=false
+            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+              SHOULD_DEPLOY_NUXT=true
+            else
+              # Vérifier si le dossier ne contient que les fichiers de config (pas de fichiers Nuxt)
+              FILES_COUNT=$(ls -A /var/www/portfolio 2>/dev/null | grep -v docker-compose.prod.yml | grep -v Caddyfile | grep -v Dockerfile | grep -v symfony | wc -l)
+              if [ "$FILES_COUNT" -eq 0 ]; then
+                SHOULD_DEPLOY_NUXT=true
+                echo "📁 Dossier vide ou ne contient que les config, déploiement nécessaire"
+              fi
+            fi
+            
+            if [ "$SHOULD_DEPLOY_NUXT" == "true" ]; then
               echo "📦 Déploiement du frontend Nuxt..."
               
               # Vérifier que l'archive existe
@@ -303,7 +316,7 @@ jobs:
               sudo chmod -R 755 /var/www/portfolio || true
               rm -f /tmp/deploy-nuxt.tar.gz
             else
-              echo "ℹ️ Pas de changement dans Nuxt, skip du déploiement frontend"
+              echo "ℹ️ Pas de changement dans Nuxt et dossier contient déjà les fichiers, skip du déploiement frontend"
             fi
             
             # === DÉPLOIEMENT SYMFONY (si nécessaire) ===
@@ -337,7 +350,7 @@ jobs:
             fi
             
             # === REDÉMARRAGE CADDY (si Nuxt a changé) ===
-            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ]; then
+            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
               echo "🔄 Redémarrage de Caddy pour charger les nouveaux fichiers..."
               docker compose -f docker-compose.prod.yml restart caddy || docker compose -f docker-compose.prod.yml up -d caddy || true
             fi
@@ -348,6 +361,6 @@ jobs:
             
       # === NETTOYAGE ===
       - name: Cleanup
-        if: always() && steps.changes.outputs.nuxt_changed == 'true'
+        if: always() && (steps.changes.outputs.nuxt_changed == 'true' || github.event_name == 'workflow_dispatch')
         run: rm -f deploy-nuxt.tar.gz
 
