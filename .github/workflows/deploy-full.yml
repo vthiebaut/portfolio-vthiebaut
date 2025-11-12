@@ -25,19 +25,47 @@ jobs:
             echo "symfony_changed=true" >> $GITHUB_OUTPUT
             echo "✅ Déploiement manuel : tout sera déployé"
           else
+            # Déterminer la méthode de comparaison
+            # Vérifier si github.event.before existe et est valide
+            if [ -n "${{ github.event.before }}" ] && git cat-file -e "${{ github.event.before }}" 2>/dev/null; then
+              BEFORE_COMMIT="${{ github.event.before }}"
+              AFTER_COMMIT="${{ github.sha }}"
+              echo "📝 Comparaison: $BEFORE_COMMIT..$AFTER_COMMIT"
+            elif git rev-parse HEAD~1 >/dev/null 2>&1; then
+              # Fallback: comparer avec le commit précédent
+              BEFORE_COMMIT="HEAD~1"
+              AFTER_COMMIT="HEAD"
+              echo "📝 Comparaison avec commit précédent: HEAD~1..HEAD"
+            else
+              # Dernier fallback: utiliser les fichiers modifiés dans le commit actuel
+              BEFORE_COMMIT=""
+              AFTER_COMMIT="HEAD"
+              echo "📝 Analyse du commit actuel uniquement"
+            fi
+            
             # Détecter les changements dans Nuxt (inclure nuxt.config.ts, package.json, etc.)
-            if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -qE "^(nuxt/|nuxt\.config\.|package\.json|package-lock\.json)"; then
+            if [ -n "$BEFORE_COMMIT" ]; then
+              CHANGED_FILES=$(git diff --name-only "$BEFORE_COMMIT" "$AFTER_COMMIT" 2>/dev/null || echo "")
+            else
+              CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r "$AFTER_COMMIT" 2>/dev/null || echo "")
+            fi
+            
+            if echo "$CHANGED_FILES" | grep -qE "^(nuxt/|nuxt\.config\.|package\.json|package-lock\.json)"; then
               echo "nuxt_changed=true" >> $GITHUB_OUTPUT
               echo "✅ Changements détectés dans Nuxt"
+              echo "📋 Fichiers modifiés:"
+              echo "$CHANGED_FILES" | grep -E "^(nuxt/|nuxt\.config\.|package\.json|package-lock\.json)" || true
             else
               echo "nuxt_changed=false" >> $GITHUB_OUTPUT
               echo "ℹ️ Aucun changement dans Nuxt"
             fi
             
             # Détecter les changements dans Symfony
-            if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q "^symfony/\|^Dockerfile\|^docker-compose"; then
+            if echo "$CHANGED_FILES" | grep -qE "^(symfony/|Dockerfile|docker-compose)"; then
               echo "symfony_changed=true" >> $GITHUB_OUTPUT
               echo "✅ Changements détectés dans Symfony"
+              echo "📋 Fichiers modifiés:"
+              echo "$CHANGED_FILES" | grep -E "^(symfony/|Dockerfile|docker-compose)" || true
             else
               echo "symfony_changed=false" >> $GITHUB_OUTPUT
               echo "ℹ️ Aucun changement dans Symfony"
