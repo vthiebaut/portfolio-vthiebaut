@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   ],
 
 
-  // Configuration SEO - Portfolio avec référence dépannage informatique Dax
+  // Configuration SEO - Portfolio avec référence dépannage informatique Dax - update test
   site: {
     url: process.env.NUXT_PUBLIC_SITE_URL || 'https://portfolio.vthiebaut.fr',
     name: 'Valentin Thiebaut - Développeur Full-Stack',
