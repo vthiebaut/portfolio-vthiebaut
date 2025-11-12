@@ -80,6 +80,8 @@ export default defineNuxtConfig({
   // En mode statique, on n'utilise pas l'API
   sitemap: {
     // sources: [] // Désactivé pour le mode statique, le sitemap sera généré automatiquement
+    // S'assurer que le sitemap utilise la bonne URL de base
+    hostname: 'https://portfolio.vthiebaut.fr',
   },
 
   // Optimisations SEO
