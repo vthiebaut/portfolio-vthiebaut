@@ -3,5 +3,5 @@ Allow: /
 Disallow: /backoffice/
 Disallow: /api/
 
-Sitemap: https://vthiebaut.fr/sitemap.xml
+Sitemap: https://portfolio.vthiebaut.fr/sitemap.xml
 

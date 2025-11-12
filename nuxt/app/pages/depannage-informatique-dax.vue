@@ -188,9 +188,9 @@ const structuredData = computed(() => {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Valentin Thiebaut - Dépannage Informatique Dax",
-    "image": "https://vthiebaut.fr/images/cv-vthiebaut.png",
-    "@id": "https://vthiebaut.fr/depannage-informatique-dax",
-    "url": "https://vthiebaut.fr/depannage-informatique-dax",
+    "image": "https://portfolio.vthiebaut.fr/images/cv-vthiebaut.png",
+    "@id": "https://portfolio.vthiebaut.fr/depannage-informatique-dax",
+    "url": "https://portfolio.vthiebaut.fr/depannage-informatique-dax",
     "telephone": "+33626246341",
     "email": "contact@vthiebaut.fr",
     "priceRange": "€€",
@@ -336,7 +336,7 @@ useHead({
   link: [
     {
       rel: 'canonical',
-      href: 'https://vthiebaut.fr/depannage-informatique-dax'
+      href: 'https://portfolio.vthiebaut.fr/depannage-informatique-dax'
     }
   ]
 })

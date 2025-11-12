@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 
   // Configuration SEO - Portfolio avec référence dépannage informatique Dax
   site: {
-    url: 'https://vthiebaut.fr',
+    url: 'https://portfolio.vthiebaut.fr',
     name: 'Valentin Thiebaut - Développeur Full-Stack',
     description: 'Portfolio de Valentin Thiebaut, développeur full-stack. Développement web, mobile et services de dépannage informatique à Dax et dans les Landes.',
     defaultLocale: 'fr',

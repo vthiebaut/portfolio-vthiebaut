@@ -544,7 +544,7 @@ const structuredData = computed(() => {
     "name": "Valentin Thiebaut",
     "jobTitle": "Développeur Freelance Web",
     "description": "Développeur freelance web et mobile spécialisé en Vue.js, Symfony et React Native. Développement d'applications web et mobiles sur mesure.",
-    "url": "https://vthiebaut.fr",
+    "url": "https://portfolio.vthiebaut.fr",
     "sameAs": [
       "https://www.linkedin.com/in/valentin-thiebaut",
       "https://github.com/vthiebaut"
