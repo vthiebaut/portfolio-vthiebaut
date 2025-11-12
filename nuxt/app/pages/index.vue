@@ -780,7 +780,9 @@ const currentIndexes = ref(projects.value.map(() => 0))
 
 const skills = [
   { label: 'VueJS 3 / Vite', level: 90 },
+  { label: 'React', level: 85 },
   { label: 'Symfony 7', level: 90 },
+  { label: 'NestJS', level: 80 },
   { label: 'React Native', level: 80 },
   { label: 'Tailwind CSS', level: 90 },
   { label: 'Docker & CI/CD', level: 65 },
