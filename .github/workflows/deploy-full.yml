@@ -155,7 +155,7 @@ jobs:
 
       # === PRÉPARATION SERVEUR ===
       - name: Prepare deployment directory
-        if: steps.changes.outputs.nuxt_changed == 'true' || steps.changes.outputs.symfony_changed == 'true'
+        if: steps.changes.outputs.nuxt_changed == 'true' || steps.changes.outputs.symfony_changed == 'true' || github.event_name == 'workflow_dispatch'
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -239,7 +239,7 @@ jobs:
 
       # === DÉPLOIEMENT ===
       - name: Deploy and restart services
-        if: steps.changes.outputs.nuxt_changed == 'true' || steps.changes.outputs.symfony_changed == 'true'
+        if: steps.changes.outputs.nuxt_changed == 'true' || steps.changes.outputs.symfony_changed == 'true' || github.event_name == 'workflow_dispatch'
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
