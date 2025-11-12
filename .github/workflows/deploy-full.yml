@@ -176,10 +176,19 @@ jobs:
             # Préparer le répertoire de déploiement
             sudo mkdir -p /var/www/portfolio
             
-            # Sauvegarder l'ancien build (uniquement si Nuxt change)
-            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ] && [ -d "/var/www/portfolio" ] && [ "$(ls -A /var/www/portfolio 2>/dev/null)" ]; then
-              sudo mv /var/www/portfolio /var/www/portfolio.backup.$(date +%Y%m%d_%H%M%S) || true
-              sudo mkdir -p /var/www/portfolio
+            # Sauvegarder uniquement les fichiers Nuxt (pas les config Docker)
+            if [ "${{ steps.changes.outputs.nuxt_changed }}" == "true" ]; then
+              echo "💾 Sauvegarde des anciens fichiers Nuxt..."
+              BACKUP_DIR="/var/www/portfolio.backup.$(date +%Y%m%d_%H%M%S)"
+              sudo mkdir -p "$BACKUP_DIR"
+              
+              # Sauvegarder uniquement les fichiers Nuxt (exclure config Docker et symfony)
+              if [ -d "/var/www/portfolio" ]; then
+                sudo find /var/www/portfolio -maxdepth 1 -type f ! -name "docker-compose.prod.yml" ! -name "Caddyfile" ! -name "Dockerfile" -exec cp {} "$BACKUP_DIR/" \; 2>/dev/null || true
+                sudo find /var/www/portfolio -maxdepth 1 -type d ! -name "symfony" ! -name "." ! -name ".." -exec cp -r {} "$BACKUP_DIR/" \; 2>/dev/null || true
+              fi
+              
+              echo "✅ Sauvegarde créée dans $BACKUP_DIR"
             fi
 
       # === TRANSFERT ARCHIVE NUXT ===
@@ -257,9 +266,16 @@ jobs:
                 echo "📅 Ancien sitemap: $(stat -c %y /var/www/portfolio/sitemap.xml)"
               fi
               
-              # Supprimer les anciens fichiers pour forcer le remplacement
-              echo "🧹 Nettoyage des anciens fichiers..."
-              sudo find /var/www/portfolio -mindepth 1 -maxdepth 1 ! -name 'docker-compose.prod.yml' ! -name 'Caddyfile' ! -name 'Dockerfile' ! -name 'symfony' -exec rm -rf {} + || true
+              # Supprimer uniquement les anciens fichiers Nuxt (préserver config Docker et symfony)
+              echo "🧹 Nettoyage des anciens fichiers Nuxt..."
+              # Supprimer les fichiers (pas les dossiers)
+              sudo find /var/www/portfolio -maxdepth 1 -type f ! -name "docker-compose.prod.yml" ! -name "Caddyfile" ! -name "Dockerfile" -delete 2>/dev/null || true
+              # Supprimer les dossiers Nuxt (pas symfony)
+              sudo find /var/www/portfolio -maxdepth 1 -type d ! -name "symfony" ! -name "." ! -name ".." ! -name "portfolio" -exec rm -rf {} + 2>/dev/null || true
+              
+              # Vérifier que les fichiers de config sont toujours là
+              echo "📋 Fichiers de config préservés:"
+              ls -la /var/www/portfolio/ | grep -E "docker-compose|Caddyfile|Dockerfile|symfony" || echo "⚠️ Aucun fichier de config trouvé"
               
               # Extraire le nouveau build avec les bonnes permissions
               echo "📦 Extraction de l'archive..."
