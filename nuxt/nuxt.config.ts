@@ -93,6 +93,20 @@ export default defineNuxtConfig({
       ignore: ['/backoffice', '/backoffice-login', '/backoffice/**'],
       // Ne pas suivre les liens vers backoffice
       failOnError: false
+    },
+    // Éviter les redirections inutiles
+    routeRules: {
+      '/depannage-informatique-dax': { 
+        prerender: true,
+        index: false // Ne pas créer de dossier, créer un fichier HTML
+      }
+    }
+  },
+  
+  // Configuration du router pour éviter les redirections de trailing slash
+  router: {
+    options: {
+      strict: false // Permettre les URLs avec ou sans trailing slash sans redirection
     }
   },
 

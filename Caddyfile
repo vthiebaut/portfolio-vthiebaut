@@ -1,6 +1,10 @@
 portfolio.vthiebaut.fr, www.portfolio.vthiebaut.fr {
     encode zstd gzip
 
+    # --- Redirection www vers apex (AVANT les handle blocks) ---
+    @www host www.portfolio.vthiebaut.fr
+    redir @www https://portfolio.vthiebaut.fr{uri} permanent
+
     # --- API Symfony ---
     @api path /api/* /index.php
     handle @api {
@@ -15,8 +19,4 @@ portfolio.vthiebaut.fr, www.portfolio.vthiebaut.fr {
         try_files {path} /index.html
         file_server
     }
-
-    # --- Redirection www vers apex ---
-    @www host www.portfolio.vthiebaut.fr
-    redir @www https://portfolio.vthiebaut.fr{uri} permanent
 }
