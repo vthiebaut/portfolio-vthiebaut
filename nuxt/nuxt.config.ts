@@ -88,7 +88,18 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/depannage-informatique-dax'],
+      routes: [
+        '/',
+        '/depannage-informatique-dax',
+        '/reparation-ordinateur-dax',
+        '/installation-ssd-dax',
+        '/nettoyage-virus-dax',
+        '/optimisation-pc-dax',
+        '/depannage-informatique-saint-paul-les-dax',
+        '/depannage-informatique-landes',
+        '/reparation-pc-saint-paul-les-dax',
+        '/zones-intervention'
+      ],
       // Exclure les pages qui nécessitent l'API (backoffice)
       ignore: ['/backoffice', '/backoffice-login', '/backoffice/**'],
       // Ne pas suivre les liens vers backoffice
@@ -97,8 +108,7 @@ export default defineNuxtConfig({
     // Éviter les redirections inutiles
     routeRules: {
       '/depannage-informatique-dax': { 
-        prerender: true,
-        index: false // Ne pas créer de dossier, créer un fichier HTML
+        prerender: true
       }
     }
   },

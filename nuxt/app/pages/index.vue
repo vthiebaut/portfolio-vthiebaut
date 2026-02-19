@@ -149,11 +149,11 @@
             <div class="card-inner w-full h-full shadow-xl flex items-center justify-center">
               <!-- Face avant -->
               <div class="card-front flex flex-col items-center justify-center gap-6 bg-gray-50 rounded-lg w-full h-full p-6 border border-gray-200">
-                <template v-if="p.images && p.images.length > 0 && p.images[currentIndexes[i]]">
+                <template v-if="p.images && p.images.length > 0 && p.images[imageIndex(i)]">
                   <template v-if="p.isMobileScreen">
                     <figure class="border border-gray-300 rounded-2xl shadow-md overflow-hidden w-[200px] h-[440px]">
                       <img 
-                        :src="p.images[currentIndexes[i]]" 
+                        :src="p.images[imageIndex(i)]" 
                         :alt="`Capture d'écran du projet ${p.title}`"
                         loading="lazy"
                         class="w-full h-full object-contain transition-all duration-500" />
@@ -162,7 +162,7 @@
                   <template v-else>
                     <figure class="overflow-hidden rounded-lg shadow-md w-full">
                       <img 
-                        :src="p.images[currentIndexes[i]]" 
+                        :src="p.images[imageIndex(i)]" 
                         :alt="`Capture d'écran du projet ${p.title}`"
                         loading="lazy"
                         class="w-full h-56 object-cover transition-all duration-500" />
@@ -521,6 +521,7 @@
 
 <script setup lang="ts">
 import emailjs from '@emailjs/browser'
+import { useSeoMeta, useHead } from '#imports'
 
 const config = useRuntimeConfig()
 
@@ -596,14 +597,14 @@ const structuredData = computed(() => {
 })
 
 // Injection du structured data dans le head
-useHead({
+useHead(() => ({
   script: [
     {
       type: 'application/ld+json',
-      children: structuredData.value
+      innerHTML: structuredData.value
     }
   ]
-})
+}))
 
 const particlesConfig = {
   particles: {
@@ -670,11 +671,11 @@ onMounted(async () => {
     }
     
     // Import dynamique de particles.js uniquement côté client
-    const particlesJS = (await import('particles.js')).default
-    // @ts-ignore
-    particlesJS('particles-js', particlesConfig)
-    // @ts-ignore
-    particlesJS('particles-contact', particlesConfig)
+    const particlesJS = (window as any).particlesJS
+    if (typeof particlesJS === 'function') {
+      particlesJS('particles-js', particlesConfig)
+      particlesJS('particles-contact', particlesConfig)
+    }
   }
 })
 
@@ -777,6 +778,11 @@ const projects = ref([
 ])
 
 const currentIndexes = ref(projects.value.map(() => 0))
+
+const imageIndex = (i: number) => {
+  const index = currentIndexes.value[i]
+  return typeof index === 'number' ? index : 0
+}
 
 const skills = [
   { label: 'VueJS 3 / Vite', level: 90 },
