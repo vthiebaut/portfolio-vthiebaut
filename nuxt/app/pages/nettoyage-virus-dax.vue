@@ -1,16 +1,16 @@
 <template>
-  <main class="bg-slate-950 text-white min-h-screen">
+  <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
     <!-- Hero -->
     <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
       <h1 class="text-3xl md:text-4xl font-extrabold mb-4">
         Nettoyage de virus à Dax – PC sain et sécurisé
       </h1>
-      <p class="text-lg text-slate-200 mb-4">
+      <p class="text-lg text-gray-700 mb-4">
         Votre ordinateur affiche des publicités bizarres, est devenu très lent ou ouvre des pages
         sans votre accord&nbsp;? Je propose un <strong>nettoyage de virus à Dax</strong> pour remettre
         votre PC en état et sécuriser votre navigation.
       </p>
-      <p class="text-slate-300 mb-6">
+      <p class="text-gray-600 mb-6">
         Basé à Dax, j’interviens à domicile ou à distance pour supprimer les virus, malwares,
         spywares et programmes indésirables, puis renforcer la protection de votre ordinateur
         dans les Landes.
@@ -18,39 +18,39 @@
       <div class="flex flex-col sm:flex-row items-start gap-4">
         <a
           :href="`tel:${phone}`"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-slate-950 font-semibold shadow-lg hover:bg-emerald-400 transition"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
         >
           Appeler maintenant – {{ phoneDisplay }}
         </a>
         <NuxtLink
           to="/#contact"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-slate-600 text-slate-100 hover:bg-slate-800 transition"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-50 transition"
         >
           Demander un nettoyage de virus
         </NuxtLink>
       </div>
-      <p class="text-xs text-slate-400 mt-3">
+      <p class="text-xs text-gray-500 mt-3">
         Intervention à domicile sur Dax et alentours, ou à distance si adapté.
       </p>
     </section>
 
     <!-- Intervention rapide -->
-    <section class="bg-slate-900 py-12 px-4 md:px-8">
+    <section class="bg-white py-12 border-t border-gray-200 px-4 md:px-8">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-4">
           Intervention rapide pour nettoyage de virus à Dax
         </h2>
-        <p class="text-slate-200 mb-4">
+        <p class="text-gray-700 mb-4">
           Un PC infecté par des malwares ou des adwares peut vite devenir inutilisable
           et mettre vos données en danger. À Dax, j’interviens rapidement pour analyser
           la situation et supprimer les infections.
         </p>
-        <p class="text-slate-300 mb-4">
+        <p class="text-gray-600 mb-4">
           Selon le type de virus et l’état de votre système, le nettoyage peut se faire
           à domicile, dans les environs de Dax, ou à distance pour certains cas
           de simple infection logicielle.
         </p>
-        <p class="text-slate-300">
+        <p class="text-gray-600">
           L’objectif est double&nbsp;: retrouver un ordinateur utilisable et limiter les risques
           pour vos mots de passe, vos comptes en ligne et vos documents importants.
         </p>
@@ -63,10 +63,10 @@
         <h2 class="text-2xl font-bold mb-4">
           Pourquoi faire nettoyer votre PC par un technicien local à Dax&nbsp;?
         </h2>
-        <div class="grid md:grid-cols-2 gap-6 text-slate-200">
+        <div class="grid md:grid-cols-2 gap-6 text-gray-700">
           <div>
             <h3 class="font-semibold mb-2">Diagnostic personnalisé</h3>
-            <p class="text-slate-300">
+            <p class="text-gray-600">
               Chaque situation est différente. Plutôt que d’utiliser un outil automatique,
               j’analyse l’état de votre PC à Dax pour choisir la meilleure méthode
               de nettoyage.
@@ -74,21 +74,21 @@
           </div>
           <div>
             <h3 class="font-semibold mb-2">Protection des données</h3>
-            <p class="text-slate-300">
+            <p class="text-gray-600">
               Avant les actions lourdes, nous parlons de vos données et, si besoin,
               une sauvegarde est réalisée pour minimiser les risques de perte de fichiers.
             </p>
           </div>
           <div>
             <h3 class="font-semibold mb-2">Explications claires</h3>
-            <p class="text-slate-300">
+            <p class="text-gray-600">
               Je vous explique d’où viennent les infections, comment les éviter
               et quels réflexes adopter pour naviguer plus sereinement.
             </p>
           </div>
           <div>
             <h3 class="font-semibold mb-2">Suivi dans le temps</h3>
-            <p class="text-slate-300">
+            <p class="text-gray-600">
               En tant que technicien local, je reste disponible après l’intervention
               pour répondre à vos questions ou intervenir de nouveau si besoin.
             </p>
@@ -98,36 +98,36 @@
     </section>
 
     <!-- Services détaillés -->
-    <section class="bg-slate-900 py-12 px-4 md:px-8">
+    <section class="bg-white py-12 border-t border-gray-200 px-4 md:px-8">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6">
           Services de nettoyage de virus à Dax
         </h2>
         <div class="grid md:grid-cols-2 gap-6">
-          <article class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+          <article class="bg-gray-50 rounded-xl p-5 border border-gray-200">
             <h3 class="font-semibold mb-2">Analyse des infections</h3>
-            <p class="text-slate-300">
+            <p class="text-gray-600">
               Vérification des programmes au démarrage, des extensions de navigateur,
               des tâches planifiées et des logiciels suspects installés à votre insu.
             </p>
           </article>
-          <article class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+          <article class="bg-gray-50 rounded-xl p-5 border border-gray-200">
             <h3 class="font-semibold mb-2">Suppression des malwares</h3>
-            <p class="text-slate-300">
+            <p class="text-gray-600">
               Nettoyage des adwares, spywares, barres d’outils, faux antivirus et
               programmes malveillants qui ralentissent votre ordinateur.
             </p>
           </article>
-          <article class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+          <article class="bg-gray-50 rounded-xl p-5 border border-gray-200">
             <h3 class="font-semibold mb-2">Vérification de la sécurité</h3>
-            <p class="text-slate-300">
+            <p class="text-gray-600">
               Contrôle de la présence d’un antivirus efficace, des mises à jour Windows
               et des paramètres de sécurité de base.
             </p>
           </article>
-          <article class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+          <article class="bg-gray-50 rounded-xl p-5 border border-gray-200">
             <h3 class="font-semibold mb-2">Conseils de prévention</h3>
-            <p class="text-slate-300">
+            <p class="text-gray-600">
               Explications sur les pratiques à éviter, les sites à risque, la gestion
               des mots de passe et les sauvegardes à mettre en place.
             </p>
@@ -142,7 +142,7 @@
         <h2 class="text-2xl font-bold mb-4">
           Zone d’intervention pour le nettoyage de virus
         </h2>
-        <p class="text-slate-300 mb-4">
+        <p class="text-gray-600 mb-4">
           J’interviens principalement pour le <strong>nettoyage de virus à Dax</strong> et dans
           les communes voisines des Landes. Certaines interventions peuvent être réalisées
           à distance si le PC démarre encore correctement.
@@ -151,7 +151,7 @@
           <li
             v-for="city in areaServed"
             :key="city"
-            class="px-3 py-1 rounded-full bg-slate-800 text-slate-100"
+            class="px-3 py-1 rounded-full bg-gray-200 text-gray-800"
           >
             {{ city }}
           </li>
@@ -160,17 +160,17 @@
     </section>
 
     <!-- Tarifs / devis -->
-    <section class="bg-slate-900 py-12 px-4 md:px-8">
+    <section class="bg-white py-12 border-t border-gray-200 px-4 md:px-8">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-4">
           Tarifs nettoyage de virus à Dax
         </h2>
-        <p class="text-slate-300 mb-4">
+        <p class="text-gray-600 mb-4">
           Le tarif dépend du niveau d’infection, du temps de nettoyage nécessaire
           et de la complexité de la remise en état du système. Un prix vous est
           annoncé avant le début de l’intervention.
         </p>
-        <p class="text-slate-200">
+        <p class="text-gray-700">
           Dans certains cas, si le système est trop endommagé, une réinstallation
           complète peut être recommandée. Cette solution est toujours discutée
           avec vous avant d’être mise en œuvre.
@@ -184,7 +184,7 @@
         <h2 class="text-2xl font-bold mb-4">
           Avis clients sur le nettoyage de virus à Dax
         </h2>
-        <p class="text-slate-300 mb-4">
+        <p class="text-gray-600 mb-4">
           Les témoignages de clients dépannés à Dax et dans les Landes après une infection
           seront bientôt disponibles ici pour vous aider à choisir un prestataire de confiance.
         </p>
@@ -192,7 +192,7 @@
     </section>
 
     <!-- FAQ -->
-    <section class="bg-slate-900 py-12 px-4 md:px-8">
+    <section class="bg-white py-12 border-t border-gray-200 px-4 md:px-8">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6">
           FAQ – Nettoyage de virus à Dax
@@ -201,12 +201,12 @@
           <details
             v-for="item in faqItems"
             :key="item.question"
-            class="bg-slate-800 rounded-xl p-4 border border-slate-700"
+            class="bg-gray-50 rounded-xl p-4 border border-gray-200"
           >
             <summary class="cursor-pointer font-semibold">
               {{ item.question }}
             </summary>
-            <p class="text-slate-300 mt-2">
+            <p class="text-gray-600 mt-2">
               {{ item.answer }}
             </p>
           </details>
@@ -220,7 +220,7 @@
         <h2 class="text-2xl font-bold mb-4">
           Votre PC semble infecté&nbsp;? Faites-le nettoyer à Dax.
         </h2>
-        <p class="text-slate-300 mb-6">
+        <p class="text-gray-600 mb-6">
           Plus un virus reste longtemps sur votre ordinateur, plus les risques augmentent.
           Contactez-moi rapidement pour un <strong>nettoyage de virus à Dax</strong> en toute
           sécurité.
@@ -228,13 +228,13 @@
         <div class="flex flex-col sm:flex-row justify-center gap-4 items-center">
           <a
             :href="`tel:${phone}`"
-            class="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-emerald-500 text-slate-950 font-semibold shadow-lg hover:bg-emerald-400 transition"
+            class="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
           >
             Appeler le {{ phoneDisplay }}
           </a>
           <NuxtLink
             to="/#contact"
-            class="inline-flex items-center justify-center px-8 py-3 rounded-xl border border-slate-600 text-slate-100 hover:bg-slate-800 transition"
+            class="inline-flex items-center justify-center px-8 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-50 transition"
           >
             Demander un nettoyage de virus
           </NuxtLink>
@@ -245,7 +245,7 @@
     <!-- Bouton sticky mobile -->
     <a
       :href="`tel:${phone}`"
-      class="fixed bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 bg-emerald-500 text-slate-950 font-semibold rounded-full shadow-xl z-50 block md:hidden"
+      class="fixed bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 bg-emerald-500 text-white font-semibold rounded-full shadow-xl z-50 block md:hidden"
     >
       Appeler – {{ phoneDisplay }}
     </a>

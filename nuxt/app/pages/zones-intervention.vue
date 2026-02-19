@@ -1,15 +1,15 @@
 <template>
-  <main class="bg-slate-950 text-white min-h-screen">
+  <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
     <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
       <h1 class="text-3xl md:text-4xl font-extrabold mb-4">
         Zones d’intervention – Dépannage informatique à Dax et dans les Landes
       </h1>
-      <p class="text-lg text-slate-200 mb-4">
+      <p class="text-lg text-gray-700 mb-4">
         Je propose du <strong>dépannage informatique à Dax</strong>, Saint-Paul-lès-Dax
         et dans plusieurs communes voisines des Landes. L’objectif&nbsp;: vous offrir
         un service de proximité, réactif et transparent.
       </p>
-      <p class="text-slate-300 mb-6">
+      <p class="text-gray-600 mb-6">
         Depuis Dax, j’interviens principalement dans un rayon d’environ 25 à 30 km.
         Certaines demandes plus éloignées peuvent être étudiées au cas par cas
         ou traitées à distance.
@@ -17,7 +17,7 @@
 
       <section class="mt-10">
         <h2 class="text-2xl font-bold mb-3">Villes principales</h2>
-        <ul class="list-disc list-inside text-slate-200 space-y-1">
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
           <li>
             <NuxtLink to="/depannage-informatique-dax" class="hover:text-emerald-400">
               Dépannage informatique à Dax
@@ -38,7 +38,7 @@
 
       <section class="mt-8">
         <h2 class="text-2xl font-bold mb-3">Services informatiques par besoin</h2>
-        <ul class="list-disc list-inside text-slate-200 space-y-1">
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
           <li>
             <NuxtLink to="/reparation-ordinateur-dax" class="hover:text-emerald-400">
               Réparation d’ordinateur à Dax
@@ -69,14 +69,14 @@
 
       <section class="mt-8">
         <h2 class="text-2xl font-bold mb-3">Liste de communes desservies</h2>
-        <p class="text-slate-300 mb-3">
+        <p class="text-gray-600 mb-3">
           Interventions fréquentes dans les communes suivantes (liste non exhaustive)&nbsp;:
         </p>
         <ul class="flex flex-wrap gap-2 text-sm">
           <li
             v-for="city in areaServed"
             :key="city"
-            class="px-3 py-1 rounded-full bg-slate-800 text-slate-100"
+            class="px-3 py-1 rounded-full bg-gray-200 text-gray-800"
           >
             {{ city }}
           </li>
@@ -87,20 +87,20 @@
         <h2 class="text-2xl font-bold mb-4">
           Vous êtes un peu plus loin de Dax&nbsp;?
         </h2>
-        <p class="text-slate-300 mb-6">
+        <p class="text-gray-600 mb-6">
           Décrivez-moi votre situation, votre ville et votre besoin. Nous verrons ensemble
           si une intervention sur place ou à distance est possible.
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4 items-center">
           <a
             :href="`tel:${phone}`"
-            class="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-emerald-500 text-slate-950 font-semibold shadow-lg hover:bg-emerald-400 transition"
+            class="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
           >
             Appeler le {{ phoneDisplay }}
           </a>
           <NuxtLink
             to="/#contact"
-            class="inline-flex items-center justify-center px-8 py-3 rounded-xl border border-slate-600 text-slate-100 hover:bg-slate-800 transition"
+            class="inline-flex items-center justify-center px-8 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-50 transition"
           >
             Envoyer une demande
           </NuxtLink>

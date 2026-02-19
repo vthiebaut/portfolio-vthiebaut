@@ -1,41 +1,47 @@
 <template>
-  <div class="font-sans text-gray-900 bg-gray-100 scroll-smooth">
-    <!-- Hero Section - Optimisé SEO pour dépannage informatique Dax -->
-    <header class="relative min-h-[60vh] flex flex-col items-center justify-center text-center py-20 px-4 bg-cover bg-center bg-gray-500">
-      <!-- Overlay -->
-      <div class="absolute inset-0 bg-black/70 pointer-events-none"></div>
-      <!-- Contenu -->
-      <div class="relative z-10">
-        <h1 class="text-white text-4xl md:text-6xl font-extrabold mb-4">
-          Dépannage Informatique Dax - Réparation PC & Montage
-        </h1>
-        <p class="text-white text-xl md:text-2xl max-w-3xl mx-auto mb-6">
-          Services de <strong>dépannage informatique à Dax</strong> : réparation PC, montage, cours et assistance informatique dans les Landes (40)
-        </p>
-        <p class="text-white text-lg max-w-2xl mx-auto mb-8">
-          <strong>Dépannage informatique Dax</strong> : services professionnels rapides et fiables pour particuliers et professionnels. Intervention à domicile dans un rayon de 30km autour de Dax.
-        </p>
-        <button
-          @click="goTo('contact')"
-          class="inline-block px-8 py-3 bg-white rounded-lg shadow-lg transition pointer-events-auto text-black hover:bg-[#fe007b] hover:text-white"
+  <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
+    <!-- Hero (même structure que les autres pages locales) -->
+    <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900">
+        Dépannage Informatique Dax – Réparation PC & Montage
+      </h1>
+      <p class="text-lg text-gray-700 mb-4">
+        Services de <strong>dépannage informatique à Dax</strong> : réparation PC, montage, cours et assistance informatique dans les Landes (40).
+      </p>
+      <p class="text-gray-600 mb-6">
+        <strong>Dépannage informatique Dax</strong> : services professionnels rapides et fiables pour particuliers et professionnels. Intervention à domicile dans un rayon de 30 km autour de Dax.
+      </p>
+      <div class="flex flex-col sm:flex-row items-start gap-4">
+        <a
+          :href="`tel:${phone}`"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
+        >
+          Appeler maintenant – {{ phoneDisplay }}
+        </a>
+        <NuxtLink
+          to="/#contact"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-100 transition"
         >
           Me contacter
-        </button>
+        </NuxtLink>
       </div>
-    </header>
+      <p class="text-xs text-gray-500 mt-3">
+        Intervention à domicile sur Dax et dans un rayon de 30 km.
+      </p>
+    </section>
 
     <!-- Section Services -->
-    <section class="py-20 px-4 bg-white">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-4xl font-bold text-center mb-12">🛠️ Services de dépannage informatique à Dax</h2>
-        <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+    <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">🛠️ Services de dépannage informatique à Dax</h2>
+        <p class="text-gray-600 mb-8">
           Spécialisé dans le <strong>dépannage informatique à Dax</strong>, je propose des services complets de réparation PC, montage et cours informatique pour particuliers et professionnels dans les Landes.
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Dépannage informatique -->
-          <article class="bg-gray-50 p-6 rounded-xl border border-gray-200 transition duration-300 hover:scale-[1.03] hover:shadow-xl">
-            <h3 class="text-xl font-semibold mb-2">🖥️ Dépannage informatique à Dax</h3>
+          <article class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">🖥️ Dépannage informatique à Dax</h3>
             <ul class="list-disc pl-5 text-gray-700 space-y-1">
               <li>Nettoyage & optimisation (PC lent)</li>
               <li>Suppression de virus / adwares</li>
@@ -47,8 +53,8 @@
           </article>
 
           <!-- Montage & upgrades -->
-          <article class="bg-gray-50 p-6 rounded-xl border border-gray-200 transition duration-300 hover:scale-[1.03] hover:shadow-xl">
-            <h3 class="text-xl font-semibold mb-2">🧩 Montage PC & upgrades à Dax</h3>
+          <article class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">🧩 Montage PC & upgrades à Dax</h3>
             <ul class="list-disc pl-5 text-gray-700 space-y-1">
               <li>Conseil configuration selon budget</li>
               <li>Montage complet & gestion des câbles</li>
@@ -59,8 +65,8 @@
           </article>
 
           <!-- Cours & accompagnement -->
-          <article class="bg-gray-50 p-6 rounded-xl border border-gray-200 transition duration-300 hover:scale-[1.03] hover:shadow-xl">
-            <h3 class="text-xl font-semibold mb-2">🎓 Cours informatique à Dax</h3>
+          <article class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">🎓 Cours informatique à Dax</h3>
             <ul class="list-disc pl-5 text-gray-700 space-y-1">
               <li>Bureautique : Windows/macOS, fichiers, sécurité</li>
               <li>Office / LibreOffice / Google Docs & Drive</li>
@@ -74,10 +80,10 @@
     </section>
 
     <!-- Zone d'intervention -->
-    <section class="py-20 px-4 bg-gray-100">
-      <div class="max-w-6xl mx-auto">
-        <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-md">
-          <h2 class="text-3xl font-semibold mb-4 text-center">📍 Zone d'intervention</h2>
+    <section class="py-12 px-4 md:px-8 bg-gray-50">
+      <div class="max-w-5xl mx-auto">
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+          <h2 class="text-2xl font-bold mb-4 text-gray-900">📍 Zone d'intervention</h2>
           <p class="text-center text-gray-700 mb-4 text-lg">
             Je me déplace dans <strong>Dax et les environs</strong> pour le <strong>dépannage informatique à domicile</strong>. 
             Spécialisé dans le <strong>dépannage informatique à Dax</strong>, j'interviens rapidement pour tous vos besoins en réparation PC.
@@ -92,84 +98,93 @@
       </div>
     </section>
 
-    <!-- FAQ Section - Optimisé SEO -->
-    <section class="py-20 px-4 bg-white">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl font-bold text-center mb-12">❓ Questions fréquentes - Dépannage Informatique Dax</h2>
-        <div class="space-y-6">
-          <details class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <summary class="font-semibold text-lg cursor-pointer">Quels sont les tarifs pour un dépannage informatique à Dax ?</summary>
-            <p class="mt-3 text-gray-700">Les tarifs varient selon la nature de l'intervention. Je propose un devis gratuit et sans engagement avant toute intervention. Contactez-moi pour discuter de vos besoins spécifiques.</p>
+    <!-- FAQ -->
+    <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">❓ Questions fréquentes – Dépannage informatique Dax</h2>
+        <div class="space-y-4">
+          <details class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm">
+            <summary class="font-semibold cursor-pointer text-gray-900">Quels sont les tarifs pour un dépannage informatique à Dax ?</summary>
+            <p class="mt-2 text-gray-600">Les tarifs varient selon la nature de l'intervention. Je propose un devis gratuit et sans engagement avant toute intervention. Contactez-moi pour discuter de vos besoins spécifiques.</p>
           </details>
-          <details class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <summary class="font-semibold text-lg cursor-pointer">Intervenez-vous à domicile pour le dépannage informatique à Dax ?</summary>
-            <p class="mt-3 text-gray-700">Oui, je me déplace à domicile dans Dax et dans un rayon de 30km autour de Dax (Saint-Paul-lès-Dax, Saint-Vincent-de-Paul, Yzosse, Mées, Narrosse).</p>
+          <details class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm">
+            <summary class="font-semibold cursor-pointer text-gray-900">Intervenez-vous à domicile pour le dépannage informatique à Dax ?</summary>
+            <p class="mt-2 text-gray-600">Oui, je me déplace à domicile dans Dax et dans un rayon de 30 km autour de Dax (Saint-Paul-lès-Dax, Saint-Vincent-de-Paul, Yzosse, Mées, Narrosse).</p>
           </details>
-          <details class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <summary class="font-semibold text-lg cursor-pointer">Combien de temps faut-il pour un dépannage informatique à Dax ?</summary>
-            <p class="mt-3 text-gray-700">La plupart des interventions de dépannage informatique à Dax sont réalisées en 1 à 2 heures. Pour les cas plus complexes (récupération de données, montage PC), cela peut prendre plus de temps.</p>
+          <details class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm">
+            <summary class="font-semibold cursor-pointer text-gray-900">Combien de temps faut-il pour un dépannage informatique à Dax ?</summary>
+            <p class="mt-2 text-gray-600">La plupart des interventions sont réalisées en 1 à 2 heures. Pour les cas plus complexes (récupération de données, montage PC), cela peut prendre plus de temps.</p>
           </details>
-          <details class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <summary class="font-semibold text-lg cursor-pointer">Proposez-vous des cours d'informatique à Dax ?</summary>
-            <p class="mt-3 text-gray-700">Oui, je propose des cours d'informatique à Dax : bureautique (Windows, Office), développement web (HTML/CSS/JS, Vue.js, Symfony), et accompagnement personnalisé selon vos besoins.</p>
+          <details class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm">
+            <summary class="font-semibold cursor-pointer text-gray-900">Proposez-vous des cours d'informatique à Dax ?</summary>
+            <p class="mt-2 text-gray-600">Oui, je propose des cours à Dax : bureautique (Windows, Office), développement web (HTML/CSS/JS, Vue.js, Symfony), et accompagnement personnalisé selon vos besoins.</p>
           </details>
         </div>
       </div>
     </section>
 
     <!-- Pourquoi me choisir -->
-    <section class="py-20 px-4 bg-gray-100">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-4xl font-bold text-center mb-12">✨ Pourquoi choisir mes services de dépannage informatique à Dax ?</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="bg-gray-50 p-6 rounded-xl">
-            <h3 class="text-xl font-semibold mb-3">⚡ Intervention rapide</h3>
-            <p class="text-gray-700">Pour votre <strong>dépannage informatique à Dax</strong>, réponse sous 24h et intervention rapide dans Dax et les environs.</p>
+    <section class="py-12 px-4 md:px-8 bg-gray-50">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">✨ Pourquoi choisir mes services de dépannage informatique à Dax ?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">⚡ Intervention rapide</h3>
+            <p class="text-gray-600">Réponse sous 24 h et intervention rapide dans Dax et les environs.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-xl">
-            <h3 class="text-xl font-semibold mb-3">💼 Expérience professionnelle</h3>
-            <p class="text-gray-700">Plus de 10 ans d'expérience en développement et en <strong>dépannage informatique à Dax</strong>. Expertise reconnue dans les Landes.</p>
+          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">💼 Expérience professionnelle</h3>
+            <p class="text-gray-600">Plus de 10 ans d'expérience en développement et en dépannage informatique. Expertise reconnue dans les Landes.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-xl">
-            <h3 class="text-xl font-semibold mb-3">💰 Tarifs transparents</h3>
-            <p class="text-gray-700">Pour votre <strong>dépannage informatique Dax</strong>, devis gratuit et tarifs clairs avant toute intervention.</p>
+          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">💰 Tarifs transparents</h3>
+            <p class="text-gray-600">Devis gratuit et tarifs clairs avant toute intervention.</p>
           </div>
-          <div class="bg-gray-50 p-6 rounded-xl">
-            <h3 class="text-xl font-semibold mb-3">🔧 Expertise technique</h3>
-            <p class="text-gray-700">Maîtrise des dernières technologies et méthodes de <strong>dépannage informatique</strong>. Solutions adaptées à vos besoins.</p>
+          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">🔧 Expertise technique</h3>
+            <p class="text-gray-600">Maîtrise des dernières technologies et méthodes de dépannage. Solutions adaptées à vos besoins.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="py-20 px-4 bg-gray-100">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl font-bold text-center mb-12">📞 Contactez-moi pour un dépannage</h2>
-        <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-md">
-          <div class="text-center space-y-4 mb-8">
-            <p class="text-lg text-gray-700">
-              Besoin d'un <strong>dépannage informatique à Dax</strong> ? N'hésitez pas à me contacter pour une intervention rapide et professionnelle !
-            </p>
-            <div class="flex flex-col items-center gap-2 text-gray-600">
-              <p>📧 <a href="mailto:contact@vthiebaut.fr" class="hover:text-[#fe007b]">contact@vthiebaut.fr</a></p>
-              <p>📞 <a href="tel:+33626246341" class="hover:text-[#fe007b]">06 26 24 63 41</a></p>
-              <p class="text-sm">📍 Dax, Landes (40)</p>
-            </div>
+    <section id="contact" class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">📞 Contactez-moi pour un dépannage</h2>
+        <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
+          <p class="text-gray-600 mb-4">
+            Besoin d'un <strong>dépannage informatique à Dax</strong> ? N'hésitez pas à me contacter pour une intervention rapide et professionnelle.
+          </p>
+          <div class="flex flex-wrap items-center gap-4 text-gray-700">
+            <span>📧 <a href="mailto:contact@vthiebaut.fr" class="hover:text-[#fe007b]">contact@vthiebaut.fr</a></span>
+            <span>📞 <a href="tel:+33626246341" class="hover:text-[#fe007b]">06 26 24 63 41</a></span>
+            <span class="text-sm">📍 Dax, Landes (40)</span>
           </div>
-          <NuxtLink 
-            to="/#contact" 
-            class="block text-center bg-black text-white px-8 py-3 rounded-lg hover:bg-[#fe007b] transition"
+          <NuxtLink
+            to="/#contact"
+            class="inline-flex items-center justify-center mt-4 px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition"
           >
             Voir le formulaire de contact
           </NuxtLink>
         </div>
       </div>
     </section>
-  </div>
+
+    <!-- Bouton sticky mobile -->
+    <a
+      :href="`tel:${phone}`"
+      class="fixed bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 bg-emerald-500 text-white font-semibold rounded-full shadow-xl z-50 block md:hidden hover:bg-emerald-600"
+    >
+      Appeler – {{ phoneDisplay }}
+    </a>
+  </main>
 </template>
 
 <script setup lang="ts">
+const phone = '+33626246341'
+const phoneDisplay = '06 26 24 63 41'
+
 // SEO Meta tags - 100% optimisé pour "dépannage informatique Dax"
 useSeoMeta({
   title: 'Dépannage Informatique Dax - Réparation PC, Montage, Cours | Valentin Thiebaut',
@@ -340,21 +355,5 @@ useHead({
     }
   ]
 })
-
-const goTo = (anchor: string) => {
-  if (process.client) {
-    if (anchor === 'contact') {
-      // Rediriger vers la page d'accueil avec l'ancre contact
-      window.location.href = '/#contact'
-    } else {
-      const el = document.getElementById(anchor.replace('#', ''))
-      if (el) {
-        const yOffset = -100
-        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset
-        window.scrollTo({ top: y, behavior: 'smooth' })
-      }
-    }
-  }
-}
 </script>
 
