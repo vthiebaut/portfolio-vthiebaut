@@ -13,10 +13,9 @@ portfolio.vthiebaut.fr, www.portfolio.vthiebaut.fr {
         file_server
     }
 
-    # --- SPA Nuxt ---
+    # --- Site statique Nuxt (SSG) ---
     handle {
         root * /var/www/portfolio
-        try_files {path} /index.html
         file_server
     }
 }
