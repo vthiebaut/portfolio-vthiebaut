@@ -12,7 +12,7 @@
       </NuxtLink>
 
       <!-- Bouton burger -->
-      <button class="burger-btn text-white" @click="isMenuOpen = !isMenuOpen">
+      <button class="burger-btn text-white md:hidden" @click="isMenuOpen = !isMenuOpen">
         <svg
           class="w-8 h-8"
           fill="none"
@@ -25,7 +25,7 @@
       </button>
 
       <!-- Menu desktop -->
-      <div class="nav-desktop-right hidden gap-6 text-white items-center">
+      <div class="nav-desktop-right hidden md:flex gap-6 text-white items-center">
         <button @click="goTo('a-propos')" class="transition hover:text-[#fe007b]">À propos</button>
         <button @click="goTo('services')" class="transition hover:text-[#fe007b]">Services</button>
         <button @click="goTo('projets')" class="transition hover:text-[#fe007b]">Portfolio</button>
