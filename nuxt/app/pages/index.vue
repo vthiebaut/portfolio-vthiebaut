@@ -602,46 +602,41 @@ useHead(() => ({
   ]
 }))
 
-const particlesConfig = {
+// Config tsParticles (format v3, compatible mode strict)
+const particlesOptions = {
+  fullScreen: false,
   particles: {
-    number: { value: 100, density: { enable: true, value_area: 1000 } },
-    color: { value: "#ffffff" },
-    shape: { type: "circle" },
-    opacity: { value: 1, random: false },
-    size: { value: 5, random: true },
-    line_linked: {
+    number: { value: 100, density: { enable: true, width: 800, height: 800 } },
+    color: { value: '#ffffff' },
+    shape: { type: 'circle' },
+    opacity: { value: 1 },
+    size: { value: { min: 3, max: 5 } },
+    links: {
       enable: true,
       distance: 140,
-      color: "#ffffff",
+      color: '#ffffff',
       opacity: 0.6,
       width: 2
     },
     move: {
       enable: true,
       speed: 3.5,
-      direction: "none",
+      direction: 'none' as const,
       random: false,
       straight: false,
-      out_mode: "out",
-      bounce: false
+      outModes: 'out' as const
     }
   },
   interactivity: {
-    detect_on: "canvas",
     events: {
-      onhover: { enable: true, mode: "repulse" },
-      onclick: { enable: true, mode: "push" },
-      resize: true
+      onHover: { enable: true, mode: 'repulse' },
+      onClick: { enable: true, mode: 'push' }
     },
     modes: {
-      grab: { distance: 300, line_linked: { opacity: 1 } },
-      bubble: { distance: 300, size: 50, duration: 2, opacity: 0.8, speed: 3 },
       repulse: { distance: 150, duration: 0.4 },
-      push: { particles_nb: 4 },
-      remove: { particles_nb: 2 }
+      push: { quantity: 4 }
     }
-  },
-  retina_detect: true
+  }
 }
 
 onMounted(async () => {
@@ -665,11 +660,12 @@ onMounted(async () => {
       // Fallback : masquer après 2 secondes max
       setTimeout(hidePreloader, 2000)
     }
-    // particles.js est chargé par le plugin client (plugins/particles.client.ts)
-    const particlesJS = (window as any).particlesJS
-    if (typeof particlesJS === 'function') {
-      particlesJS('particles-js', particlesConfig)
-      particlesJS('particles-contact', particlesConfig)
+    // tsParticles (plugin tsparticles.client.ts) — compatible mode strict, plus d'erreur 500
+    const nuxtApp = useNuxtApp()
+    const engine = nuxtApp.$tsParticles as { load: (opts: { id: string; options: object }) => Promise<unknown> } | undefined
+    if (engine?.load) {
+      await engine.load({ id: 'particles-js', options: particlesOptions })
+      await engine.load({ id: 'particles-contact', options: particlesOptions })
     }
   }
 })

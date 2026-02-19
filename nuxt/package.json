@@ -13,9 +13,10 @@
     "@emailjs/browser": "^4.4.1",
     "@nuxtjs/seo": "^3.2.2",
     "@nuxtjs/tailwindcss": "^6.14.0",
+    "@tsparticles/engine": "^3.9.1",
+    "@tsparticles/slim": "^3.9.1",
     "axios": "^1.13.2",
     "nuxt": "^4.2.0",
-    "particles.js": "^2.0.0",
     "vue": "^3.5.22",
     "vue-router": "^4.6.3"
   }
