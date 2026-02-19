@@ -268,7 +268,7 @@
 </template>
 
 <script setup lang="ts">
-import { useLocalSeoHead } from '~/app/composables/useLocalSeoHead'
+import { useLocalSeoHead } from '~/composables/useLocalSeoHead'
 
 const pageUrl = 'https://portfolio.vthiebaut.fr/reparation-ordinateur-dax'
 const phone = '+33626246341'

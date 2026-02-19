@@ -36,41 +36,45 @@ jobs:
               BEFORE_COMMIT="HEAD~1"
               AFTER_COMMIT="HEAD"
               echo "📝 Comparaison avec commit précédent: HEAD~1..HEAD"
-            else
-              # Dernier fallback: utiliser les fichiers modifiés dans le commit actuel
-              BEFORE_COMMIT=""
-              AFTER_COMMIT="HEAD"
-              echo "📝 Analyse du commit actuel uniquement"
-            fi
-            
-            # Détecter les changements dans Nuxt (inclure nuxt.config.ts, package.json, etc.)
-            if [ -n "$BEFORE_COMMIT" ]; then
-              CHANGED_FILES=$(git diff --name-only "$BEFORE_COMMIT" "$AFTER_COMMIT" 2>/dev/null || echo "")
-            else
-              CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r "$AFTER_COMMIT" 2>/dev/null || echo "")
-            fi
-            
-            if echo "$CHANGED_FILES" | grep -qE "^(nuxt/|nuxt\.config\.|package\.json|package-lock\.json)"; then
-              echo "nuxt_changed=true" >> $GITHUB_OUTPUT
-              echo "✅ Changements détectés dans Nuxt"
-              echo "📋 Fichiers modifiés:"
-              echo "$CHANGED_FILES" | grep -E "^(nuxt/|nuxt\.config\.|package\.json|package-lock\.json)" || true
-            else
-              echo "nuxt_changed=false" >> $GITHUB_OUTPUT
-              echo "ℹ️ Aucun changement dans Nuxt"
-            fi
-            
-            # Détecter les changements dans Symfony
-            if echo "$CHANGED_FILES" | grep -qE "^(symfony/|Dockerfile|docker-compose)"; then
-              echo "symfony_changed=true" >> $GITHUB_OUTPUT
-              echo "✅ Changements détectés dans Symfony"
-              echo "📋 Fichiers modifiés:"
-              echo "$CHANGED_FILES" | grep -E "^(symfony/|Dockerfile|docker-compose)" || true
-            else
-              echo "symfony_changed=false" >> $GITHUB_OUTPUT
-              echo "ℹ️ Aucun changement dans Symfony"
-            fi
+          else
+            # Dernier fallback: historique limité (shallow clone, premier commit, etc.)
+            # Dans ce cas, on ne prend pas de risque: on considère qu'il y a des changements.
+            BEFORE_COMMIT=""
+            AFTER_COMMIT="${{ github.sha }}"
+            echo "📝 Analyse du commit actuel uniquement (fallback historique limité)"
+            echo "nuxt_changed=true" >> $GITHUB_OUTPUT
+            echo "symfony_changed=true" >> $GITHUB_OUTPUT
+            echo "ℹ️ Historique Git incomplet, déploiement forcé du frontend et du backend"
+            exit 0
           fi
+          
+          # Détecter les changements dans Nuxt (inclure nuxt.config.ts, package.json, etc.)
+          if [ -n "$BEFORE_COMMIT" ]; then
+            CHANGED_FILES=$(git diff --name-only "$BEFORE_COMMIT" "$AFTER_COMMIT" 2>/dev/null || echo "")
+          else
+            CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r "$AFTER_COMMIT" 2>/dev/null || echo "")
+          fi
+          
+          echo "📋 Fichiers modifiés pour comparaison:"
+          echo "$CHANGED_FILES"
+          
+          if echo "$CHANGED_FILES" | grep -qE "^(nuxt/|nuxt\.config\.ts|nuxt\.config\.js|nuxt\.config\.mjs|package\.json|package-lock\.json)"; then
+            echo "nuxt_changed=true" >> $GITHUB_OUTPUT
+            echo "✅ Changements détectés dans Nuxt"
+          else
+            echo "nuxt_changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Aucun changement dans Nuxt"
+          fi
+          
+          # Détecter les changements dans Symfony
+          if echo "$CHANGED_FILES" | grep -qE "^(symfony/|Dockerfile|docker-compose)"; then
+            echo "symfony_changed=true" >> $GITHUB_OUTPUT
+            echo "✅ Changements détectés dans Symfony"
+          else
+            echo "symfony_changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Aucun changement dans Symfony"
+          fi
+        fi
 
       # === BUILD NUXT (si nécessaire) ===
       - name: Setup Node.js
