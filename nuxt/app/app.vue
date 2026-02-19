@@ -1,6 +1,9 @@
 <template>
-  <div class="font-sans text-gray-800 pt-[100px]">
+  <div class="font-sans text-gray-800 pt-[100px] min-h-screen flex flex-col">
     <Navbar />
-    <NuxtPage />
+    <main class="flex-1">
+      <NuxtPage />
+    </main>
+    <Footer />
   </div>
 </template>

@@ -14,6 +14,9 @@ portfolio.vthiebaut.fr, www.portfolio.vthiebaut.fr {
     }
 
     # --- Site statique Nuxt (SSG) ---
+    # Réécrire /page vers /page/ pour que file_server trouve page/index.html
+    @no_trailing path_regexp no_trailing ^/[^.]*[^/]$
+    rewrite @no_trailing {http.request.uri.path}/
     handle {
         root * /var/www/portfolio
         file_server

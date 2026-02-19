@@ -511,10 +511,6 @@
         </div>
 
       </div>
-
-      <footer class="text-center pt-10 relative z-10">
-        <p class="text-white text-lg">&copy; 2025 Valentin Thiebaut — Tous droits réservés</p>
-      </footer>
     </section>
   </div>
 </template>
@@ -669,8 +665,7 @@ onMounted(async () => {
       // Fallback : masquer après 2 secondes max
       setTimeout(hidePreloader, 2000)
     }
-    
-    // Import dynamique de particles.js uniquement côté client
+    // particles.js est chargé par le plugin client (plugins/particles.client.ts)
     const particlesJS = (window as any).particlesJS
     if (typeof particlesJS === 'function') {
       particlesJS('particles-js', particlesConfig)
