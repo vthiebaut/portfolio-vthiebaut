@@ -344,13 +344,16 @@
           </p>
         </div>
 
-        <div class="mt-10 text-center">
+        <div class="mt-10 text-center space-y-4">
           <NuxtLink 
             to="/depannage-informatique-dax" 
             class="inline-block bg-black text-white px-5 py-3 rounded-md hover:bg-[#fe007b] transition"
           >
             Voir la page dédiée au dépannage
           </NuxtLink>
+          <p class="text-sm text-gray-600 pt-4 border-t border-gray-200 mt-6">
+            <strong>Développement freelance</strong> : <NuxtLink to="/developpeur-web-dax" class="underline hover:text-[#fe007b]">Développeur web Dax</NuxtLink> · <NuxtLink to="/freelance-symfony-landes" class="underline hover:text-[#fe007b]">Freelance Symfony Landes</NuxtLink> · <NuxtLink to="/developpeur-vuejs-freelance" class="underline hover:text-[#fe007b]">Vue.js</NuxtLink> · <NuxtLink to="/developpeur-react-native-freelance" class="underline hover:text-[#fe007b]">React Native</NuxtLink> · <NuxtLink to="/projet-prestago" class="underline hover:text-[#fe007b]">Projet Prestago</NuxtLink>
+          </p>
         </div>
       </div>
     </section>

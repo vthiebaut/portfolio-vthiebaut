@@ -120,7 +120,6 @@ const phoneDisplay = '06 26 24 63 41'
 const pageTitle = 'Zones d’intervention – Dépannage informatique Dax et Landes'
 const pageDescription =
   'Zones d’intervention pour le dépannage informatique autour de Dax et Saint-Paul-lès-Dax. Liste des villes desservies et services proposés dans les Landes.'
-
 const areaServed = [
   'Dax',
   'Saint-Paul-lès-Dax',

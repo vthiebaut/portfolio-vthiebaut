@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-black/90 text-white mt-auto">
     <div class="max-w-6xl mx-auto px-4 py-12">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
         <!-- Portfolio -->
         <div>
           <h3 class="font-bold text-[#fe007b] mb-3 uppercase text-sm tracking-wider">Portfolio</h3>
@@ -13,6 +13,20 @@
             <li><NuxtLink to="/#competences" class="hover:text-white transition">Compétences</NuxtLink></li>
             <li><NuxtLink to="/#parcours" class="hover:text-white transition">Formations</NuxtLink></li>
             <li><NuxtLink to="/#contact" class="hover:text-white transition">Contact</NuxtLink></li>
+          </ul>
+        </div>
+        <!-- Développement freelance -->
+        <div>
+          <h3 class="font-bold text-[#fe007b] mb-3 uppercase text-sm tracking-wider">Développement freelance</h3>
+          <ul class="space-y-2 text-slate-300">
+            <li><NuxtLink to="/developpeur-web-dax" class="hover:text-white transition">Développeur web Dax</NuxtLink></li>
+            <li><NuxtLink to="/freelance-symfony-landes" class="hover:text-white transition">Freelance Symfony Landes</NuxtLink></li>
+            <li><NuxtLink to="/developpeur-vuejs-freelance" class="hover:text-white transition">Développeur Vue.js</NuxtLink></li>
+            <li><NuxtLink to="/developpeur-react-native-freelance" class="hover:text-white transition">Développeur React Native</NuxtLink></li>
+            <li><NuxtLink to="/developpeur-fullstack-freelance" class="hover:text-white transition">Développeur full-stack</NuxtLink></li>
+            <li><NuxtLink to="/maintenance-application-symfony" class="hover:text-white transition">Maintenance Symfony</NuxtLink></li>
+            <li><NuxtLink to="/creation-application-mobile" class="hover:text-white transition">Création app mobile</NuxtLink></li>
+            <li><NuxtLink to="/projet-prestago" class="hover:text-white transition">Projet Prestago</NuxtLink></li>
           </ul>
         </div>
         <!-- Dépannage informatique -->

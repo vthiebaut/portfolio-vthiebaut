@@ -31,6 +31,9 @@
         <button @click="goTo('projets')" class="transition hover:text-[#fe007b]">Portfolio</button>
         <button @click="goTo('competences')" class="transition hover:text-[#fe007b]">Compétences</button>
         <button @click="goTo('parcours')" class="transition hover:text-[#fe007b]">Formations</button>
+        <NuxtLink to="/developpeur-web-dax" class="transition hover:text-[#fe007b]">
+          Développement freelance
+        </NuxtLink>
         <NuxtLink to="/depannage-informatique-dax" class="transition hover:text-[#fe007b]">
           Dépannage Dax
         </NuxtLink>
@@ -53,6 +56,13 @@
         <button @click="goTo('projets')" class="mb-2 text-white">Portfolio</button>
         <button @click="goTo('competences')" class="mb-2 text-white">Compétences</button>
         <button @click="goTo('parcours')" class="mb-2 text-white">Formations</button>
+        <NuxtLink
+          to="/developpeur-web-dax"
+          class="mb-2 text-white"
+          @click="isMenuOpen = false"
+        >
+          Développement freelance
+        </NuxtLink>
         <NuxtLink
           to="/depannage-informatique-dax"
           class="mb-2 text-white"

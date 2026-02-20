@@ -33,6 +33,8 @@ type LocalSeoOptions = {
   breadcrumbItems?: BreadcrumbItem[]
   faqItems?: FaqItem[]
   canonical?: string
+  /** JSON-LD Person ou ProfessionalService pour les pages acquisition B2B */
+  personOrServiceSchema?: Record<string, unknown>
 }
 
 export const useLocalSeoHead = (options: LocalSeoOptions) => {
@@ -45,8 +47,11 @@ export const useLocalSeoHead = (options: LocalSeoOptions) => {
     ogLocale = 'fr_FR',
     breadcrumbItems,
     faqItems,
-    canonical
+    canonical: canonicalUrl,
+    personOrServiceSchema
   } = options
+
+  const canonical = canonicalUrl ?? url
 
   useSeoMeta({
     title,
@@ -62,6 +67,13 @@ export const useLocalSeoHead = (options: LocalSeoOptions) => {
   })
 
   const scripts: { type: string; children: string }[] = []
+
+  if (personOrServiceSchema) {
+    scripts.push({
+      type: 'application/ld+json',
+      children: JSON.stringify(personOrServiceSchema)
+    })
+  }
 
   if (faqItems && faqItems.length > 0) {
     scripts.push({
@@ -98,14 +110,12 @@ export const useLocalSeoHead = (options: LocalSeoOptions) => {
   }
 
   useHead({
-    link: canonical
-      ? [
-          {
-            rel: 'canonical',
-            href: canonical
-          }
-        ]
-      : [],
+    link: [
+      {
+        rel: 'canonical',
+        href: canonical
+      }
+    ],
     script: scripts
   })
 }
