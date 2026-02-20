@@ -1,34 +1,16 @@
 <template>
   <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
-    <!-- Hero (même structure que les autres pages locales) -->
-    <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900">
-        Dépannage Informatique Dax – Réparation PC & Montage
-      </h1>
-      <p class="text-lg text-gray-700 mb-4">
-        Services de <strong>dépannage informatique à Dax</strong> : réparation PC, montage, cours et assistance informatique dans les Landes (40).
-      </p>
-      <p class="text-gray-600 mb-6">
-        <strong>Dépannage informatique Dax</strong> : services professionnels rapides et fiables pour particuliers et professionnels. Intervention à domicile dans un rayon de 30 km autour de Dax.
-      </p>
-      <div class="flex flex-col sm:flex-row items-start gap-4">
-        <a
-          :href="`tel:${phone}`"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
-        >
-          Appeler maintenant – {{ phoneDisplay }}
-        </a>
-        <NuxtLink
-          to="/#contact"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-100 transition"
-        >
-          Me contacter
-        </NuxtLink>
-      </div>
-      <p class="text-xs text-gray-500 mt-3">
-        Intervention à domicile sur Dax et dans un rayon de 30 km.
-      </p>
-    </section>
+    <HeroSecondary
+      title="Dépannage informatique à Dax – Réparation PC & Montage"
+      subtitle="Réparation PC, montage, optimisation et cours. Intervention rapide, devis gratuit."
+      kicker="Dépannage à domicile • Dax & alentours"
+      :primary-cta-label="`Appeler maintenant – ${phoneDisplay}`"
+      :primary-cta-href="`tel:${phone}`"
+      secondary-cta-label="Me contacter"
+      secondary-cta-href="/#contact"
+      :badges="['Réponse sous 24h', 'Dax + 30 km', 'Devis gratuit']"
+      note="Intervention à domicile sur Dax et dans un rayon de 30 km."
+    />
 
     <!-- Section Services -->
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">

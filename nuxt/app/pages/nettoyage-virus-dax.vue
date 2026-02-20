@@ -1,38 +1,18 @@
 <template>
   <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
-    <!-- Hero -->
-    <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-4">
-        Nettoyage de virus à Dax – PC sain et sécurisé
-      </h1>
-      <p class="text-lg text-gray-700 mb-4">
-        Votre ordinateur affiche des publicités bizarres, est devenu très lent ou ouvre des pages
-        sans votre accord&nbsp;? Je propose un <strong>nettoyage de virus à Dax</strong> pour remettre
-        votre PC en état et sécuriser votre navigation.
-      </p>
-      <p class="text-gray-600 mb-6">
-        Basé à Dax, j’interviens à domicile ou à distance pour supprimer les virus, malwares,
-        spywares et programmes indésirables, puis renforcer la protection de votre ordinateur
-        dans les Landes.
-      </p>
-      <div class="flex flex-col sm:flex-row items-start gap-4">
-        <a
-          :href="`tel:${phone}`"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
-        >
-          Appeler maintenant – {{ phoneDisplay }}
-        </a>
-        <NuxtLink
-          to="/#contact"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-50 transition"
-        >
-          Demander un nettoyage de virus
-        </NuxtLink>
-      </div>
-      <p class="text-xs text-gray-500 mt-3">
-        Intervention à domicile sur Dax et alentours, ou à distance si adapté.
-      </p>
-    </section>
+    <HeroSecondary
+      title="Nettoyage de virus à Dax – PC sain et sécurisé"
+      subtitle="Suppression des virus, malwares et spywares. Remise en état et renforcement de la protection. À domicile ou à distance."
+      kicker="Nettoyage virus & malwares • Dax"
+      :primary-cta-label="`Appeler maintenant – ${phoneDisplay}`"
+      :primary-cta-href="`tel:${phone}`"
+      secondary-cta-label="Demander un nettoyage de virus"
+      secondary-cta-href="/#contact"
+      :badges="['Réponse sous 24h', 'Dax + 30 km', 'Devis gratuit']"
+      note="Intervention à domicile sur Dax et alentours, ou à distance si adapté."
+    />
+
+
 
     <!-- Intervention rapide -->
     <section class="bg-white py-12 border-t border-gray-200 px-4 md:px-8">

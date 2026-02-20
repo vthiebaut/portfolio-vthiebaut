@@ -1,5 +1,5 @@
 <template>
-  <AcquisitionPageFrame :h1="seo.h1" :intro="seo.intro" :faq-items="seo.faqItems">
+  <AcquisitionPageFrame :h1="seo.h1" :intro="seo.intro" :faq-items="seo.faqItems" :hero-secondary="seo.heroSecondary">
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6 text-gray-900">Ce que je peux développer avec Vue.js</h2>
@@ -57,6 +57,10 @@ const pageUrl = `${baseUrl}/developpeur-vuejs-freelance`
 
 const seo = {
   h1: 'Développeur Vue.js freelance – SPA, dashboards, sites',
+  heroSecondary: {
+    kicker: 'Front-end • Vue 3, Nuxt',
+    badges: ['Réponse sous 24h', 'Dax & remote France', 'Devis gratuit']
+  },
   intro: [
     'Vous cherchez un <strong>développeur Vue.js freelance</strong> pour une SPA, un dashboard ou un site moderne ? Je conçois des interfaces réactives avec Vue 3 (Composition API), Nuxt 3 ou Vite, de la maquette au déploiement.',
     'Basé à Dax et en remote partout en France, j’accompagne startups et PME sur des projets front-end exigeants : UX soignée, performance et code maintenable.'

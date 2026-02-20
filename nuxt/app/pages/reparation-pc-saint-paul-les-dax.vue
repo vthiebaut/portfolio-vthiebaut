@@ -1,37 +1,18 @@
 <template>
   <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
-    <!-- Hero -->
-    <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-4">
-        Réparation PC à Saint-Paul-lès-Dax – portable et fixe
-      </h1>
-      <p class="text-lg text-gray-700 mb-4">
-        Votre ordinateur à <strong>Saint-Paul-lès-Dax</strong> ne démarre plus, se fige ou fait
-        un bruit inquiétant&nbsp;? Je propose la <strong>réparation de PC à Saint-Paul-lès-Dax</strong>
-        et Dax, pour les particuliers et petites structures locales.
-      </p>
-      <p class="text-gray-600 mb-6">
-        Basé à Dax, je me déplace à Saint-Paul-lès-Dax pour diagnostiquer la panne, proposer
-        les réparations possibles et vous accompagner dans la remise en service de votre PC.
-      </p>
-      <div class="flex flex-col sm:flex-row items-start gap-4">
-        <a
-          :href="`tel:${phone}`"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
-        >
-          Appeler maintenant – {{ phoneDisplay }}
-        </a>
-        <NuxtLink
-          to="/#contact"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-50 transition"
-        >
-          Demander une réparation à Saint-Paul-lès-Dax
-        </NuxtLink>
-      </div>
-      <p class="text-xs text-gray-500 mt-3">
-        Intervention à domicile sur Saint-Paul-lès-Dax, Dax et communes voisines.
-      </p>
-    </section>
+    <HeroSecondary
+      title="Réparation PC à Saint-Paul-lès-Dax – portable et fixe"
+      subtitle="Diagnostic, réparations possibles et remise en service. Pour particuliers et petites structures à Saint-Paul-lès-Dax et Dax."
+      kicker="Réparation PC • Saint-Paul-lès-Dax"
+      :primary-cta-label="`Appeler maintenant – ${phoneDisplay}`"
+      :primary-cta-href="`tel:${phone}`"
+      secondary-cta-label="Demander une réparation à Saint-Paul-lès-Dax"
+      secondary-cta-href="/#contact"
+      :badges="['Réponse sous 24h', 'Dax + 30 km', 'Devis gratuit']"
+      note="Intervention à domicile sur Saint-Paul-lès-Dax, Dax et communes voisines."
+    />
+
+
 
     <!-- Contenu simplifié (similaire aux autres pages, angle réparation) -->
     <section class="bg-white py-12 border-t border-gray-200 px-4 md:px-8">
@@ -157,7 +138,7 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify({
+      innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'LocalBusiness',
         name: 'Réparation PC Saint-Paul-lès-Dax - Valentin Thiebaut',
@@ -176,7 +157,7 @@ useHead({
     },
     {
       type: 'application/ld+json',
-      children: JSON.stringify({
+      innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [

@@ -1,5 +1,5 @@
 <template>
-  <AcquisitionPageFrame :h1="seo.h1" :intro="seo.intro" :faq-items="seo.faqItems">
+  <AcquisitionPageFrame :h1="seo.h1" :intro="seo.intro" :faq-items="seo.faqItems" :hero-secondary="seo.heroSecondary">
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6 text-gray-900">Ce que je peux créer pour vous</h2>
@@ -50,6 +50,10 @@ const pageUrl = `${baseUrl}/creation-application-mobile`
 
 const seo = {
   h1: 'Création d’application mobile freelance – iOS & Android',
+  heroSecondary: {
+    kicker: 'Apps mobiles • iOS & Android',
+    badges: ['Réponse sous 24h', 'Dax & remote France', 'Devis gratuit']
+  },
   intro: [
     'Vous voulez lancer une <strong>application mobile</strong> (iOS et Android) et cherchez un freelance pour la concevoir et la développer ? Je crée des applications mobiles sur mesure : React Native pour une base unique, ou solution hybride (Vue/React + Capacitor) selon le projet.',
     'Basé à Dax (Landes) et en remote partout en France, j’accompagne les porteurs de projet et les entreprises sur la <strong>création d’application mobile</strong> : MVP, publication sur les stores, intégration API et maintenance.'

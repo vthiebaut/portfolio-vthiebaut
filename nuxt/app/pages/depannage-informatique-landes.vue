@@ -1,39 +1,18 @@
 <template>
   <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
-    <!-- Hero -->
-    <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-4">
-        Dépannage informatique dans les Landes – technicien proche de Dax
-      </h1>
-      <p class="text-lg text-gray-700 mb-4">
-        Basé à Dax, j’interviens pour le <strong>dépannage informatique dans les Landes</strong>
-        auprès des particuliers et petites entreprises du secteur, avec un focus sur le Grand Dax
-        et les communes alentour.
-      </p>
-      <p class="text-gray-600 mb-6">
-        Que vous soyez à Dax, Saint-Paul-lès-Dax ou dans une commune landaise voisine,
-        je vous accompagne pour résoudre vos problèmes informatiques, installer votre matériel
-        et vous conseiller dans vos usages numériques.
-      </p>
-      <div class="flex flex-col sm:flex-row items-start gap-4">
-        <a
-          :href="`tel:${phone}`"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
-        >
-          Appeler maintenant – {{ phoneDisplay }}
-        </a>
-        <NuxtLink
-          to="/#contact"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-50 transition"
-        >
-          Demander un dépannage dans les Landes
-        </NuxtLink>
-      </div>
-      <p class="text-xs text-gray-500 mt-3">
-        Intervention principalement autour de Dax et Saint-Paul-lès-Dax, selon la distance
-        et le type de demande.
-      </p>
-    </section>
+    <HeroSecondary
+      title="Dépannage informatique dans les Landes – technicien proche de Dax"
+      subtitle="Particuliers et petites entreprises. Focus sur le Grand Dax et les communes alentour. Résolution de problèmes, installation, conseils."
+      kicker="Dépannage • Landes & Grand Dax"
+      :primary-cta-label="`Appeler maintenant – ${phoneDisplay}`"
+      :primary-cta-href="`tel:${phone}`"
+      secondary-cta-label="Demander un dépannage dans les Landes"
+      secondary-cta-href="/#contact"
+      :badges="['Réponse sous 24h', 'Dax + 30 km', 'Devis gratuit']"
+      note="Intervention principalement autour de Dax et Saint-Paul-lès-Dax."
+    />
+
+
 
     <!-- Intervention rapide -->
     <section class="bg-white py-12 border-t border-gray-200 px-4 md:px-8">

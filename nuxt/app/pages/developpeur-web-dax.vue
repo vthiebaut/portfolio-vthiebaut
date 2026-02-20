@@ -3,6 +3,7 @@
     :h1="seo.h1"
     :intro="seo.intro"
     :faq-items="seo.faqItems"
+    :hero-secondary="seo.heroSecondary"
   >
     <!-- Problème client -->
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
@@ -279,6 +280,10 @@ const pageUrl = `${baseUrl}/developpeur-web-dax`
 
 const seo = {
   h1: 'Développeur web freelance à Dax – Symfony, Vue.js, Mobile',
+  heroSecondary: {
+    kicker: 'Développement web & mobile • Dax & France',
+    badges: ['Réponse sous 24h', 'Dax & remote France', 'Devis gratuit']
+  },
   intro: [
     'Vous cherchez un <strong>développeur web freelance à Dax</strong> ou en remote pour créer un site, une API, un back-office ou une application mobile ? Je conçois et développe des solutions sur mesure avec Symfony, Vue.js et React Native — de la maquette à la mise en production.',
     'En tant que <strong>développeur freelance dans les Landes</strong> et en Nouvelle-Aquitaine, j’accompagne PME, startups et agences partout en France. Un interlocuteur unique, des livraisons cadrées et un devis clair avant de commencer.'

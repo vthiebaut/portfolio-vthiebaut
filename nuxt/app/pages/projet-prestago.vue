@@ -11,37 +11,17 @@
       </p>
     </section>
 
-    <!-- H1 + intro + CTAs -->
-    <section class="py-8 px-4 md:px-8 max-w-5xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-6 text-gray-900">
-        Prestago – Étude de cas d'un SaaS développé de A à Z
-      </h1>
-      <p class="text-lg text-gray-700 mb-4">
-        <strong>Prestago</strong> est un SaaS que j'ai conçu, développé et mis en production seul : application mobile (Android, iOS prévu) et API backend pour les intervenants à domicile (CESU, auto-entrepreneurs, auxiliaires de vie). L'étude de cas qui suit détaille le contexte métier, les choix techniques et ce que cela démontre pour un client qui envisage un projet similaire.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 mb-4">
-        <NuxtLink
-          to="/#contact"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition"
-        >
-          Discutons de votre projet
-        </NuxtLink>
-        <a
-          href="https://play.google.com/store/apps/details?id=com.vthiebaut.prestago&hl=fr"
-          target="_blank"
-          rel="noopener"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-100 transition"
-        >
-          Voir sur le Google Play Store
-        </a>
-      </div>
-      <p class="text-gray-600">
-        <a :href="`mailto:${contactEmail}`" class="text-emerald-600 hover:underline font-medium">{{ contactEmail }}</a>
-      </p>
-      <p class="text-sm text-emerald-700 font-medium mt-1">
-        Réponse sous 24h.
-      </p>
-    </section>
+    <HeroSecondary
+      title="Prestago – Étude de cas d'un SaaS développé de A à Z"
+      subtitle="Prestago est un SaaS conçu, développé et mis en production : application mobile (Android, iOS prévu) et API backend pour les intervenants à domicile. L'étude de cas détaille le contexte métier, les choix techniques et ce que cela démontre pour un projet similaire."
+      kicker="Étude de cas • SaaS & application mobile"
+      primary-cta-label="Discutons de votre projet"
+      primary-cta-href="/#contact"
+      secondary-cta-label="Voir sur le Google Play Store"
+      secondary-cta-href="https://play.google.com/store/apps/details?id=com.vthiebaut.prestago&hl=fr"
+      :badges="['Réponse sous 24h', 'Dax & remote France', 'Devis gratuit']"
+      :note="`${contactEmail} • Basé à Dax, disponible en remote France.`"
+    />
 
     <!-- 1. Contexte -->
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">

@@ -1,38 +1,18 @@
 <template>
   <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
-    <!-- Hero -->
-    <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-4">
-        Installation SSD à Dax – Accélérez votre ordinateur
-      </h1>
-      <p class="text-lg text-gray-700 mb-4">
-        Votre ordinateur met plusieurs minutes à démarrer&nbsp;? Un <strong>SSD installé à Dax</strong>
-        peut transformer un PC lent en machine fluide. J’assure l’installation de SSD à Dax,
-        Saint-Paul-lès-Dax et alentours, avec migration de vos données lorsque c’est possible.
-      </p>
-      <p class="text-gray-600 mb-6">
-        Basé à Dax, je vous conseille sur le choix du SSD, réalise l’installation et configure
-        Windows pour que votre ordinateur retrouve une seconde jeunesse, sans que vous perdiez
-        vos documents importants.
-      </p>
-      <div class="flex flex-col sm:flex-row items-start gap-4">
-        <a
-          :href="`tel:${phone}`"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
-        >
-          Appeler maintenant – {{ phoneDisplay }}
-        </a>
-        <NuxtLink
-          to="/#contact"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-50 transition"
-        >
-          Demander un devis installation SSD
-        </NuxtLink>
-      </div>
-      <p class="text-xs text-gray-500 mt-3">
-        Intervention à domicile sur Dax et communes voisines des Landes.
-      </p>
-    </section>
+    <HeroSecondary
+      title="Installation SSD à Dax – Accélérez votre ordinateur"
+      subtitle="Conseil, installation et migration de vos données. Un SSD peut transformer un PC lent en machine fluide. Saint-Paul-lès-Dax et alentours."
+      kicker="Installation SSD • Dax & alentours"
+      :primary-cta-label="`Appeler maintenant – ${phoneDisplay}`"
+      :primary-cta-href="`tel:${phone}`"
+      secondary-cta-label="Demander un devis installation SSD"
+      secondary-cta-href="/#contact"
+      :badges="['Réponse sous 24h', 'Dax + 30 km', 'Devis gratuit']"
+      note="Intervention à domicile sur Dax et communes voisines."
+    />
+
+
 
     <!-- Intervention rapide -->
     <section class="bg-white py-12 border-t border-gray-200 px-4 md:px-8">

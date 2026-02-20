@@ -1,38 +1,18 @@
 <template>
   <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
-    <!-- Hero -->
-    <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900">
-        Réparation ordinateur à Dax – PC portable et fixe
-      </h1>
-      <p class="text-lg text-gray-700 mb-4">
-        Votre ordinateur ne démarre plus, fait un bruit inquiétant ou devient très lent&nbsp;?
-        J’assure la <strong>réparation d’ordinateur à Dax et Saint-Paul-lès-Dax</strong> :
-        diagnostic complet, remplacement de pièces, sauvegarde de données et remise en service.
-      </p>
-      <p class="text-gray-600 mb-6">
-        Basé à Dax, j’interviens à domicile dans le Grand Dax et plusieurs communes des Landes
-        pour remettre votre PC portable ou fixe en état, en privilégiant toujours la réparation
-        avant le remplacement.
-      </p>
-      <div class="flex flex-col sm:flex-row items-start gap-4">
-        <a
-          :href="`tel:${phone}`"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
-        >
-          Appeler maintenant – {{ phoneDisplay }}
-        </a>
-        <NuxtLink
-          to="/#contact"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-100 transition"
-        >
-          Demander un devis réparation
-        </NuxtLink>
-      </div>
-      <p class="text-xs text-gray-500 mt-3">
-        Intervention à domicile sur Dax, Saint-Paul-lès-Dax et communes voisines des Landes.
-      </p>
-    </section>
+    <HeroSecondary
+      title="Réparation ordinateur à Dax – PC portable et fixe"
+      subtitle="Diagnostic complet, remplacement de pièces, sauvegarde de données et remise en service. J'interviens à domicile dans le Grand Dax et les Landes."
+      kicker="Réparation PC • Dax & Saint-Paul-lès-Dax"
+      :primary-cta-label="`Appeler maintenant – ${phoneDisplay}`"
+      :primary-cta-href="`tel:${phone}`"
+      secondary-cta-label="Demander un devis réparation"
+      secondary-cta-href="/#contact"
+      :badges="['Réponse sous 24h', 'Dax + 30 km', 'Devis gratuit']"
+      note="Intervention à domicile sur Dax, Saint-Paul-lès-Dax et communes voisines."
+    />
+
+
 
     <!-- Intervention rapide -->
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">

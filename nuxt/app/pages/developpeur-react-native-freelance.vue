@@ -1,5 +1,5 @@
 <template>
-  <AcquisitionPageFrame :h1="seo.h1" :intro="seo.intro" :faq-items="seo.faqItems">
+  <AcquisitionPageFrame :h1="seo.h1" :intro="seo.intro" :faq-items="seo.faqItems" :hero-secondary="seo.heroSecondary">
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6 text-gray-900">Ce que je peux développer en React Native</h2>
@@ -56,6 +56,10 @@ const pageUrl = `${baseUrl}/developpeur-react-native-freelance`
 
 const seo = {
   h1: 'Développeur React Native freelance – Apps iOS & Android',
+  heroSecondary: {
+    kicker: 'Applications mobiles • iOS & Android',
+    badges: ['Réponse sous 24h', 'Dax & remote France', 'Devis gratuit']
+  },
   intro: [
     'Vous cherchez un <strong>développeur React Native freelance</strong> pour créer ou faire évoluer une application mobile ? Je développe des apps iOS et Android avec une seule base de code : publication sur les stores, intégration API et maintenance.',
     'Basé à Dax et en remote partout en France, j’accompagne les porteurs de projet et les entreprises sur la <strong>création d’applications mobiles</strong> : MVP, outil métier, app grand public.'

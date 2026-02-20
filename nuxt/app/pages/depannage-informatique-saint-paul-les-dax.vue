@@ -1,38 +1,18 @@
 <template>
   <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
-    <!-- Hero -->
-    <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-4">
-        Dépannage informatique à Saint-Paul-lès-Dax – technicien à domicile
-      </h1>
-      <p class="text-lg text-gray-700 mb-4">
-        Basé à Dax, j’interviens aussi à <strong>Saint-Paul-lès-Dax</strong> pour le dépannage
-        informatique à domicile : réparation d’ordinateur, installation, nettoyage et conseil
-        pour les particuliers et petites entreprises.
-      </p>
-      <p class="text-gray-600 mb-6">
-        Que vous habitiez près du centre commercial, dans un lotissement ou en bord de forêt,
-        je me déplace à Saint-Paul-lès-Dax et dans les environs pour résoudre vos soucis
-        informatiques rapidement.
-      </p>
-      <div class="flex flex-col sm:flex-row items-start gap-4">
-        <a
-          :href="`tel:${phone}`"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg hover:bg-emerald-600 transition"
-        >
-          Appeler maintenant – {{ phoneDisplay }}
-        </a>
-        <NuxtLink
-          to="/#contact"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-800 hover:bg-gray-50 transition"
-        >
-          Demander un dépannage à Saint-Paul-lès-Dax
-        </NuxtLink>
-      </div>
-      <p class="text-xs text-gray-500 mt-3">
-        Intervention à domicile sur Saint-Paul-lès-Dax, Dax et communes voisines.
-      </p>
-    </section>
+    <HeroSecondary
+      title="Dépannage informatique à Saint-Paul-lès-Dax – technicien à domicile"
+      subtitle="Réparation, installation, nettoyage et conseil pour particuliers et petites entreprises. Je me déplace à Saint-Paul-lès-Dax et dans les environs."
+      kicker="Dépannage à domicile • Saint-Paul-lès-Dax"
+      :primary-cta-label="`Appeler maintenant – ${phoneDisplay}`"
+      :primary-cta-href="`tel:${phone}`"
+      secondary-cta-label="Demander un dépannage à Saint-Paul-lès-Dax"
+      secondary-cta-href="/#contact"
+      :badges="['Réponse sous 24h', 'Dax + 30 km', 'Devis gratuit']"
+      note="Intervention à domicile sur Saint-Paul-lès-Dax, Dax et communes voisines."
+    />
+
+
 
     <!-- Intervention rapide -->
     <section class="bg-white py-12 border-t border-gray-200 px-4 md:px-8">

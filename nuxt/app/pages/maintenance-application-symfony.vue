@@ -1,5 +1,5 @@
 <template>
-  <AcquisitionPageFrame :h1="seo.h1" :intro="seo.intro" :faq-items="seo.faqItems">
+  <AcquisitionPageFrame :h1="seo.h1" :intro="seo.intro" :faq-items="seo.faqItems" :hero-secondary="seo.heroSecondary">
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6 text-gray-900">Ce que couvre la maintenance Symfony</h2>
@@ -50,6 +50,10 @@ const pageUrl = `${baseUrl}/maintenance-application-symfony`
 
 const seo = {
   h1: 'Maintenance application Symfony – Correctifs, évolutions, montée de version',
+  heroSecondary: {
+    kicker: 'Maintenance & évolutions • Symfony',
+    badges: ['Réponse sous 24h', 'Dax & remote France', 'Devis gratuit']
+  },
   intro: [
     'Vous avez une <strong>application Symfony</strong> à maintenir (correctifs, évolutions, montée de version) et pas de développeur en interne ? Je prends en charge la <strong>maintenance d’applications Symfony</strong> en remote : bugs, évolutions, mises à jour et sécurisation.',
     'Basé à Dax (Landes), j’interviens pour des PME et startups partout en France. Forfait heures ou interventions ponctuelles, selon votre besoin.'

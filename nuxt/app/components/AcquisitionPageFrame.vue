@@ -1,7 +1,20 @@
 <template>
   <main class="font-sans text-gray-900 bg-gray-50 min-h-screen">
-    <!-- Hero : H1 + intro + CTA -->
-    <section class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
+    <!-- Hero : HeroSecondary si configuré, sinon bloc classique -->
+    <HeroSecondary
+      v-if="heroSecondary"
+      :title="h1"
+      :subtitle="heroSecondary.subtitle ?? firstIntroText"
+      :kicker="heroSecondary.kicker"
+      :primary-cta-label="heroSecondary.primaryCtaLabel ?? 'Discutons de votre projet'"
+      :primary-cta-href="heroSecondary.primaryCtaHref ?? contactAnchor"
+      :secondary-cta-label="heroSecondary.secondaryCtaLabel ?? contactEmail"
+      :secondary-cta-href="heroSecondary.secondaryCtaHref ?? `mailto:${contactEmail}`"
+      :badges="heroSecondary.badges"
+      :note="heroSecondary.note ?? 'Basé à Dax (Landes), missions en remote partout en France. Réponse sous 24h.'"
+      :align="heroSecondary.align ?? 'center'"
+    />
+    <section v-else class="py-16 px-4 md:px-8 max-w-5xl mx-auto">
       <h1 class="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900">
         {{ h1 }}
       </h1>
@@ -92,11 +105,24 @@
 <script setup lang="ts">
 type FaqItem = { question: string; answer: string }
 
+export type HeroSecondaryConfig = {
+  kicker?: string
+  subtitle?: string
+  primaryCtaLabel?: string
+  primaryCtaHref?: string
+  secondaryCtaLabel?: string
+  secondaryCtaHref?: string
+  badges?: string[]
+  note?: string
+  align?: 'left' | 'center'
+}
+
 const props = withDefaults(
   defineProps<{
     h1: string
     intro: string | string[]
     faqItems?: FaqItem[]
+    heroSecondary?: HeroSecondaryConfig
   }>(),
   { faqItems: () => [] }
 )
@@ -106,4 +132,10 @@ const { contactEmail, contactAnchor } = useAcquisitionSeo()
 const introParagraphs = computed(() =>
   Array.isArray(props.intro) ? props.intro : [props.intro]
 )
+
+const firstIntroText = computed(() => {
+  const first = introParagraphs.value[0]
+  if (!first) return ''
+  return first.replace(/<[^>]+>/g, '').trim()
+})
 </script>

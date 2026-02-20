@@ -3,6 +3,7 @@
     :h1="seo.h1"
     :intro="seo.intro"
     :faq-items="seo.faqItems"
+    :hero-secondary="seo.heroSecondary"
   >
     <!-- Ce que je peux développer pour vous (Symfony) -->
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
@@ -186,6 +187,10 @@ const pageUrl = `${baseUrl}/freelance-symfony-landes`
 
 const seo = {
   h1: 'Freelance Symfony dans les Landes – APIs, back-offices, refonte',
+  heroSecondary: {
+    kicker: 'Back-end & API • Landes & France',
+    badges: ['Réponse sous 24h', 'Dax & remote France', 'Devis gratuit']
+  },
   intro: [
     'Vous cherchez un <strong>freelance Symfony dans les Landes</strong> ou en remote pour développer une API, un back-office ou moderniser une application existante ? Je conçois et maintiens des applications Symfony (7) pour des startups et PME partout en France.',
     'En tant que <strong>freelance Symfony</strong> basé à Dax, j’interviens sur des projets neufs (APIs, outils métier) comme sur du legacy : refonte, montée de version, maintenance et évolutions. Objectif : livrer du code maintenable, documenté et aligné avec vos priorités métier.'
