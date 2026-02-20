@@ -105,10 +105,13 @@ export default defineNuxtConfig({
       // Ne pas suivre les liens vers backoffice
       failOnError: false
     },
-    // Éviter les redirections inutiles
+    // Redirection full-stack → pilier (éviter dilution SEO)
     routeRules: {
-      '/depannage-informatique-dax': { 
+      '/depannage-informatique-dax': {
         prerender: true
+      },
+      '/developpeur-fullstack-freelance': {
+        redirect: { to: '/developpeur-web-dax', statusCode: 301 }
       }
     }
   },

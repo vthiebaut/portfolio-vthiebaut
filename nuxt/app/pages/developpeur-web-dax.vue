@@ -4,8 +4,23 @@
     :intro="seo.intro"
     :faq-items="seo.faqItems"
   >
-    <!-- Ce que je peux développer pour vous -->
+    <!-- Problème client -->
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">
+          Vous avez besoin d’un développeur fiable ?
+        </h2>
+        <p class="text-gray-700 mb-4">
+          Que vous soyez une PME, une startup ou une agence, trouver un <strong>développeur web</strong> capable de livrer à temps, dans la qualité et sans multiplier les intermédiaires n’est pas évident. Les délais s’allongent, les coûts dérapent, et la personne en face change au fil du projet. En tant que <strong>développeur freelance à Dax</strong>, je m’engage sur un interlocuteur unique, des livraisons cadrées et un devis clair avant de commencer.
+        </p>
+        <p class="text-gray-600">
+          Mon rôle : comprendre votre besoin, vous proposer la stack et l’organisation adaptées, puis livrer un produit maintenable — site, application métier, API ou application mobile — sans vous noyer dans la technique.
+        </p>
+      </div>
+    </section>
+
+    <!-- Ce que je peux développer pour vous -->
+    <section class="py-12 px-4 md:px-8 bg-gray-50">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6 text-gray-900">
           Ce que je peux développer pour vous
@@ -40,7 +55,7 @@
     </section>
 
     <!-- Pourquoi un freelance plutôt qu'une agence -->
-    <section class="py-12 px-4 md:px-8 bg-gray-50">
+    <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6 text-gray-900">
           Pourquoi travailler avec un freelance plutôt qu’une agence ?
@@ -75,7 +90,7 @@
     </section>
 
     <!-- Technologies maîtrisées -->
-    <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
+    <section class="py-12 px-4 md:px-8 bg-gray-50 border-t border-gray-200">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6 text-gray-900">
           Technologies maîtrisées
@@ -119,10 +134,10 @@
           <strong>Prestago</strong> est un SaaS que j’ai conçu et mis en production : une application mobile pour les intervenants à domicile (CESU, auto-entrepreneurs), avec planning, gestion des clients, synchronisation cloud et version premium. Stack : Vue 3, Capacitor, Symfony 7. C’est un exemple concret de ce que je peux livrer en tant que <strong>développeur web freelance</strong> : de la conception à la publication sur les stores, en passant par le back-office et la maintenance.
         </p>
         <NuxtLink
-          to="/#projets"
+          to="/projet-prestago"
           class="inline-flex items-center text-emerald-600 font-semibold hover:underline"
         >
-          Voir le projet Prestago sur mon portfolio →
+          Lire l’étude de cas Prestago →
         </NuxtLink>
       </div>
     </section>
@@ -165,6 +180,44 @@
       </div>
     </section>
 
+    <!-- Développeur freelance dans les Landes (SEO long tail) -->
+    <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">
+          Développeur freelance dans les Landes et en Nouvelle-Aquitaine
+        </h2>
+        <p class="text-gray-700 mb-6">
+          En tant que <strong>développeur dans les Landes</strong> et <strong>freelance en Nouvelle-Aquitaine</strong>, j’accompagne des profils variés, en présentiel quand c’est pertinent ou en télétravail sur toute la France.
+        </p>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="font-semibold mb-2 text-gray-900">PME locales</h3>
+            <p class="text-gray-600">
+              Entreprises des Landes, du 40 et de la région : besoin d’un site, d’un outil métier ou d’une évolution logicielle sans recruter en interne. Je m’adapte à votre rythme et à votre budget.
+            </p>
+          </div>
+          <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="font-semibold mb-2 text-gray-900">Startups régionales</h3>
+            <p class="text-gray-600">
+              Porteurs de projet en Nouvelle-Aquitaine (Bordeaux, Bayonne, Pau, Dax…) : MVP, refonte ou renfort technique ponctuel. Stack moderne (Vue.js, Symfony, React Native) et livraisons itératives.
+            </p>
+          </div>
+          <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="font-semibold mb-2 text-gray-900">Agences</h3>
+            <p class="text-gray-600">
+              Agences web ou producteurs qui manquent de capacité en développement : renfort sur Symfony, Vue.js ou React Native, en forfait ou en régie, sur des missions définies.
+            </p>
+          </div>
+          <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="font-semibold mb-2 text-gray-900">Télétravail France entière</h3>
+            <p class="text-gray-600">
+              La plupart de mes missions se font à distance : visio, outils de suivi, livraisons en ligne. Peu importe votre localisation en France, on peut avancer ensemble sans déplacement systématique.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Autres expertises -->
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
       <div class="max-w-5xl mx-auto">
@@ -172,7 +225,7 @@
           Autres expertises
         </h2>
         <p class="text-gray-600 mb-4">
-          En plus du développement web, je propose du développement mobile (React Native) et de la maintenance d’applications Symfony. Consultez les pages dédiées pour aller plus loin.
+          Pour un focus technique (Symfony, React Native, maintenance, création d’app mobile), consultez les pages dédiées. Pour une étude de cas complète : Prestago.
         </p>
         <div class="flex flex-wrap gap-3">
           <NuxtLink
@@ -182,22 +235,34 @@
             Freelance Symfony Landes
           </NuxtLink>
           <NuxtLink
-            to="/developpeur-vuejs-freelance"
-            class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
-          >
-            Développeur Vue.js freelance
-          </NuxtLink>
-          <NuxtLink
             to="/developpeur-react-native-freelance"
             class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
           >
-            Développeur React Native freelance
+            Développeur React Native
           </NuxtLink>
           <NuxtLink
             to="/maintenance-application-symfony"
             class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
           >
-            Maintenance application Symfony
+            Maintenance Symfony
+          </NuxtLink>
+          <NuxtLink
+            to="/creation-application-mobile"
+            class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
+          >
+            Création application mobile
+          </NuxtLink>
+          <NuxtLink
+            to="/developpeur-vuejs-freelance"
+            class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
+          >
+            Développeur Vue.js
+          </NuxtLink>
+          <NuxtLink
+            to="/projet-prestago"
+            class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
+          >
+            Étude de cas Prestago
           </NuxtLink>
         </div>
       </div>
@@ -213,10 +278,10 @@ const { baseUrl, personSchema } = useAcquisitionSeo()
 const pageUrl = `${baseUrl}/developpeur-web-dax`
 
 const seo = {
-  h1: 'Développeur web à Dax – Sites, applications et APIs sur mesure',
+  h1: 'Développeur web freelance à Dax – Symfony, Vue.js, Mobile',
   intro: [
-    'Vous avez besoin d’un <strong>développeur web à Dax</strong> ou en remote pour créer un site, une application métier ou une API ? Je conçois et développe des solutions sur mesure avec Vue.js et Symfony, de la maquette à la mise en production.',
-    'En tant que <strong>développeur web freelance</strong> basé dans les Landes, j’accompagne startups, PME et porteurs de projet partout en France. Sites vitrines, dashboards, back-offices, intégrations : je m’adapte à votre contexte et à vos objectifs pour livrer un produit maintenable et évolutif.'
+    'Vous cherchez un <strong>développeur web freelance à Dax</strong> ou en remote pour créer un site, une API, un back-office ou une application mobile ? Je conçois et développe des solutions sur mesure avec Symfony, Vue.js et React Native — de la maquette à la mise en production.',
+    'En tant que <strong>développeur freelance dans les Landes</strong> et en Nouvelle-Aquitaine, j’accompagne PME, startups et agences partout en France. Un interlocuteur unique, des livraisons cadrées et un devis clair avant de commencer.'
   ],
   faqItems: [
     {
@@ -238,9 +303,9 @@ const seo = {
   ]
 }
 
-const title = 'Développeur web Dax – Vue.js, Symfony | Valentin Thiebaut'
+const title = 'Développeur web freelance Dax – Symfony, Vue.js, Mobile'
 const description =
-  'Développeur web freelance à Dax et en remote. Création de sites, applications métier et APIs avec Vue.js et Symfony. Devis gratuit, missions partout en France.'
+  'Développeur web freelance à Dax et dans les Landes. Symfony, Vue.js, React Native. Sites, APIs, back-offices, apps mobile. PME, startups, agences. Remote France. Devis gratuit.'
 
 useLocalSeoHead({
   url: pageUrl,

@@ -196,6 +196,7 @@
                   class="inline-block !text-white bg-black px-4 py-2 rounded hover:bg-[#fe007b] transition">
                   Voir le projet
                 </a>
+
               </div>
             </div>
           </div>
@@ -687,9 +688,26 @@ const bump = (delta: number) => {
 
 const projects = ref([
   {
-    title: 'Prestago - Projet personnel',
+    title: 'Prestago - Site vitrine',
+    stack: 'Vue 3 · Symfony 7',
+    descriptionIntro: `Site vitrine de Prestago : présentation du produit, bénéfices (gain de temps, zéro oubli, RGPD, gratuit pour démarrer), fonctionnalités clés et témoignages d'intervenants à domicile.`,
+    features: [
+      '🏠 Hero et message d’accroche (planning interventions à domicile)',
+      '✨ Bénéfices clés : -2 h/sem, 0 oubli, données UE, gratuit',
+      '🗓️ Fonctionnalités : planning visuel, clients, récurrence, distances',
+      '💬 Témoignages (aides à domicile, auto-entrepreneurs CESU)',
+      '❓ FAQ et ressources (planning CESU, exports, kilomètres)',
+      '📱 CTA : Créer un compte, Connexion, Voir les fonctionnalités'
+    ],
+    descriptionConclusion: `Site conçu pour convertir les visiteurs en utilisateurs, avec une navigation claire et des appels à l’action visibles.`,
+    link: 'https://prestago-app.fr/',
+    images: ['/images/prestago-application-planning-interventions-domicile.png'],
+    isMobileScreen: false
+  },
+  {
+    title: 'Prestago - Application',
     stack: 'Vue 3 · Capacitor · Symfony 7',
-    descriptionIntro: `Prestago est une application mobile conçue pour les intervenants à domicile (CESU et auto-entrepreneurs), pour planifier facilement leurs journées.`,
+    descriptionIntro: `Application Prestago pour intervenants à domicile (CESU et auto-entrepreneurs) : planning, gestion des clients, récurrences et synchronisation. Disponible sur Android et au format web.`,
     features: [
       '📅 Vue mensuelle et hebdomadaire du planning',
       '👨‍👩‍👧‍👦 Gestion des clients avec couleurs et historique',

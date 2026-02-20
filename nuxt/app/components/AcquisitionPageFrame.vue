@@ -27,6 +27,9 @@
       <p class="text-xs text-gray-500 mt-3">
         Basé à Dax (Landes), missions en remote partout en France.
       </p>
+      <p class="text-sm text-emerald-700 font-medium mt-1">
+        Réponse sous 24h.
+      </p>
     </section>
 
     <!-- Contenu principal (sections spécifiques à la page) -->

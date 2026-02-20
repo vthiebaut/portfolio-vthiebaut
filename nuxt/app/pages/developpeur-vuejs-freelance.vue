@@ -24,7 +24,7 @@
     <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-4 text-gray-900">Exemple : Prestago</h2>
-        <p class="text-gray-700 mb-4">Prestago (SaaS en production) utilise Vue 3 + Capacitor pour l’app mobile. <NuxtLink to="/#projets" class="text-emerald-600 font-semibold hover:underline">Voir le projet</NuxtLink>.</p>
+        <p class="text-gray-700 mb-4">Prestago (SaaS en production) utilise Vue 3 + Capacitor pour l’app mobile. <NuxtLink to="/projet-prestago" class="text-emerald-600 font-semibold hover:underline">Lire l'étude de cas Prestago</NuxtLink>.</p>
       </div>
     </section>
     <section class="py-12 px-4 md:px-8 bg-gray-50">
@@ -39,7 +39,9 @@
         <div class="flex flex-wrap gap-3">
           <NuxtLink to="/developpeur-web-dax" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200">Développeur web Dax</NuxtLink>
           <NuxtLink to="/freelance-symfony-landes" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200">Freelance Symfony Landes</NuxtLink>
-          <NuxtLink to="/developpeur-react-native-freelance" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200">React Native freelance</NuxtLink>
+          <NuxtLink to="/developpeur-react-native-freelance" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200">React Native</NuxtLink>
+          <NuxtLink to="/projet-prestago" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200">Étude de cas Prestago</NuxtLink>
+          <NuxtLink to="/#contact" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200">Contact</NuxtLink>
         </div>
       </div>
     </section>

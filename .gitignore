@@ -93,6 +93,11 @@ temp/
 .dockerignore
 
 # ============================================
+# Documentation (reste en local, pas en prod)
+# ============================================
+docs/
+
+# ============================================
 # CI/CD (fichiers locaux)
 # ============================================
 .github/workflows/*.local.yml

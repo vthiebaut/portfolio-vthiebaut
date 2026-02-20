@@ -39,35 +39,45 @@
       </div>
     </section>
 
-    <!-- Pourquoi un freelance Symfony plutôt qu'une agence -->
-    <section class="py-12 px-4 md:px-8 bg-gray-50">
+    <!-- Lien vers la page pilier -->
+    <section class="py-8 px-4 md:px-8 bg-gray-50">
+      <div class="max-w-5xl mx-auto">
+        <p class="text-gray-700">
+          Pour le cadre général (méthode de travail, devis, zone d'intervention, disponibilité), consultez ma page principale :
+          <NuxtLink to="/developpeur-web-dax" class="text-emerald-600 font-semibold hover:underline">Développeur web freelance à Dax</NuxtLink>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Cas d'usage techniques Symfony -->
+    <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6 text-gray-900">
-          Pourquoi travailler avec un freelance Symfony plutôt qu’une agence ?
+          Cas d'usage techniques (Symfony)
         </h2>
-        <div class="grid md:grid-cols-2 gap-6 text-gray-700">
-          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-            <h3 class="font-semibold mb-2 text-gray-900">Expertise Symfony au contact</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="font-semibold mb-2 text-gray-900">API REST & API Platform</h3>
             <p class="text-gray-600">
-              Vous travaillez directement avec un développeur qui maîtrise Symfony au quotidien (routing, Doctrine, sécurité, API Platform). Pas de sous-traitance ni de turnover en cours de projet.
+              Exposition de ressources (CRUD, filtres, pagination), authentification JWT ou OAuth2, opérations personnalisées. Idéal pour alimenter un front Vue/React ou une app mobile.
             </p>
           </div>
-          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-            <h3 class="font-semibold mb-2 text-gray-900">Pricing adapté aux Landes et à la France</h3>
+          <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="font-semibold mb-2 text-gray-900">Doctrine & modélisation</h3>
             <p class="text-gray-600">
-              En tant que <strong>freelance Symfony dans les Landes</strong>, mes tarifs restent cohérents avec le marché français. Forfait ou régie, selon la nature et la durée de la mission.
+              Schéma métier, migrations, requêtes DQL/Query Builder, optimisation N+1. Reprise de bases existantes ou conception from scratch selon vos règles métier.
             </p>
           </div>
-          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-            <h3 class="font-semibold mb-2 text-gray-900">Livraisons incrémentales</h3>
+          <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="font-semibold mb-2 text-gray-900">Refacto legacy & montée de version</h3>
             <p class="text-gray-600">
-              Mise en place de livrables intermédiaires (sprints, versions de démo) pour valider la direction technique et fonctionnelle avant d’aller plus loin. Vous gardez la main sur le scope.
+              Passage Symfony 4/5/6 vers 7, PHP 7 vers 8.x, découplage progressif front/back, réduction de la dette technique. Plan de migration par étapes.
             </p>
           </div>
-          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-            <h3 class="font-semibold mb-2 text-gray-900">Code maintenable et documenté</h3>
+          <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+            <h3 class="font-semibold mb-2 text-gray-900">CI/CD & déploiement</h3>
             <p class="text-gray-600">
-              Bonnes pratiques Symfony (services, events, DDD léger si besoin), tests et documentation pour que vous ou une équipe interne puissiez reprendre le projet sereinement.
+              Pipelines (tests, build, déploiement), Docker, environnements de préprod. Mise en place ou renforcement de votre chaîne de livraison.
             </p>
           </div>
         </div>
@@ -119,49 +129,11 @@
           <strong>Prestago</strong> est un SaaS que j’ai développé de A à Z : application mobile (Vue 3 + Capacitor) + back-end <strong>Symfony 7</strong> (API, auth, gestion des plannings et des clients). C’est en production et utilisé par des intervenants à domicile. Preuve que je peux livrer un produit complet, de l’API à la maintenance, en tant que <strong>freelance Symfony</strong>.
         </p>
         <NuxtLink
-          to="/#projets"
+          to="/projet-prestago"
           class="inline-flex items-center text-emerald-600 font-semibold hover:underline"
         >
-          Voir le projet Prestago →
+          Lire l'étude de cas Prestago (back-end Symfony 7) →
         </NuxtLink>
-      </div>
-    </section>
-
-    <!-- Méthode de travail -->
-    <section class="bg-white py-12 px-4 md:px-8 border-t border-gray-200">
-      <div class="max-w-5xl mx-auto">
-        <h2 class="text-2xl font-bold mb-6 text-gray-900">
-          Méthode de travail
-        </h2>
-        <ol class="space-y-4 list-decimal list-inside text-gray-700">
-          <li>
-            <strong class="text-gray-900">Cadrage</strong> — Visio ou présentiel (Dax, Bordeaux, ou remote) pour définir le périmètre, l’existant éventuel et les livrables.
-          </li>
-          <li>
-            <strong class="text-gray-900">Devis</strong> — Proposition détaillée (phases, délais, coûts). Aucun engagement avant votre accord.
-          </li>
-          <li>
-            <strong class="text-gray-900">Développement</strong> — Sprints courts, code versionné (Git), revues et livraisons partielles pour valider au fur et à mesure.
-          </li>
-          <li>
-            <strong class="text-gray-900">Livraison & maintenance</strong> — Mise en production, documentation technique et option de suivi (maintenance, évolutions).
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Disponibilité et zones -->
-    <section class="py-12 px-4 md:px-8 bg-gray-50">
-      <div class="max-w-5xl mx-auto">
-        <h2 class="text-2xl font-bold mb-4 text-gray-900">
-          Disponibilité et zones
-        </h2>
-        <p class="text-gray-700 mb-4">
-          Je suis installé à <strong>Dax (Landes)</strong>. Les missions se font majoritairement en <strong>remote</strong> partout en France. Pour les entreprises en Nouvelle-Aquitaine, des rendez-vous sur site (Dax, Bordeaux, Bayonne…) sont possibles pour le cadrage ou les ateliers.
-        </p>
-        <p class="text-gray-600">
-          Ouvert aux missions <strong>freelance Symfony</strong> en forfait ou en régie. Premier échange gratuit pour voir si votre projet et ma stack correspondent.
-        </p>
       </div>
     </section>
 
@@ -172,20 +144,20 @@
           Autres expertises
         </h2>
         <p class="text-gray-600 mb-4">
-          En plus de Symfony, je développe des interfaces avec Vue.js et des applications mobiles avec React Native. Je propose aussi de la maintenance d’applications Symfony existantes.
+          Offre globale (web, mobile, méthode, zone) : voir la page pilier. Maintenance Symfony dédiée : page dédiée.
         </p>
         <div class="flex flex-wrap gap-3">
           <NuxtLink
             to="/developpeur-web-dax"
             class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
           >
-            Développeur web Dax
+            Développeur web Dax (page principale)
           </NuxtLink>
           <NuxtLink
-            to="/developpeur-vuejs-freelance"
+            to="/projet-prestago"
             class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
           >
-            Développeur Vue.js freelance
+            Étude de cas Prestago
           </NuxtLink>
           <NuxtLink
             to="/maintenance-application-symfony"
